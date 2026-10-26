@@ -6,7 +6,10 @@ use std::{
     str::FromStr,
 };
 
-use openapiv3::{Components, Parameter, ReferenceOr, Response, StatusCode};
+use oas3::{
+    Spec,
+    spec::{ObjectOrReference, Parameter, ParameterIn, ParameterStyle, Response},
+};
 use proc_macro2::TokenStream;
 use quote::{ToTokens, format_ident, quote};
 use typify::{TypeId, TypeSpace};
@@ -171,8 +174,10 @@ impl std::fmt::Display for BodyContentType {
 
 #[derive(Debug)]
 pub(crate) struct OperationResponse {
+    pub event_type: Option<TypeId>,
     pub status_code: OperationResponseStatus,
     pub typ: OperationResponseKind,
+    pub recovery: Option<usize>,
     // TODO this isn't currently used because dropshot doesn't give us a
     // particularly useful message here.
     #[allow(dead_code)]
@@ -285,18 +290,29 @@ impl OperationResponseKind {
 impl Generator {
     pub(crate) fn process_operation(
         &mut self,
-        operation: &openapiv3::Operation,
-        components: &Option<Components>,
+        operation: &oas3::spec::Operation,
+        spec: &Spec,
         path: &str,
         method: &str,
-        path_parameters: &[ReferenceOr<Parameter>],
+        path_parameters: &[ObjectOrReference<Parameter>],
     ) -> Result<OperationMethod> {
+        // Resolve once before any request/response schema naming. Keep the input
+        // untouched, including explicit IDs and the lossless document's raw view.
+        let operation = if operation.operation_id.is_some() {
+            std::borrow::Cow::Borrowed(operation)
+        } else {
+            let mut resolved = operation.clone();
+            resolved.operation_id =
+                Some(crate::operation_name(operation, path, method).into_owned());
+            std::borrow::Cow::Owned(resolved)
+        };
+        let operation = operation.as_ref();
         let operation_id = operation.operation_id.as_ref().unwrap();
 
-        let mut combined_path_parameters = parameter_map(path_parameters, components)?;
-        for operation_param in items(&operation.parameters, components) {
+        let mut combined_path_parameters = parameter_map(path_parameters, spec)?;
+        for operation_param in items(&operation.parameters, spec) {
             let parameter = operation_param?;
-            combined_path_parameters.insert(&parameter.parameter_data_ref().name, parameter);
+            combined_path_parameters.insert(parameter.name.clone(), parameter);
         }
 
         // Filter out any path parameters that have been overridden by an
@@ -304,43 +320,51 @@ impl Generator {
         let mut params = combined_path_parameters
             .values()
             .map(|parameter| {
-                match parameter {
-                    openapiv3::Parameter::Path {
-                        parameter_data,
-                        style: openapiv3::PathStyle::Simple,
-                    } => {
-                        // Path parameters MUST be required.
-                        assert!(parameter_data.required);
+                let default_style = match parameter.location {
+                    ParameterIn::Query | ParameterIn::Cookie => ParameterStyle::Form,
+                    ParameterIn::Path | ParameterIn::Header => ParameterStyle::Simple,
+                };
+                let style = parameter.style.unwrap_or(default_style);
+                let required = parameter.required.unwrap_or(false);
+                let schema_ref = parameter.schema.as_ref().ok_or_else(|| {
+                    if parameter.content.is_some() {
+                        Error::UnexpectedFormat(format!(
+                            "parameter {} has a content map instead of a schema",
+                            parameter.name,
+                        ))
+                    } else {
+                        Error::UnexpectedFormat(format!(
+                            "parameter {} has neither a schema nor content",
+                            parameter.name,
+                        ))
+                    }
+                })?;
 
-                        let schema = parameter_data.schema()?.to_schema();
+                match (parameter.location, style) {
+                    (ParameterIn::Path, ParameterStyle::Simple) => {
+                        // Path parameters MUST be required.
+                        assert!(required);
+
+                        let schema = schema_ref.to_schema();
 
                         let name = sanitize(
-                            &format!("{}-{}", operation_id, &parameter_data.name),
+                            &format!("{}-{}", operation_id, &parameter.name),
                             Case::Pascal,
                         );
                         let typ = self.type_space.add_type_with_name(&schema, Some(name))?;
 
                         Ok(OperationParameter {
-                            name: sanitize(&parameter_data.name, Case::Snake),
-                            api_name: parameter_data.name.clone(),
-                            description: parameter_data.description.clone(),
+                            name: sanitize(&parameter.name, Case::Snake),
+                            api_name: parameter.name.clone(),
+                            description: parameter.description.clone(),
                             typ: OperationParameterType::Type(typ),
                             kind: OperationParameterKind::Path,
                         })
                     }
-                    openapiv3::Parameter::Query {
-                        parameter_data,
-                        allow_reserved: _, // We always encode reserved chars
-                        style: openapiv3::QueryStyle::Form,
-                        allow_empty_value: _, // Irrelevant for this client
-                    } => {
-                        let schema = parameter_data.schema()?.to_schema();
+                    (ParameterIn::Query, ParameterStyle::Form) => {
+                        let schema = schema_ref.to_schema();
                         let name = sanitize(
-                            &format!(
-                                "{}-{}",
-                                operation.operation_id.as_ref().unwrap(),
-                                &parameter_data.name,
-                            ),
+                            &format!("{}-{}", operation_id, &parameter.name),
                             Case::Pascal,
                         );
 
@@ -356,60 +380,73 @@ impl Generator {
                             if let typify::TypeDetails::Option(inner_type_id) = details {
                                 (inner_type_id, false)
                             } else {
-                                (type_id, parameter_data.required)
+                                (type_id, required)
                             };
 
                         Ok(OperationParameter {
-                            name: sanitize(&parameter_data.name, Case::Snake),
-                            api_name: parameter_data.name.clone(),
-                            description: parameter_data.description.clone(),
+                            name: sanitize(&parameter.name, Case::Snake),
+                            api_name: parameter.name.clone(),
+                            description: parameter.description.clone(),
                             typ: OperationParameterType::Type(type_id),
                             kind: OperationParameterKind::Query(required),
                         })
                     }
-                    openapiv3::Parameter::Header {
-                        parameter_data,
-                        style: openapiv3::HeaderStyle::Simple,
-                    } => {
-                        let schema = parameter_data.schema()?.to_schema();
+                    (ParameterIn::Header, ParameterStyle::Simple) => {
+                        let schema = schema_ref.to_schema();
                         let name = sanitize(
-                            &format!(
-                                "{}-{}",
-                                operation.operation_id.as_ref().unwrap(),
-                                &parameter_data.name,
-                            ),
+                            &format!("{}-{}", operation_id, &parameter.name),
                             Case::Pascal,
                         );
 
-                        let typ = self.type_space.add_type_with_name(&schema, Some(name))?;
+                        let type_id = self.type_space.add_type_with_name(&schema, Some(name))?;
+
+                        let ty = self.type_space.get_type(&type_id).unwrap();
+
+                        // If the type is itself optional, then we'll treat it
+                        // as optional (irrespective of the `required` field on
+                        // the parameter) and use the "inner" type.
+                        let details = ty.details();
+                        let (type_id, required) =
+                            if let typify::TypeDetails::Option(inner_type_id) = details {
+                                (inner_type_id, false)
+                            } else {
+                                (type_id, required)
+                            };
 
                         Ok(OperationParameter {
-                            name: sanitize(&parameter_data.name, Case::Snake),
-                            api_name: parameter_data.name.clone(),
-                            description: parameter_data.description.clone(),
-                            typ: OperationParameterType::Type(typ),
-                            kind: OperationParameterKind::Header(parameter_data.required),
+                            name: sanitize(&parameter.name, Case::Snake),
+                            api_name: parameter.name.clone(),
+                            description: parameter.description.clone(),
+                            typ: OperationParameterType::Type(type_id),
+                            kind: OperationParameterKind::Header(required),
                         })
                     }
-                    openapiv3::Parameter::Path { style, .. } => Err(Error::UnexpectedFormat(
-                        format!("unsupported style of path parameter {:#?}", style,),
-                    )),
-                    openapiv3::Parameter::Query { style, .. } => Err(Error::UnexpectedFormat(
-                        format!("unsupported style of query parameter {:#?}", style,),
-                    )),
-                    cookie @ openapiv3::Parameter::Cookie { .. } => Err(Error::UnexpectedFormat(
-                        format!("cookie parameters are not supported {:#?}", cookie,),
-                    )),
+                    (ParameterIn::Path, other) => Err(Error::UnexpectedFormat(format!(
+                        "unsupported style of path parameter {:#?}",
+                        other,
+                    ))),
+                    (ParameterIn::Query, other) => Err(Error::UnexpectedFormat(format!(
+                        "unsupported style of query parameter {:#?}",
+                        other,
+                    ))),
+                    (ParameterIn::Header, other) => Err(Error::UnexpectedFormat(format!(
+                        "unsupported style of header parameter {:#?}",
+                        other,
+                    ))),
+                    (ParameterIn::Cookie, _) => Err(Error::UnexpectedFormat(format!(
+                        "cookie parameters are not supported {:#?}",
+                        parameter,
+                    ))),
                 }
             })
             .collect::<Result<Vec<_>>>()?;
 
-        let dropshot_websocket = operation.extensions.get("x-dropshot-websocket").is_some();
+        let dropshot_websocket = operation.extensions.contains_key("dropshot-websocket");
         if dropshot_websocket {
             self.uses_websockets = true;
         }
 
-        if let Some(body_param) = self.get_body_param(operation, components)? {
+        if let Some(body_param) = self.get_body_param(operation, spec)? {
             params.push(body_param);
         }
 
@@ -420,96 +457,122 @@ impl Generator {
 
         let mut success = false;
 
-        let mut responses =
-            operation
-                .responses
-                .default
-                .iter()
-                .map(|response_or_ref| {
-                    Ok((
-                        OperationResponseStatus::Default,
-                        response_or_ref.item(components)?,
-                    ))
-                })
-                .chain(operation.responses.responses.iter().map(
-                    |(status_code, response_or_ref)| {
-                        Ok((
-                            match status_code {
-                                StatusCode::Code(code) => OperationResponseStatus::Code(*code),
-                                StatusCode::Range(range) => OperationResponseStatus::Range(*range),
-                            },
-                            response_or_ref.item(components)?,
-                        ))
-                    },
-                ))
-                .map(|v: Result<(OperationResponseStatus, &Response)>| {
-                    let (mut status_code, response) = v?;
+        let event_type = if let Some(name) = self.settings.json_over_sse.get(operation_id) {
+            if !spec
+                .components
+                .as_ref()
+                .is_some_and(|c| c.schemas.contains_key(name))
+            {
+                return Err(Error::UnexpectedFormat(format!(
+                    "operation {operation_id}: JSON-over-SSE component schema {name:?} does not exist"
+                )));
+            }
+            let escaped = name.replace('~', "~0").replace('/', "~1");
+            Some(
+                self.type_space
+                    .add_type(&schemars::schema::Schema::new_ref(format!(
+                        "#/components/schemas/{escaped}"
+                    )))?,
+            )
+        } else {
+            None
+        };
 
-                    // A previous version of dropshot websockets failed to
-                    // properly report responses; clean this up here.
-                    if dropshot_websocket && status_code == OperationResponseStatus::Default {
-                        status_code = OperationResponseStatus::Code(101);
-                    }
+        let mut responses = operation
+            .responses
+            .iter()
+            .flatten()
+            .map(|(status_key, response_or_ref)| {
+                let status = parse_response_status(status_key)?;
+                Ok((status, response_or_ref.item(spec)?))
+            })
+            .map(|v: Result<(OperationResponseStatus, Response)>| {
+                let (mut status_code, response) = v?;
 
-                    // We categorize responses as "typed" based on the
-                    // "application/json" content type, "upgrade" if it's a
-                    // websocket channel without a meaningful content-type,
-                    // "raw" if there's any other response content type (we don't
-                    // investigate further), or "none" if there is no content.
-                    // TODO if there are multiple response content types we could
-                    // treat those like different response types and create an
-                    // enum; the generated client method would check for the
-                    // content type of the response just as it currently examines
-                    // the status code.
-                    let typ = if let Some(mt) = response.content.iter().find_map(|(x, v)| {
-                        (x == "application/json" || x.starts_with("application/json;")).then_some(v)
-                    }) {
-                        assert!(mt.encoding.is_empty());
+                // A previous version of dropshot websockets failed to
+                // properly report responses; clean this up here.
+                if dropshot_websocket && status_code == OperationResponseStatus::Default {
+                    status_code = OperationResponseStatus::Code(101);
+                }
 
-                        let typ = if let Some(schema) = &mt.schema {
-                            let schema = schema.to_schema();
-                            let name = sanitize(
-                                &format!("{}-response", operation.operation_id.as_ref().unwrap(),),
-                                Case::Pascal,
-                            );
-                            self.type_space.add_type_with_name(&schema, Some(name))?
-                        } else {
-                            todo!("media type encoding, no schema: {:#?}", mt);
-                        };
+                // We categorize responses as "typed" based on the
+                // "application/json" content type, "upgrade" if it's a
+                // websocket channel without a meaningful content-type,
+                // "raw" if JSON has no schema or there's any other response
+                // content type (we don't investigate further), or "none" if
+                // there is no content.
+                // JSON-over-SSE is a separate, explicit annotation: the schema
+                // describes event data, not the wire framing. Without that
+                // option the existing JSON/raw response behavior is retained.
+                let mut recovery = None;
+                let typ = if let Some(mt) = response.content.iter().find_map(|(x, v)| {
+                    (x == "application/json" || x.starts_with("application/json;")).then_some(v)
+                }) {
+                    assert!(mt.encoding.is_empty());
 
+                    if let Some(schema) = &mt.schema {
+                        let schema = schema.to_schema();
+                        let name = sanitize(
+                            &format!("{}-response", operation.operation_id.as_ref().unwrap(),),
+                            Case::Pascal,
+                        );
+                        let typ = self.type_space.add_type_with_name(&schema, Some(name))?;
+                        recovery = self.register_response_recovery(&schema, &typ)?;
                         OperationResponseKind::Type(typ)
-                    } else if status_code == OperationResponseStatus::Code(101) {
-                        OperationResponseKind::Upgrade
-                    } else if response.content.first().is_some() {
+                    } else {
                         OperationResponseKind::Raw
-                    } else {
-                        OperationResponseKind::None
-                    };
-
-                    // See if there's a status code that covers success cases.
-                    if matches!(
-                        status_code,
-                        OperationResponseStatus::Default
-                            | OperationResponseStatus::Code(101)
-                            | OperationResponseStatus::Code(200..=299)
-                            | OperationResponseStatus::Range(2)
-                    ) {
-                        success = true;
                     }
+                } else if status_code == OperationResponseStatus::Code(101) {
+                    OperationResponseKind::Upgrade
+                } else if !response.content.is_empty() {
+                    OperationResponseKind::Raw
+                } else {
+                    OperationResponseKind::None
+                };
 
-                    let description = if response.description.is_empty() {
-                        None
-                    } else {
-                        Some(response.description.clone())
-                    };
+                // See if there's a status code that covers success cases.
+                if matches!(
+                    status_code,
+                    OperationResponseStatus::Default
+                        | OperationResponseStatus::Code(101)
+                        | OperationResponseStatus::Code(200..=299)
+                        | OperationResponseStatus::Range(2)
+                ) {
+                    success = true;
+                }
 
-                    Ok(OperationResponse {
-                        status_code,
-                        typ,
-                        description,
-                    })
+                let description = response
+                    .description
+                    .clone()
+                    .filter(|description| !description.is_empty());
+
+                let event_type = if status_code.is_success_or_default() {
+                    if event_type.is_some() {
+                        if !matches!(typ, OperationResponseKind::Type(_) | OperationResponseKind::Raw) {
+                            return Err(Error::UnexpectedFormat(format!(
+                                "operation {operation_id}: JSON-over-SSE requires a JSON or SSE success body"
+                            )));
+                        }
+                        if matches!(typ, OperationResponseKind::Raw)
+                            && !response.content.keys().any(|media| media.split(';').next().unwrap().trim().eq_ignore_ascii_case("text/event-stream"))
+                        {
+                            return Err(Error::UnexpectedFormat(format!(
+                                "operation {operation_id}: JSON-over-SSE requires a JSON schema or text/event-stream response"
+                            )));
+                        }
+                    }
+                    event_type.clone()
+                } else { None };
+
+                Ok(OperationResponse {
+                    event_type,
+                    status_code,
+                    typ,
+                    recovery,
+                    description,
                 })
-                .collect::<Result<Vec<_>>>()?;
+            })
+            .collect::<Result<Vec<_>>>()?;
 
         // If the API has declined to specify the characteristics of a
         // successful response, we cons up a generic one. Note that this is
@@ -517,8 +580,10 @@ impl Generator {
         // spec.
         if !success {
             responses.push(OperationResponse {
+                event_type: None,
                 status_code: OperationResponseStatus::Range(2),
                 typ: OperationResponseKind::Raw,
+                recovery: None,
                 description: None,
             });
         }
@@ -913,6 +978,16 @@ impl Generator {
                     .body(body)
                 }),
                 (
+                    OperationParameterKind::Body(BodyContentType::Text(mime_type)),
+                    OperationParameterType::Type(_),
+                ) => Some(quote! {
+                    .header(
+                        ::reqwest::header::CONTENT_TYPE,
+                        ::reqwest::header::HeaderValue::from_static(#mime_type),
+                    )
+                    .body(body.to_string())
+                }),
+                (
                     OperationParameterKind::Body(BodyContentType::Json),
                     OperationParameterType::Type(_),
                 ) => Some(quote! {
@@ -948,11 +1023,16 @@ impl Generator {
             };
 
             let decode = match &response.typ {
-                OperationResponseKind::Type(_) => {
-                    quote! {
-                        ResponseValue::from_response(#response_ident).await
-                    }
+                OperationResponseKind::Type(_) if response.recovery.is_none() => {
+                    quote! { ResponseValue::from_response(#response_ident).await }
                 }
+                OperationResponseKind::Type(type_id) => self.response_decode(
+                    type_id,
+                    response.recovery,
+                    &method.operation_id,
+                    &response_ident,
+                    &client_type,
+                ),
                 OperationResponseKind::None => {
                     quote! {
                         Ok(ResponseValue::empty(#response_ident))
@@ -970,12 +1050,33 @@ impl Generator {
                 }
             };
 
+            let decode = if let Some(event_type) = &response.event_type {
+                let event = self.type_space.get_type(event_type).unwrap().ident();
+                if let OperationResponseKind::Type(json_type) = &response.typ {
+                    let json = self.type_space.get_type(json_type).unwrap().ident();
+                    quote! {
+                        if #response_ident.headers().get(::reqwest::header::CONTENT_TYPE)
+                            .and_then(|value| value.to_str().ok())
+                            .and_then(|value| value.split(';').next())
+                            .is_some_and(|media| media.trim().eq_ignore_ascii_case("application/json"))
+                        {
+                            let value: ResponseValue<#json> = (#decode)?;
+                            value.map(progenitor_client::JsonOrEventStream::Json)
+                        } else {
+                            let value = ResponseValue::<progenitor_client::JsonEventStream<#event>>::event_stream(#response_ident)?;
+                            value.map(progenitor_client::JsonOrEventStream::EventStream)
+                        }
+                    }
+                } else {
+                    quote! { ResponseValue::<progenitor_client::JsonEventStream<#event>>::event_stream(#response_ident) }
+                }
+            } else { decode };
             quote! { #pat => { #decode } }
         });
 
         // Errors...
-        let (error_response_items, error_type) =
-            self.extract_responses(method, OperationResponseStatus::is_error_or_default);
+        let (error_response_items, error_type, heterogeneous_errors) =
+            self.error_responses(method)?;
 
         let error_response_matches = error_response_items.iter().map(|response| {
             let pat = match &response.status_code {
@@ -993,12 +1094,50 @@ impl Generator {
                 }
             };
 
+            let variant = crate::response_enum::error_variant(&response.status_code);
+            let enum_path = crate::response_enum::error_enum_path(method);
             let decode = match &response.typ {
-                OperationResponseKind::Type(_) => {
+                OperationResponseKind::Type(type_id) if heterogeneous_errors => {
+                    let decode = self.response_decode(
+                        type_id,
+                        response.recovery,
+                        &method.operation_id,
+                        &response_ident,
+                        &client_type,
+                    );
                     quote! {
                         Err(Error::ErrorResponse(
-                            ResponseValue::from_response(#response_ident)
-                                .await?
+                            #decode?
+                                .map::<_, _, Error<#enum_path>>(#enum_path::#variant)?
+                        ))
+                    }
+                }
+                OperationResponseKind::None if heterogeneous_errors => {
+                    quote! {
+                        Err(Error::ErrorResponse(
+                            ResponseValue::empty(#response_ident)
+                                .map::<_, _, Error<#enum_path>>(#enum_path::#variant)?
+                        ))
+                    }
+                }
+                OperationResponseKind::Type(_) if response.recovery.is_none() => {
+                    quote! {
+                        Err(Error::ErrorResponse(
+                            ResponseValue::from_response(#response_ident).await?
+                        ))
+                    }
+                }
+                OperationResponseKind::Type(type_id) => {
+                    let decode = self.response_decode(
+                        type_id,
+                        response.recovery,
+                        &method.operation_id,
+                        &response_ident,
+                        &client_type,
+                    );
+                    quote! {
+                        Err(Error::ErrorResponse(
+                            #decode?
                         ))
                     }
                 }
@@ -1031,17 +1170,30 @@ impl Generator {
             quote! { #pat => { #decode } }
         });
 
-        let accept_header = matches!(
-            (&response_type, &error_type),
-            (OperationResponseKind::Type(_), _)
-                | (OperationResponseKind::None, OperationResponseKind::Type(_))
-        )
+        let stream_type = success_response_items
+            .first()
+            .and_then(|r| r.event_type.as_ref());
+        let accept_media = if stream_type.is_some() {
+            if matches!(response_type, OperationResponseKind::Type(_)) {
+                "application/json, text/event-stream"
+            } else {
+                "text/event-stream"
+            }
+        } else {
+            "application/json"
+        };
+        let accept_header = (stream_type.is_some()
+            || matches!(response_type, OperationResponseKind::Type(_))
+            || (matches!(response_type, OperationResponseKind::None)
+                && error_response_items
+                    .iter()
+                    .any(|r| matches!(r.typ, OperationResponseKind::Type(_)))))
         .then(|| {
             quote! {
                     .header(
                         ::reqwest::header::ACCEPT,
                         ::reqwest::header::HeaderValue::from_static(
-                            "application/json",
+                            #accept_media,
                         ),
                     )
             }
@@ -1053,11 +1205,10 @@ impl Generator {
         // the default as a success response as well.) Otherwise the catch-all
         // produces an error corresponding to a response not specified in the
         // API description.
-        let default_response = match method.responses.iter().last() {
-            Some(response) if response.status_code.is_default() => quote! {},
-            _ => {
-                quote! { _ => Err(Error::UnexpectedResponse(#response_ident)), }
-            }
+        let default_response = if method.responses.iter().any(|r| r.status_code.is_default()) {
+            quote! {}
+        } else {
+            quote! { _ => Err(Error::UnexpectedResponse(#response_ident)), }
         };
 
         let inner = match has_inner {
@@ -1167,9 +1318,20 @@ impl Generator {
             }
         };
 
+        let success = response_type.clone().into_tokens(&self.type_space);
+        let success = if let Some(event_type) = stream_type {
+            let event = self.type_space.get_type(event_type).unwrap().ident();
+            if matches!(response_type, OperationResponseKind::Type(_)) {
+                quote! { progenitor_client::JsonOrEventStream<#success, #event> }
+            } else {
+                quote! { progenitor_client::JsonEventStream<#event> }
+            }
+        } else {
+            success
+        };
         Ok(MethodSigBody {
-            success: response_type.into_tokens(&self.type_space),
-            error: error_type.into_tokens(&self.type_space),
+            success,
+            error: error_type,
             body: body_impl,
         })
     }
@@ -1230,11 +1392,11 @@ impl Generator {
     // the paginated item type data if all conditions are met.
     fn dropshot_pagination_data(
         &self,
-        operation: &openapiv3::Operation,
+        operation: &oas3::spec::Operation,
         parameters: &[OperationParameter],
         responses: &[OperationResponse],
     ) -> Option<DropshotPagination> {
-        let value = operation.extensions.get("x-dropshot-pagination")?;
+        let value = operation.extensions.get("dropshot-pagination")?;
 
         // We expect to see at least "page_token" and "limit" parameters.
         if parameters
@@ -1947,7 +2109,7 @@ impl Generator {
     pub(crate) fn builder_tags(
         &self,
         methods: &[OperationMethod],
-        tag_info: &BTreeMap<&String, &openapiv3::Tag>,
+        tag_info: &BTreeMap<&String, &oas3::spec::Tag>,
     ) -> (TokenStream, TokenStream) {
         let mut base = Vec::new();
         let mut ext = BTreeMap::new();
@@ -2043,15 +2205,15 @@ impl Generator {
 
     fn get_body_param(
         &mut self,
-        operation: &openapiv3::Operation,
-        components: &Option<Components>,
+        operation: &oas3::spec::Operation,
+        spec: &Spec,
     ) -> Result<Option<OperationParameter>> {
         let body = match &operation.request_body {
-            Some(body) => body.item(components)?,
+            Some(body) => body.item(spec)?,
             None => return Ok(None),
         };
 
-        let (content_str, media_type) = match (body.content.first(), body.content.len()) {
+        let (content_str, media_type) = match (body.content.iter().next(), body.content.len()) {
             (None, _) => return Ok(None),
             (Some(first), 1) => first,
             (_, n) => todo!(
@@ -2074,36 +2236,13 @@ impl Generator {
                 //     "type": "string",
                 //     "format": "binary"
                 // }
-                match schema.item(components)? {
-                    openapiv3::Schema {
-                        schema_data:
-                            openapiv3::SchemaData {
-                                nullable: false,
-                                discriminator: None,
-                                default: None,
-                                // Other fields that describe or document the
-                                // schema are fine.
-                                ..
-                            },
-                        schema_kind:
-                            openapiv3::SchemaKind::Type(openapiv3::Type::String(
-                                openapiv3::StringType {
-                                    format:
-                                        openapiv3::VariantOrUnknownOrEmpty::Item(
-                                            openapiv3::StringFormat::Binary,
-                                        ),
-                                    pattern: None,
-                                    enumeration,
-                                    min_length: None,
-                                    max_length: None,
-                                },
-                            )),
-                    } if enumeration.is_empty() => Ok(()),
-                    _ => Err(Error::UnexpectedFormat(format!(
+                let schema_obj = schema.item(spec)?;
+                if !is_simple_string_schema(&schema_obj, Some("binary")) {
+                    return Err(Error::UnexpectedFormat(format!(
                         "invalid schema for application/octet-stream: {:?}",
                         schema
-                    ))),
-                }?;
+                    )));
+                }
                 OperationParameterType::RawBody
             }
             BodyContentType::Text(_) => {
@@ -2111,34 +2250,30 @@ impl Generator {
                 // "schema": {
                 //     "type": "string",
                 // }
-                match schema.item(components)? {
-                    openapiv3::Schema {
-                        schema_data:
-                            openapiv3::SchemaData {
-                                nullable: false,
-                                discriminator: None,
-                                default: None,
-                                // Other fields that describe or document the
-                                // schema are fine.
-                                ..
-                            },
-                        schema_kind:
-                            openapiv3::SchemaKind::Type(openapiv3::Type::String(
-                                openapiv3::StringType {
-                                    format: openapiv3::VariantOrUnknownOrEmpty::Empty,
-                                    pattern: None,
-                                    enumeration,
-                                    min_length: None,
-                                    max_length: None,
-                                },
-                            )),
-                    } if enumeration.is_empty() => Ok(()),
-                    _ => Err(Error::UnexpectedFormat(format!(
+                let schema_obj = schema.item(spec)?;
+                if is_simple_string_schema(&schema_obj, None) {
+                    OperationParameterType::RawBody
+                } else if content_str == "text/plain"
+                    && schema_obj.schema_type
+                        == Some(oas3::spec::SchemaTypeSet::Single(
+                            oas3::spec::SchemaType::Boolean,
+                        ))
+                    && schema_obj.format.is_none()
+                    && schema_obj.enum_values.is_empty()
+                    && schema_obj.all_of.is_empty()
+                    && schema_obj.any_of.is_empty()
+                    && schema_obj.one_of.is_empty()
+                {
+                    // A boolean plain-text body is the unquoted `true` or `false`
+                    // representation, not a string body supplied by the caller.
+                    let typ = self.type_space.add_type(&schema.to_schema())?;
+                    OperationParameterType::Type(typ)
+                } else {
+                    return Err(Error::UnexpectedFormat(format!(
                         "invalid schema for {}: {:?}",
                         content_type, schema
-                    ))),
-                }?;
-                OperationParameterType::RawBody
+                    )));
+                }
             }
             BodyContentType::Json | BodyContentType::FormUrlencoded => {
                 // TODO it would be legal to have the encoding field set for
@@ -2318,17 +2453,57 @@ fn sort_params(raw_params: &mut [OperationParameter], names: &[String]) {
     );
 }
 
-trait ParameterDataExt {
-    fn schema(&self) -> Result<&openapiv3::ReferenceOr<openapiv3::Schema>>;
-}
-
-impl ParameterDataExt for openapiv3::ParameterData {
-    fn schema(&self) -> Result<&openapiv3::ReferenceOr<openapiv3::Schema>> {
-        match &self.format {
-            openapiv3::ParameterSchemaOrContent::Schema(s) => Ok(s),
-            openapiv3::ParameterSchemaOrContent::Content(c) => Err(Error::UnexpectedFormat(
-                format!("unexpected content {:#?}", c),
-            )),
+/// Parse an OpenAPI `responses` object key into an [`OperationResponseStatus`].
+///
+/// Accepts `"default"`, numeric codes (`"200"`), or range patterns (`"2XX"`).
+fn parse_response_status(key: &str) -> Result<OperationResponseStatus> {
+    if key == "default" {
+        return Ok(OperationResponseStatus::Default);
+    }
+    if let Ok(code) = key.parse::<u16>() {
+        return Ok(OperationResponseStatus::Code(code));
+    }
+    let key_upper = key.to_ascii_uppercase();
+    if key_upper.len() == 3 && key_upper.ends_with("XX") {
+        if let Some(d) = key_upper.chars().next().and_then(|c| c.to_digit(10)) {
+            return Ok(OperationResponseStatus::Range(d as u16));
         }
     }
+    Err(Error::UnexpectedFormat(format!(
+        "invalid response status key: {key}"
+    )))
+}
+
+/// Check whether a schema is a plain `type: string` (optionally with a specific format).
+///
+/// Used to validate body schemas for octet-stream and plain-text content types.
+fn is_simple_string_schema(
+    schema: &oas3::spec::ObjectSchema,
+    expected_format: Option<&str>,
+) -> bool {
+    use oas3::spec::{SchemaType, SchemaTypeSet};
+
+    let is_string_type = match schema.schema_type.as_ref() {
+        Some(SchemaTypeSet::Single(SchemaType::String)) => true,
+        Some(SchemaTypeSet::Multiple(ts)) => ts.as_slice() == [SchemaType::String],
+        _ => false,
+    };
+    if !is_string_type {
+        return false;
+    }
+
+    match (schema.format.as_deref(), expected_format) {
+        (actual, expected) if actual == expected => {}
+        _ => return false,
+    }
+
+    schema.pattern.is_none()
+        && schema.enum_values.is_empty()
+        && schema.min_length.is_none()
+        && schema.max_length.is_none()
+        && schema.discriminator.is_none()
+        && schema.default.is_none()
+        && schema.all_of.is_empty()
+        && schema.any_of.is_empty()
+        && schema.one_of.is_empty()
 }

@@ -32,6 +32,7 @@ clap = { version = "4.6.1" }
 clap-cargo = "0.19.0"
 dropshot = { version = "0.17.0", default-features = false }
 env_logger = "0.11.10"
+eventsource-stream = "0.2.3"
 expectorate = { version = "1.2.0", features = ["predicates"] }
 futures = "0.3.32"
 futures-core = "0.3.32"
@@ -39,7 +40,8 @@ heck = "0.5.0"
 http = "1.4.1"
 hyper = "1.10.1"
 indexmap = "2.14.0"
-openapiv3 = "2.2.0"
+log = { version = "0.4", features = ["kv"] }
+oas3 = "0.21.0"
 percent-encoding = "2.3.2"
 proc-macro2 = "1.0.106"
 quote = "1.0.45"
@@ -59,7 +61,7 @@ syn = { version = "3.0.2" }
 thiserror = "2.0.18"
 tokio = { version = "1.52.3", features = ["rt", "net"] }
 trybuild = "1.0.99"
-typify = { version = "0.8.0" }
+typify = { version = "0.8.0", git = "https://github.com/cwahn/typify", rev = "7fe40aa5eda9af9f2392d5c8c18092dfae8611c7" }
 url = "2.5.8"
 unicode-ident = "1.0.24"
 uuid = { version = "1.23.2", features = ["serde", "v4"] }

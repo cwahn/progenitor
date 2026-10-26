@@ -12,13 +12,16 @@ readme = "../README.md"
 heck = { workspace = true }
 http = { workspace = true }
 indexmap = { workspace = true }
-openapiv3 = { workspace = true }
+jsonschema = { version = "0.33", default-features = false }
+oas3 = { workspace = true }
+percent-encoding = { workspace = true }
 proc-macro2 = { workspace = true }
 quote = { workspace = true }
 regex = { workspace = true }
+regress = { workspace = true }
 schemars = { workspace = true }
 serde = { workspace = true }
-serde_json = { workspace = true }
+serde_json = { workspace = true, features = ["preserve_order"] }
 syn = { workspace = true }
 thiserror = { workspace = true }
 typify = { workspace = true }

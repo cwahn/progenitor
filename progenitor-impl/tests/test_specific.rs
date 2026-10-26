@@ -7,8 +7,10 @@ use dropshot::{
 };
 use futures::StreamExt;
 use http::Response;
-use openapiv3::OpenAPI;
-use progenitor_impl::{GenerationSettings, Generator, InterfaceStyle, space_out_items};
+use progenitor_impl::OpenApiDocument as Spec;
+use progenitor_impl::{
+    GenerationSettings, Generator, InterfaceStyle, UnknownResponseFields, space_out_items,
+};
 use schemars::JsonSchema;
 use serde::Deserialize;
 use std::{
@@ -17,8 +19,8 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-fn generate_formatted(generator: &mut Generator, spec: &OpenAPI) -> String {
-    let content = generator.generate_tokens(spec).unwrap();
+fn generate_formatted(generator: &mut Generator, spec: &Spec) -> String {
+    let content = generator.generate_tokens_from_document(spec).unwrap();
     let rustfmt_config = rustfmt_wrapper::config::Config {
         normalize_doc_attributes: Some(true),
         wrap_comments: Some(true),
@@ -76,9 +78,11 @@ fn test_renamed_parameters() {
 
     let out = from_utf8(&out).unwrap();
 
-    let spec = serde_json::from_str::<OpenAPI>(out).unwrap();
+    let spec = serde_json::from_str::<Spec>(out).unwrap();
 
-    let mut generator = Generator::default();
+    let mut generator = Generator::new(
+        GenerationSettings::default().with_unknown_response_fields(UnknownResponseFields::Reject),
+    );
     let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/src/{}.rs", "test_renamed_parameters"),
@@ -107,14 +111,110 @@ fn test_freeform_response() {
         .unwrap();
 
     let out = from_utf8(&out).unwrap();
-    let spec = serde_json::from_str::<OpenAPI>(out).unwrap();
+    let spec = serde_json::from_str::<Spec>(out).unwrap();
 
-    let mut generator = Generator::default();
+    let mut generator = Generator::new(
+        GenerationSettings::default().with_unknown_response_fields(UnknownResponseFields::Reject),
+    );
     let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/src/{}.rs", "test_freeform_response"),
         &output,
     )
+}
+
+/// Meilisearch 1.55 GET /chats advertises JSON with an example but no schema.
+#[test]
+fn test_meilisearch_chats_schemaless_response() {
+    // Exact /paths/~1chats/get/responses/200 extraction from the pinned
+    // meilisearch-openapi.json (SHA-256:
+    // 4a69fc9f58ac70cc1bd88df0786a25fa8ec8453686b9ea2fd1b80e8819e2f0d3).
+    let response: serde_json::Value = serde_json::from_str(
+        r#"{
+          "description": "Chat workspaces retrieved.",
+          "content": {
+            "application/json": {
+              "example": {
+                "results": [{ "uid": "my-workspace" }],
+                "offset": 0,
+                "limit": 20,
+                "total": 1
+              }
+            }
+          }
+        }"#,
+    )
+    .unwrap();
+    // Isolate the authentic response from unrelated contract features.
+    let spec: Spec = serde_json::from_value(serde_json::json!({
+        "openapi": "3.1.0",
+        "info": { "title": "Meilisearch response regression", "version": "1.55" },
+        "paths": {
+            "/chats": { "get": {
+                "operationId": "list_workspaces",
+                "responses": { "200": response }
+            } }
+        }
+    }))
+    .unwrap();
+
+    for interface in [InterfaceStyle::Positional, InterfaceStyle::Builder] {
+        let mut generator = Generator::new(GenerationSettings::default().with_interface(interface));
+        let output = generate_formatted(&mut generator, &spec);
+        assert!(output.contains("ResponseValue<ByteStream>"), "{output}");
+        assert!(
+            output.contains("ResponseValue::stream(response)"),
+            "{output}"
+        );
+        assert!(!output.contains("ResponseValue::from_response(response)"));
+    }
+}
+
+/// Authentic Meilisearch 1.55 request, isolated from unrelated response schemas.
+#[test]
+fn test_meilisearch_facet_search_boolean_text_request() {
+    // Exact parameter and requestBody from PUT
+    // /indexes/{index_uid}/settings/facet-search in the pinned contract
+    // (SHA-256: 4a69fc9f58ac70cc1bd88df0786a25fa8ec8453686b9ea2fd1b80e8819e2f0d3).
+    let spec: Spec = serde_json::from_value(serde_json::json!({
+        "openapi": "3.1.0",
+        "info": { "title": "Meilisearch request regression", "version": "1.55" },
+        "paths": {
+            "/indexes/{index_uid}/settings/facet-search": { "put": {
+                "operationId": "putfacetSearch",
+                "parameters": [{
+                    "name": "index_uid",
+                    "in": "path",
+                    "description": "Unique identifier of the index.",
+                    "required": true,
+                    "schema": { "type": "string" },
+                    "example": "movies"
+                }],
+                "requestBody": {
+                    "content": { "text/plain": { "schema": { "type": "boolean" } } },
+                    "required": true
+                },
+                "responses": { "204": { "description": "Request-only regression" } }
+            } }
+        }
+    }))
+    .unwrap();
+
+    for interface in [InterfaceStyle::Positional, InterfaceStyle::Builder] {
+        let mut generator = Generator::new(GenerationSettings::default().with_interface(interface));
+        let output = generate_formatted(&mut generator, &spec);
+        syn::parse_file(&output).unwrap();
+        assert!(
+            output.contains("HeaderValue::from_static(\"text/plain\")"),
+            "{output}"
+        );
+        assert!(output.contains(".body(body.to_string())"), "{output}");
+        assert!(!output.contains(".json(&body)"), "{output}");
+        assert!(
+            output.contains("body: bool") || output.contains("TryInto<bool>"),
+            "{output}"
+        );
+    }
 }
 
 #[derive(Deserialize, JsonSchema)]
@@ -161,17 +261,22 @@ fn test_default_params() {
         .unwrap();
 
     let out = from_utf8(&out).unwrap();
-    let spec = serde_json::from_str::<OpenAPI>(out).unwrap();
+    let spec = serde_json::from_str::<Spec>(out).unwrap();
 
-    let mut generator = Generator::default();
+    let mut generator = Generator::new(
+        GenerationSettings::default().with_unknown_response_fields(UnknownResponseFields::Reject),
+    );
     let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/src/{}.rs", "test_default_params_positional"),
         &output,
     );
 
-    let mut generator =
-        Generator::new(GenerationSettings::default().with_interface(InterfaceStyle::Builder));
+    let mut generator = Generator::new(
+        GenerationSettings::default()
+            .with_unknown_response_fields(UnknownResponseFields::Reject)
+            .with_interface(InterfaceStyle::Builder),
+    );
     let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/src/{}.rs", "test_default_params_builder"),
@@ -230,18 +335,24 @@ async fn test_stream_pagination() {
         .unwrap();
 
     let out = from_utf8(&out).unwrap();
-    let spec = serde_json::from_str::<OpenAPI>(out).unwrap();
+    let spec = serde_json::from_str::<Spec>(out).unwrap();
 
     // Test both interface styles.
-    let mut generator =
-        Generator::new(GenerationSettings::new().with_interface(InterfaceStyle::Positional));
+    let mut generator = Generator::new(
+        GenerationSettings::new()
+            .with_unknown_response_fields(UnknownResponseFields::Reject)
+            .with_interface(InterfaceStyle::Positional),
+    );
     let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/src/{TEST_NAME}_positional.rs"),
         &output,
     );
-    let mut generator =
-        Generator::new(GenerationSettings::new().with_interface(InterfaceStyle::Builder));
+    let mut generator = Generator::new(
+        GenerationSettings::new()
+            .with_unknown_response_fields(UnknownResponseFields::Reject)
+            .with_interface(InterfaceStyle::Builder),
+    );
     let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(format!("tests/output/src/{TEST_NAME}_builder.rs"), &output);
 

@@ -6,7 +6,7 @@
 
 use std::collections::{BTreeMap, HashMap, HashSet};
 
-use openapiv3::OpenAPI;
+use oas3::Spec;
 use proc_macro2::TokenStream;
 use quote::quote;
 use serde::Deserialize;
@@ -21,15 +21,24 @@ pub use typify::TypeSpacePatch as TypePatch;
 pub use typify::UnknownPolicy;
 
 mod cli;
+mod document;
 mod httpmock;
 mod method;
+mod response_enum;
+mod response_recovery;
+mod selection;
 mod template;
 mod to_schema;
 mod util;
 
+pub use document::{OpenApiDocument, SchemaDiagnostic};
+pub use selection::select_operations;
+
 #[allow(missing_docs)]
 #[derive(Error, Debug)]
 pub enum Error {
+    #[error("invalid schema at {location}: {reason}")]
+    InvalidSchema { location: String, reason: String },
     #[error("unexpected value type {0}: {1}")]
     BadValue(String, serde_json::Value),
     #[error("type error {0}")]
@@ -53,11 +62,14 @@ pub struct Generator {
     settings: GenerationSettings,
     uses_futures: bool,
     uses_websockets: bool,
+    response_recovery: response_recovery::RecoveryGraph,
 }
 
 /// Settings for [Generator].
 #[derive(Default, Clone)]
 pub struct GenerationSettings {
+    json_over_sse: BTreeMap<String, String>,
+    unknown_response_fields: UnknownResponseFields,
     interface: InterfaceStyle,
     tag: TagStyle,
     hooks: HooksMode,
@@ -92,6 +104,18 @@ pub enum InterfaceStyle {
     Positional,
     /// Use builder style.
     Builder,
+}
+
+/// How generated HTTP JSON response decoders handle forbidden extra fields.
+/// Request models and direct model deserialization are never relaxed.
+#[derive(Clone, Copy, Debug, Deserialize, PartialEq, Eq, Default)]
+pub enum UnknownResponseFields {
+    /// Retry failed responses after removing forbidden extras, with warnings.
+    /// Ambiguous unions and unsupported recovery shapes remain errors.
+    #[default]
+    WarnAndIgnore,
+    /// Use the original strict response decoder without recovery.
+    Reject,
 }
 
 impl Default for InterfaceStyle {
@@ -129,6 +153,29 @@ pub enum HooksMode {
 }
 
 impl GenerationSettings {
+    /// Opt an operation into JSON-over-SSE decoding using a component schema.
+    ///
+    /// `operation_id` is the original OpenAPI operation ID; `event_schema` is
+    /// a key in `components.schemas` (for example, `ResponseStreamEvent`).
+    /// JSON success responses become `JsonOrEventStream<Json, Event>`; an
+    /// SSE-only success becomes `JsonEventStream<Event>`. This also supports
+    /// contracts which describe only the JSON response. Event data is decoded
+    /// strictly, independently of the HTTP JSON response recovery policy.
+    pub fn with_json_over_sse(
+        &mut self,
+        operation_id: impl Into<String>,
+        event_schema: impl Into<String>,
+    ) -> &mut Self {
+        self.json_over_sse
+            .insert(operation_id.into(), event_schema.into());
+        self
+    }
+
+    /// Set the policy for forbidden fields in HTTP JSON responses only.
+    pub fn with_unknown_response_fields(&mut self, policy: UnknownResponseFields) -> &mut Self {
+        self.unknown_response_fields = policy;
+        self
+    }
     /// Create new generator settings with default values.
     pub fn new() -> Self {
         Self::default()
@@ -307,6 +354,7 @@ impl Default for Generator {
             settings: Default::default(),
             uses_futures: Default::default(),
             uses_websockets: Default::default(),
+            response_recovery: Default::default(),
         }
     }
 }
@@ -358,11 +406,16 @@ impl Generator {
             settings: settings.clone(),
             uses_futures: false,
             uses_websockets: false,
+            response_recovery: Default::default(),
         }
     }
 
     /// Emit a [TokenStream] containing the generated client code.
-    pub fn generate_tokens(&mut self, spec: &OpenAPI) -> Result<TokenStream> {
+    ///
+    /// This compatibility entry point accepts an already-parsed operation
+    /// model. For version-aware, lossless schema handling, deserialize an
+    /// [OpenApiDocument] and use [Self::generate_tokens_from_document] instead.
+    pub fn generate_tokens(&mut self, spec: &Spec) -> Result<TokenStream> {
         validate_openapi(spec)?;
 
         // Convert our components dictionary to schemars
@@ -374,21 +427,26 @@ impl Generator {
         });
 
         self.type_space.add_ref_types(schemas)?;
+        self.initialize_response_recovery(spec);
 
-        let raw_methods = spec
+        let mut raw_methods = spec
             .paths
             .iter()
-            .flat_map(|(path, ref_or_item)| {
-                // Exclude externally defined path items.
-                let item = ref_or_item.as_item().unwrap();
-                item.iter().map(move |(method, operation)| {
-                    (path.as_str(), method, operation, &item.parameters)
-                })
+            .flat_map(|paths| paths.iter())
+            .flat_map(|(path, item)| {
+                item.methods()
+                    .into_iter()
+                    .map(move |(method, operation)| (path.as_str(), method, operation, item))
             })
-            .map(|(path, method, operation, path_parameters)| {
-                self.process_operation(operation, &spec.components, path, method, path_parameters)
+            .map(|(path, method, operation, item)| {
+                let method_str = method.as_str().to_ascii_lowercase();
+                self.process_operation(operation, spec, path, &method_str, &item.parameters)
             })
             .collect::<Result<Vec<_>>>()?;
+
+        document::order_methods(spec, &mut raw_methods);
+
+        let error_enums = self.error_response_enums(&raw_methods)?;
 
         let operation_code = match (&self.settings.interface, &self.settings.tag) {
             (InterfaceStyle::Positional, TagStyle::Merged) => self
@@ -415,6 +473,7 @@ impl Generator {
             }
         }?;
 
+        let recovery_code = self.response_recovery_tokens()?;
         let types = self.type_space.to_stream();
 
         let (inner_type, inner_fn_value) = match self.settings.inner_type.as_ref() {
@@ -448,7 +507,7 @@ impl Generator {
             }
             if let Some(ss) = &spec.info.terms_of_service {
                 s.push_str("\n\n");
-                s.push_str(ss);
+                s.push_str(ss.as_str());
             }
 
             s.push_str(&format!("\n\nVersion: {}", &spec.info.version));
@@ -573,6 +632,8 @@ impl Generator {
 
             #client_hooks
 
+            #error_enums
+            #recovery_code
             #operation_code
         };
 
@@ -613,6 +674,7 @@ impl Generator {
         input_methods: &[method::OperationMethod],
         has_inner: bool,
     ) -> Result<TokenStream> {
+        let response_import = self.error_response_import(input_methods)?;
         let builder_struct = input_methods
             .iter()
             .map(|method| self.builder_struct(method, TagStyle::Merged, has_inner))
@@ -631,6 +693,7 @@ impl Generator {
             /// Types for composing operation parameters.
             #[allow(clippy::all)]
             pub mod builder {
+                #response_import
                 use super::types;
                 #[allow(unused_imports)]
                 use super::{
@@ -659,9 +722,10 @@ impl Generator {
     fn generate_tokens_builder_separate(
         &mut self,
         input_methods: &[method::OperationMethod],
-        tag_info: BTreeMap<&String, &openapiv3::Tag>,
+        tag_info: BTreeMap<&String, &oas3::spec::Tag>,
         has_inner: bool,
     ) -> Result<TokenStream> {
+        let response_import = self.error_response_import(input_methods)?;
         let builder_struct = input_methods
             .iter()
             .map(|method| self.builder_struct(method, TagStyle::Separate, has_inner))
@@ -679,6 +743,7 @@ impl Generator {
             /// Types for composing operation parameters.
             #[allow(clippy::all)]
             pub mod builder {
+                #response_import
                 use super::types;
                 #[allow(unused_imports)]
                 use super::{
@@ -737,8 +802,10 @@ pub fn space_out_items(content: String) -> Result<String> {
 }
 
 fn validate_openapi_spec_version(spec_version: &str) -> Result<()> {
-    // progenitor currenlty only support OAS 3.0.x
-    if spec_version.trim().starts_with("3.0.") {
+    // OpenApiDocument supplies dialect-aware schemas. An ordinary oas3::Spec
+    // may already have lost schema keywords; it remains a compatibility API.
+    let s = spec_version.trim();
+    if s.starts_with("3.0.") || s.starts_with("3.1.") {
         Ok(())
     } else {
         Err(Error::UnexpectedFormat(format!(
@@ -748,38 +815,81 @@ fn validate_openapi_spec_version(spec_version: &str) -> Result<()> {
     }
 }
 
+/// Resolve the operation name used by every generation entry point. Explicit
+/// IDs are borrowed verbatim; absent IDs depend only on the HTTP method/path.
+pub(crate) fn operation_name<'a>(
+    operation: &'a oas3::spec::Operation,
+    path: &str,
+    method: &str,
+) -> std::borrow::Cow<'a, str> {
+    match operation.operation_id.as_deref() {
+        Some(id) => std::borrow::Cow::Borrowed(id),
+        None => std::borrow::Cow::Owned(util::sanitize(
+            &format!("{}_{}", method.to_ascii_lowercase(), path),
+            util::Case::Snake,
+        )),
+    }
+}
+
 /// Do some very basic checks of the OpenAPI documents.
-pub fn validate_openapi(spec: &OpenAPI) -> Result<()> {
+///
+/// Missing operation IDs are resolved from their HTTP method and path. Explicit
+/// duplicate IDs and names that normalize to the same Rust identifier are errors.
+pub fn validate_openapi(spec: &Spec) -> Result<()> {
     validate_openapi_spec_version(spec.openapi.as_str())?;
 
     let mut opids = HashSet::new();
-    spec.paths.paths.iter().try_for_each(|p| {
-        match p.1 {
-            openapiv3::ReferenceOr::Reference { reference: _ } => Err(Error::UnexpectedFormat(
-                format!("path {} uses reference, unsupported", p.0,),
-            )),
-            openapiv3::ReferenceOr::Item(item) => {
-                // Make sure every operation has an operation ID, and that each
-                // operation ID is only used once in the document.
-                item.iter().try_for_each(|(_, o)| {
-                    if let Some(oid) = o.operation_id.as_ref() {
-                        if !opids.insert(oid.to_string()) {
-                            return Err(Error::UnexpectedFormat(format!(
-                                "duplicate operation ID: {}",
-                                oid,
-                            )));
-                        }
-                    } else {
-                        return Err(Error::UnexpectedFormat(format!(
-                            "path {} is missing operation ID",
-                            p.0,
-                        )));
-                    }
-                    Ok(())
-                })
+    for (path, item) in spec.paths.iter().flat_map(|p| p.iter()) {
+        if item.reference.is_some() {
+            return Err(Error::UnexpectedFormat(format!(
+                "path {} uses reference, unsupported",
+                path,
+            )));
+        }
+        for (_, op) in item.methods() {
+            if let Some(oid) = op.operation_id.as_ref() {
+                if !opids.insert(oid.to_string()) {
+                    return Err(Error::UnexpectedFormat(format!(
+                        "duplicate operation ID: {}",
+                        oid,
+                    )));
+                }
             }
         }
-    })?;
+    }
+
+    let mut names = HashMap::new();
+    let mut type_names = HashMap::new();
+    for (path, item) in spec.paths.iter().flat_map(|p| p.iter()) {
+        for (method, operation) in item.methods() {
+            let name = operation_name(operation, path, method.as_str());
+            let identifier = util::sanitize(&name, util::Case::Snake);
+            let source = format!(
+                "{} {} ({} operation ID {:?})",
+                method,
+                path,
+                if operation.operation_id.is_some() {
+                    "explicit"
+                } else {
+                    "generated"
+                },
+                name,
+            );
+            // Builder and CLI types use PascalCase of the normalized method
+            // name. Check that namespace too (e.g. a1 and a_1 both become A1).
+            let type_identifier = util::sanitize(&identifier, util::Case::Pascal);
+            for (identifiers, identifier) in
+                [(&mut names, identifier), (&mut type_names, type_identifier)]
+            {
+                if let Some(previous) = identifiers.insert(identifier.clone(), source.clone()) {
+                    return Err(Error::UnexpectedFormat(format!(
+                        "operation names collide as Rust identifier {:?}: {} and {}; provide distinct explicit operationId values",
+                        identifier, previous, source,
+                    )));
+                }
+            }
+        }
+    }
 
     Ok(())
 }
@@ -826,13 +936,16 @@ mod tests {
     fn test_validate_openapi_spec_version() {
         assert!(validate_openapi_spec_version("3.0.0").is_ok());
         assert!(validate_openapi_spec_version("3.0.1").is_ok());
+        assert!(validate_openapi_spec_version("3.0.3").is_ok());
         assert!(validate_openapi_spec_version("3.0.4").is_ok());
         assert!(validate_openapi_spec_version("3.0.5-draft").is_ok());
+        assert!(validate_openapi_spec_version("3.1.0").is_ok());
+        assert!(validate_openapi_spec_version("3.1.1").is_ok());
         assert_eq!(
-            validate_openapi_spec_version("3.1.0")
+            validate_openapi_spec_version("2.0")
                 .unwrap_err()
                 .to_string(),
-            "unexpected or unhandled format in the OpenAPI document invalid version: 3.1.0"
+            "unexpected or unhandled format in the OpenAPI document invalid version: 2.0"
         );
     }
 }

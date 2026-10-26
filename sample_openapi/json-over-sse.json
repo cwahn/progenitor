@@ -1,0 +1,56 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "JSON-over-SSE regression", "version": "1" },
+  "paths": {
+    "/responses": {
+      "post": {
+        "operationId": "create_response",
+        "responses": {
+          "200": {
+            "description": "JSON or streamed events",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Response" } },
+              "text/event-stream": { "schema": { "$ref": "#/components/schemas/Event" } }
+            }
+          },
+          "400": {
+            "description": "JSON error",
+            "content": { "application/json": { "schema": { "type": "string" } } }
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "operationId": "list_events",
+        "responses": {
+          "200": {
+            "description": "Streamed events",
+            "content": { "text/event-stream": { "schema": { "$ref": "#/components/schemas/Event" } } }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Response": {
+        "type": "object",
+        "properties": { "id": { "type": "string" } },
+        "required": ["id"]
+      },
+      "Event": {
+        "oneOf": [ { "$ref": "#/components/schemas/Delta" } ],
+        "discriminator": { "propertyName": "type" }
+      },
+      "Delta": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["delta"] },
+          "text": { "type": "string" }
+        },
+        "required": ["type", "text"]
+      }
+    }
+  }
+}

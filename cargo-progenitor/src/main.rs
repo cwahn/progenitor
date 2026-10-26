@@ -8,8 +8,8 @@ use std::{
 
 use anyhow::{Result, bail};
 use clap::{Parser, ValueEnum};
-use openapiv3::OpenAPI;
-use progenitor::{GenerationSettings, Generator, InterfaceStyle, TagStyle};
+use progenitor::OpenApiDocument;
+use progenitor::{GenerationSettings, Generator, InterfaceStyle, TagStyle, UnknownResponseFields};
 use progenitor_impl::space_out_items;
 
 fn is_non_release() -> bool {
@@ -51,6 +51,9 @@ struct Args {
     /// SDK tag style
     #[clap(value_enum, long, default_value_t = TagArg::Merged)]
     tags: TagArg,
+    /// Handling of response fields forbidden by the specification
+    #[clap(value_enum, long, default_value_t = UnknownResponseFieldsArg::WarnAndIgnore)]
+    unknown_response_fields: UnknownResponseFieldsArg,
     /// Include client code rather than depending on progenitor-client
     #[clap(default_value = match is_non_release() { true => "true", false => "false" }, long, action = clap::ArgAction::Set)]
     include_client: bool,
@@ -60,6 +63,21 @@ struct Args {
 enum InterfaceArg {
     Positional,
     Builder,
+}
+
+#[derive(Copy, Clone, ValueEnum)]
+enum UnknownResponseFieldsArg {
+    WarnAndIgnore,
+    Reject,
+}
+
+impl From<UnknownResponseFieldsArg> for UnknownResponseFields {
+    fn from(arg: UnknownResponseFieldsArg) -> Self {
+        match arg {
+            UnknownResponseFieldsArg::WarnAndIgnore => Self::WarnAndIgnore,
+            UnknownResponseFieldsArg::Reject => Self::Reject,
+        }
+    }
 }
 
 impl From<InterfaceArg> for InterfaceStyle {
@@ -119,10 +137,11 @@ fn main() -> Result<()> {
     let mut builder = Generator::new(
         GenerationSettings::default()
             .with_interface(args.interface.into())
-            .with_tag(args.tags.into()),
+            .with_tag(args.tags.into())
+            .with_unknown_response_fields(args.unknown_response_fields.into()),
     );
 
-    match builder.generate_tokens(&api) {
+    match builder.generate_tokens_from_document(&api) {
         Ok(api_code) => {
             let type_space = builder.get_type_space();
 
@@ -214,6 +233,7 @@ struct Dependencies {
     bytes: &'static str,
     chrono: &'static str,
     futures: &'static str,
+    log: &'static str,
     percent_encoding: &'static str,
     rand: &'static str,
     regress: &'static str,
@@ -229,6 +249,7 @@ static DEPENDENCIES: Dependencies = Dependencies {
     bytes: "1.9",
     chrono: "0.4",
     futures: "0.3",
+    log: "0.4",
     percent_encoding: "2.3",
     rand: "0.8",
     regress: "0.10",
@@ -259,6 +280,10 @@ pub fn dependencies(builder: Generator, include_client: bool) -> Vec<String> {
 
     if include_client {
         // code included from progenitor-client needs extra dependencies
+        deps.push(format!(
+            "log = {{ version = \"{}\", features = [\"kv\"] }}",
+            DEPENDENCIES.log
+        ));
         deps.push(format!(
             "percent-encoding = \"{}\"",
             DEPENDENCIES.percent_encoding
@@ -304,7 +329,7 @@ pub fn dependencies(builder: Generator, include_client: bool) -> Vec<String> {
     deps
 }
 
-fn load_api<P>(p: P) -> Result<OpenAPI>
+fn load_api<P>(p: P) -> Result<OpenApiDocument>
 where
     P: AsRef<Path> + std::clone::Clone + std::fmt::Debug,
 {
@@ -317,4 +342,56 @@ where
         }
     };
     Ok(api)
+}
+
+#[cfg(test)]
+mod response_policy_tests {
+    use super::*;
+
+    fn parse(extra: &[&str]) -> Args {
+        let mut arguments = vec![
+            "cargo",
+            "progenitor",
+            "-i",
+            "schema.json",
+            "-o",
+            "output",
+            "-n",
+            "client",
+            "-v",
+            "0.1.0",
+        ];
+        arguments.extend_from_slice(extra);
+        let CargoCli::Progenitor(args) = CargoCli::try_parse_from(arguments).unwrap();
+        args
+    }
+
+    #[test]
+    fn defaults_to_warn_and_ignore() {
+        assert!(matches!(
+            UnknownResponseFields::from(parse(&[]).unknown_response_fields),
+            UnknownResponseFields::WarnAndIgnore
+        ));
+    }
+
+    #[test]
+    fn accepts_explicit_strict_policy() {
+        assert!(matches!(
+            UnknownResponseFields::from(
+                parse(&["--unknown-response-fields", "reject"]).unknown_response_fields
+            ),
+            UnknownResponseFields::Reject
+        ));
+    }
+
+    #[test]
+    fn inline_runtime_includes_structured_logging() {
+        let deps = dependencies(Generator::default(), true);
+        assert!(
+            deps.iter()
+                .any(|dep| dep == "log = { version = \"0.4\", features = [\"kv\"] }")
+        );
+        let deps = dependencies(Generator::default(), false);
+        assert!(!deps.iter().any(|dep| dep.starts_with("log =")));
+    }
 }

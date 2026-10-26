@@ -9,7 +9,9 @@ description = "An OpenAPI client generator - client support"
 
 [dependencies]
 bytes = { workspace = true }
+eventsource-stream = { workspace = true }
 futures-core = { workspace = true }
+log = { workspace = true }
 percent-encoding = { workspace = true }
 reqwest = { workspace = true }
 serde = { workspace = true }
@@ -17,5 +19,7 @@ serde_json = { workspace = true }
 serde_urlencoded = { workspace = true }
 
 [dev-dependencies]
+futures = { workspace = true }
+http = { workspace = true }
 url = { workspace = true }
 uuid = { workspace = true }

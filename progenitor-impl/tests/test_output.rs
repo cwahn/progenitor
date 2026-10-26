@@ -7,13 +7,13 @@ use std::{
 
 use progenitor_impl::{
     GenerationSettings, Generator, HooksMode, InterfaceStyle, TagStyle, TypeImpl, TypePatch,
-    space_out_items,
+    UnknownResponseFields, space_out_items,
 };
 
-use openapiv3::OpenAPI;
 use proc_macro2::TokenStream;
+use progenitor_impl::OpenApiDocument as Spec;
 
-fn load_api<P>(p: P) -> OpenAPI
+fn load_api<P>(p: P) -> Spec
 where
     P: AsRef<Path> + std::clone::Clone + std::fmt::Debug,
 {
@@ -27,8 +27,8 @@ where
     }
 }
 
-fn generate_formatted(generator: &mut Generator, spec: &OpenAPI) -> String {
-    let content = generator.generate_tokens(&spec).unwrap();
+fn generate_formatted(generator: &mut Generator, spec: &Spec) -> String {
+    let content = generator.generate_tokens_from_document(&spec).unwrap();
     reformat_code(content)
 }
 
@@ -51,7 +51,9 @@ fn verify_apis(openapi_file: &str) {
     let spec = load_api(in_path);
 
     // Positional generation.
-    let mut generator = Generator::default();
+    let mut generator = Generator::new(
+        GenerationSettings::default().with_unknown_response_fields(UnknownResponseFields::Reject),
+    );
     let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/src/{}_positional.rs", openapi_stem),
@@ -61,6 +63,7 @@ fn verify_apis(openapi_file: &str) {
     // Builder generation with derives and patches.
     let mut generator = Generator::new(
         GenerationSettings::default()
+            .with_unknown_response_fields(UnknownResponseFields::Reject)
             .with_interface(InterfaceStyle::Builder)
             .with_tag(TagStyle::Merged)
             .with_derive("schemars::JsonSchema")
@@ -84,6 +87,7 @@ fn verify_apis(openapi_file: &str) {
     // Builder generation with tags.
     let mut generator = Generator::new(
         GenerationSettings::default()
+            .with_unknown_response_fields(UnknownResponseFields::Reject)
             .with_interface(InterfaceStyle::Builder)
             .with_cli_bounds("std::clone::Clone")
             .with_tag(TagStyle::Separate),
@@ -96,7 +100,7 @@ fn verify_apis(openapi_file: &str) {
 
     // CLI generation.
     let tokens = generator
-        .cli(&spec, &format!("crate::{openapi_stem}_builder"))
+        .cli_from_document(&spec, &format!("crate::{openapi_stem}_builder"))
         .unwrap();
     let output = reformat_code(tokens);
 
@@ -104,7 +108,7 @@ fn verify_apis(openapi_file: &str) {
 
     // httpmock generation.
     let code = generator
-        .httpmock(&spec, &format!("crate::{openapi_stem}_builder"))
+        .httpmock_from_document(&spec, &format!("crate::{openapi_stem}_builder"))
         .unwrap();
 
     // TODO pending #368
@@ -164,6 +168,53 @@ fn test_cli_gen() {
     verify_apis("cli-gen.json");
 }
 
+// Keep the original 3.0 fixture and goldens as the regression baseline.
+// This equivalent 3.1 fixture exercises the migrated entry points without
+// changing any schema semantics yet.
+#[test]
+fn test_cli_gen_openapi31_equivalent() {
+    let spec30 = load_api("../sample_openapi/cli-gen.json");
+    let spec31 = load_api("../sample_openapi/cli-gen-3.1.json");
+    for interface in [InterfaceStyle::Positional, InterfaceStyle::Builder] {
+        let settings = GenerationSettings::default()
+            .with_unknown_response_fields(UnknownResponseFields::Reject)
+            .with_interface(interface)
+            .clone();
+        let mut generator30 = Generator::new(&settings);
+        let mut generator31 = Generator::new(&settings);
+        assert_eq!(
+            generator30
+                .generate_tokens_from_document(&spec30)
+                .unwrap()
+                .to_string(),
+            generator31
+                .generate_tokens_from_document(&spec31)
+                .unwrap()
+                .to_string(),
+        );
+        assert_eq!(
+            generator30
+                .cli_from_document(&spec30, "crate::client")
+                .unwrap()
+                .to_string(),
+            generator31
+                .cli_from_document(&spec31, "crate::client")
+                .unwrap()
+                .to_string(),
+        );
+        assert_eq!(
+            generator30
+                .httpmock_from_document(&spec30, "crate::client")
+                .unwrap()
+                .to_string(),
+            generator31
+                .httpmock_from_document(&spec31, "crate::client")
+                .unwrap()
+                .to_string(),
+        );
+    }
+}
+
 #[test]
 fn test_nexus_with_different_timeout() {
     const OPENAPI_FILE: &'static str = "nexus.json";
@@ -174,7 +225,11 @@ fn test_nexus_with_different_timeout() {
 
     let spec = load_api(in_path);
 
-    let mut generator = Generator::new(GenerationSettings::default().with_timeout(75));
+    let mut generator = Generator::new(
+        GenerationSettings::default()
+            .with_unknown_response_fields(UnknownResponseFields::Reject)
+            .with_timeout(75),
+    );
     let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents(
         format!("tests/output/src/{}_with_timeout.rs", openapi_stem),
@@ -189,8 +244,11 @@ fn test_nexus_with_different_timeout() {
 fn test_keeper_hooks_expected() {
     let spec = load_api("../sample_openapi/keeper.json");
 
-    let mut generator =
-        Generator::new(GenerationSettings::default().with_hooks(HooksMode::Expected));
+    let mut generator = Generator::new(
+        GenerationSettings::default()
+            .with_unknown_response_fields(UnknownResponseFields::Reject)
+            .with_hooks(HooksMode::Expected),
+    );
     let output = generate_formatted(&mut generator, &spec);
     expectorate::assert_contents("tests/output/src/keeper_hooks_expected.rs", &output);
 }

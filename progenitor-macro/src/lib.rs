@@ -6,11 +6,11 @@
 
 use std::{collections::HashMap, fs::File, path::PathBuf};
 
-use openapiv3::OpenAPI;
 use proc_macro::TokenStream;
+use progenitor_impl::OpenApiDocument;
 use progenitor_impl::{
     CrateVers, GenerationSettings, Generator, HooksMode, InterfaceStyle, TagStyle, TypePatch,
-    UnknownPolicy,
+    UnknownPolicy, UnknownResponseFields,
 };
 use quote::{ToTokens, quote};
 use schemars::schema::SchemaObject;
@@ -96,6 +96,7 @@ impl syn::parse::Parse for SpecSource {
 ///     [ pre_hook_async = closure::or::path::to::function, ]
 ///     [ post_hook_async = closure::or::path::to::function, ]
 ///     [ hooks = ( Optional | Expected ), ]
+///     [ unknown_response_fields = ( WarnAndIgnore | Reject ), ]
 ///
 ///     [ derives = [ path::to::DeriveMacro ], ]
 ///
@@ -185,6 +186,10 @@ impl syn::parse::Parse for SpecSource {
 ///
 /// - `timeout`: the default connection timeout for the underlying reqwest
 ///   client (15s if not specified)
+///
+/// - `unknown_response_fields`: whether forbidden extra response fields are
+///   ignored with runtime warnings after unambiguous recovery (the default),
+///   or rejected. Required fields and invalid known values remain errors.
 #[proc_macro]
 pub fn generate_api(item: TokenStream) -> TokenStream {
     match do_generate_api(item) {
@@ -202,6 +207,8 @@ struct MacroSettings {
     tags: TagStyle,
     #[serde(default)]
     hooks: HooksMode,
+    #[serde(default)]
+    unknown_response_fields: UnknownResponseFields,
 
     inner_type: Option<ParseWrapper<syn::Type>>,
     pre_hook: Option<ParseWrapper<ClosureOrPath>>,
@@ -333,6 +340,37 @@ fn is_crate(s: &str) -> bool {
     !s.contains(|cc: char| !cc.is_alphanumeric() && cc != '_' && cc != '-')
 }
 
+#[cfg(test)]
+mod response_policy_tests {
+    use super::*;
+    use quote::quote;
+
+    #[test]
+    fn defaults_to_warn_and_ignore() {
+        let settings: MacroSettings = serde_tokenstream::from_tokenstream(&quote! {
+            spec = "schema.json",
+        })
+        .unwrap();
+        assert!(matches!(
+            settings.unknown_response_fields,
+            UnknownResponseFields::WarnAndIgnore
+        ));
+    }
+
+    #[test]
+    fn accepts_explicit_strict_policy() {
+        let settings: MacroSettings = serde_tokenstream::from_tokenstream(&quote! {
+            spec = "schema.json",
+            unknown_response_fields = Reject,
+        })
+        .unwrap();
+        assert!(matches!(
+            settings.unknown_response_fields,
+            UnknownResponseFields::Reject
+        ));
+    }
+}
+
 fn open_file(path: PathBuf, span: proc_macro2::Span) -> Result<File, syn::Error> {
     File::open(path.clone()).map_err(|e| {
         let path_str = path.to_string_lossy();
@@ -353,6 +391,7 @@ fn do_generate_api(item: TokenStream) -> Result<TokenStream, syn::Error> {
             interface,
             tags,
             hooks,
+            unknown_response_fields,
             inner_type,
             pre_hook,
             pre_hook_async,
@@ -374,6 +413,7 @@ fn do_generate_api(item: TokenStream) -> Result<TokenStream, syn::Error> {
         settings.with_interface(interface);
         settings.with_tag(tags);
         settings.with_hooks(hooks);
+        settings.with_unknown_response_fields(unknown_response_fields);
         inner_type.map(|inner_type| settings.with_inner_type(inner_type.to_token_stream()));
         pre_hook.map(|pre_hook| settings.with_pre_hook(pre_hook.into_inner().0));
         pre_hook_async
@@ -435,7 +475,7 @@ fn do_generate_api(item: TokenStream) -> Result<TokenStream, syn::Error> {
     let path_str = path.to_string_lossy();
 
     let mut f = open_file(path.clone(), spec_path.span())?;
-    let oapi: OpenAPI = match serde_json::from_reader(f) {
+    let oapi: OpenApiDocument = match serde_json::from_reader(f) {
         Ok(json_value) => json_value,
         _ => {
             f = open_file(path.clone(), spec_path.span())?;
@@ -450,7 +490,7 @@ fn do_generate_api(item: TokenStream) -> Result<TokenStream, syn::Error> {
 
     let mut builder = Generator::new(&settings);
 
-    let code = builder.generate_tokens(&oapi).map_err(|e| {
+    let code = builder.generate_tokens_from_document(&oapi).map_err(|e| {
         syn::Error::new(
             spec_path.span(),
             format!("generation error for {}: {}", spec_path.value(), e),

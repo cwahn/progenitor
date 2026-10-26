@@ -2,77 +2,39 @@
 
 use std::collections::BTreeMap;
 
-use indexmap::IndexMap;
-use openapiv3::{Components, Parameter, ReferenceOr, RequestBody, Response, Schema};
+use oas3::{
+    Spec,
+    spec::{FromRef, ObjectOrReference, Parameter},
+};
 use unicode_ident::{is_xid_continue, is_xid_start};
 
-use crate::Result;
+use crate::{Error, Result};
 
-pub(crate) trait ReferenceOrExt<T: ComponentLookup> {
-    fn item<'a>(&'a self, components: &'a Option<Components>) -> Result<&'a T>;
-}
-pub(crate) trait ComponentLookup: Sized {
-    fn get_components(components: &Components) -> &IndexMap<String, ReferenceOr<Self>>;
+pub(crate) trait ReferenceOrExt<T> {
+    fn item(&self, spec: &Spec) -> Result<T>;
 }
 
-impl<T: ComponentLookup> ReferenceOrExt<T> for openapiv3::ReferenceOr<T> {
-    fn item<'a>(&'a self, components: &'a Option<Components>) -> Result<&'a T> {
-        match self {
-            ReferenceOr::Item(item) => Ok(item),
-            ReferenceOr::Reference { reference } => {
-                let idx = reference.rfind('/').unwrap();
-                let key = &reference[idx + 1..];
-                let parameters = T::get_components(components.as_ref().unwrap());
-                parameters
-                    .get(key)
-                    .unwrap_or_else(|| panic!("key {} is missing", key))
-                    .item(components)
-            }
-        }
+impl<T: FromRef> ReferenceOrExt<T> for ObjectOrReference<T> {
+    fn item(&self, spec: &Spec) -> Result<T> {
+        self.resolve(spec)
+            .map_err(|e| Error::UnexpectedFormat(format!("unresolved reference: {e}")))
     }
 }
 
-pub(crate) fn items<'a, T>(
-    refs: &'a [ReferenceOr<T>],
-    components: &'a Option<Components>,
-) -> impl Iterator<Item = Result<&'a T>>
-where
-    T: ComponentLookup,
-{
-    refs.iter().map(|r| r.item(components))
+pub(crate) fn items<'a, T: FromRef + 'a>(
+    refs: &'a [ObjectOrReference<T>],
+    spec: &'a Spec,
+) -> impl Iterator<Item = Result<T>> + 'a {
+    refs.iter().map(|r| r.item(spec))
 }
 
-pub(crate) fn parameter_map<'a>(
-    refs: &'a [ReferenceOr<Parameter>],
-    components: &'a Option<Components>,
-) -> Result<BTreeMap<&'a String, &'a Parameter>> {
-    items(refs, components)
-        .map(|res| res.map(|param| (&param.parameter_data_ref().name, param)))
+pub(crate) fn parameter_map(
+    refs: &[ObjectOrReference<Parameter>],
+    spec: &Spec,
+) -> Result<BTreeMap<String, Parameter>> {
+    items(refs, spec)
+        .map(|res| res.map(|param| (param.name.clone(), param)))
         .collect()
-}
-
-impl ComponentLookup for Parameter {
-    fn get_components(components: &Components) -> &IndexMap<String, ReferenceOr<Self>> {
-        &components.parameters
-    }
-}
-
-impl ComponentLookup for RequestBody {
-    fn get_components(components: &Components) -> &IndexMap<String, ReferenceOr<Self>> {
-        &components.request_bodies
-    }
-}
-
-impl ComponentLookup for Response {
-    fn get_components(components: &Components) -> &IndexMap<String, ReferenceOr<Self>> {
-        &components.responses
-    }
-}
-
-impl ComponentLookup for Schema {
-    fn get_components(components: &Components) -> &IndexMap<String, ReferenceOr<Self>> {
-        &components.schemas
-    }
 }
 
 pub(crate) enum Case {

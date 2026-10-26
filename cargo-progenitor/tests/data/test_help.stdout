@@ -19,6 +19,8 @@ Options:
           SDK interface style [default: positional] [possible values: positional, builder]
       --tags <TAGS>
           SDK tag style [default: merged] [possible values: merged, separate]
+      --unknown-response-fields <UNKNOWN_RESPONSE_FIELDS>
+          Handling of response fields forbidden by the specification [default: warn-and-ignore] [possible values: warn-and-ignore, reject]
       --include-client <INCLUDE_CLIENT>
           Include client code rather than depending on progenitor-client [default: true] [possible values: true, false]
   -h, --help

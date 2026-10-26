@@ -23,7 +23,7 @@ clap = { workspace = true }
 clap-cargo = { workspace = true }
 env_logger = { workspace = true }
 expectorate = { workspace = true }
-openapiv3 = { workspace = true }
+oas3 = { workspace = true }
 rustfmt-wrapper = { workspace = true }
 serde_json = { workspace = true }
 serde_yaml = { workspace = true }

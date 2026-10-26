@@ -3,7 +3,7 @@
 use std::collections::BTreeMap;
 
 use heck::ToKebabCase;
-use openapiv3::OpenAPI;
+use oas3::Spec;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use typify::{Type, TypeEnumVariant, TypeSpaceImpl, TypeStructPropInfo};
@@ -24,7 +24,7 @@ struct CliOperation {
 
 impl Generator {
     /// Generate a `clap`-based CLI.
-    pub fn cli(&mut self, spec: &OpenAPI, crate_name: &str) -> Result<TokenStream> {
+    pub fn cli(&mut self, spec: &Spec, crate_name: &str) -> Result<TokenStream> {
         validate_openapi(spec)?;
 
         // Convert our components dictionary to schemars
@@ -37,20 +37,22 @@ impl Generator {
 
         self.type_space.add_ref_types(schemas)?;
 
-        let raw_methods = spec
+        let mut raw_methods = spec
             .paths
             .iter()
-            .flat_map(|(path, ref_or_item)| {
-                // Exclude externally defined path items.
-                let item = ref_or_item.as_item().unwrap();
-                item.iter().map(move |(method, operation)| {
-                    (path.as_str(), method, operation, &item.parameters)
-                })
+            .flat_map(|paths| paths.iter())
+            .flat_map(|(path, item)| {
+                item.methods()
+                    .into_iter()
+                    .map(move |(method, operation)| (path.as_str(), method, operation, item))
             })
-            .map(|(path, method, operation, path_parameters)| {
-                self.process_operation(operation, &spec.components, path, method, path_parameters)
+            .map(|(path, method, operation, item)| {
+                let method_str = method.as_str().to_ascii_lowercase();
+                self.process_operation(operation, spec, path, &method_str, &item.parameters)
             })
             .collect::<Result<Vec<_>>>()?;
+
+        crate::document::order_methods(spec, &mut raw_methods);
 
         let methods = raw_methods
             .iter()
