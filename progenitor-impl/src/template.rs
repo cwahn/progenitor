@@ -3,7 +3,7 @@
 use std::collections::HashMap;
 
 use proc_macro2::TokenStream;
-use quote::{format_ident, quote};
+use quote::quote;
 
 use crate::{Error, Result};
 
@@ -19,7 +19,11 @@ pub struct PathTemplate {
 }
 
 impl PathTemplate {
-    pub fn compile(&self, rename: HashMap<&String, &String>, client: TokenStream) -> TokenStream {
+    pub fn compile(
+        &self,
+        parameters: HashMap<&String, TokenStream>,
+        client: TokenStream,
+    ) -> TokenStream {
         let mut fmt = String::new();
         fmt.push_str("{}");
         for c in self.components.iter() {
@@ -31,22 +35,18 @@ impl PathTemplate {
 
         let components = self.components.iter().filter_map(|component| {
             if let Component::Parameter(n) = &component {
-                let param = format_ident!(
-                    "{}",
-                    rename
+                Some(
+                    parameters
                         .get(&n)
-                        .expect(&format!("missing path name mapping {}", n)),
-                );
-                Some(quote! {
-                    encode_path(&#param.to_string())
-                })
+                        .expect("missing path parameter expression"),
+                )
             } else {
                 None
             }
         });
 
         quote! {
-            format!(#fmt, #client.baseurl, #(#components,)*)
+            format!(#fmt, #client.baseurl #(, #components)*)
         }
     }
 
@@ -292,13 +292,13 @@ mod tests {
     fn compile() {
         let mut rename = HashMap::new();
         let number = "number".to_string();
-        rename.insert(&number, &number);
+        rename.insert(&number, quote::quote! { encode_path(&number.to_string()) });
         let t = parse("/measure/{number}").unwrap();
         let out = t.compile(rename, quote::quote! { self });
         let want = quote::quote! {
             format!("{}/measure/{}",
                 self.baseurl,
-                encode_path(&number.to_string()),
+                encode_path(&number.to_string())
             )
         };
         assert_eq!(want.to_string(), out.to_string());
@@ -310,9 +310,9 @@ mod tests {
         let one = "one".to_string();
         let two = "two".to_string();
         let three = "three".to_string();
-        rename.insert(&one, &one);
-        rename.insert(&two, &two);
-        rename.insert(&three, &three);
+        rename.insert(&one, quote::quote! { encode_path(&one.to_string()) });
+        rename.insert(&two, quote::quote! { encode_path(&two.to_string()) });
+        rename.insert(&three, quote::quote! { encode_path(&three.to_string()) });
         let t = parse("/abc/def:{one}:jkl/{two}/a:{three}").unwrap();
         let out = t.compile(rename, quote::quote! { self });
         let want = quote::quote! {
@@ -320,7 +320,7 @@ mod tests {
                 self.baseurl,
                 encode_path(&one.to_string()),
                 encode_path(&two.to_string()),
-                encode_path(&three.to_string()),
+                encode_path(&three.to_string())
             )
         };
         assert_eq!(want.to_string(), out.to_string());

@@ -66,9 +66,10 @@ impl Generator {
         };
         self.response_recovery.cache.insert(key, index);
         // Insert before descending: local component references can be recursive.
-        self.response_recovery
-            .nodes
-            .push((typ, quote! { Unsupported }));
+        self.response_recovery.nodes.push((
+            typ,
+            quote! { progenitor_client::ResponseRecoveryKind::Unsupported },
+        ));
         let kind = self.recovery_kind(&value)?;
         self.response_recovery.nodes[index].1 = kind;
         Ok(index)
@@ -82,28 +83,28 @@ impl Generator {
 
     fn recovery_kind(&mut self, value: &Value) -> Result<TokenStream> {
         let Some(map) = value.as_object() else {
-            return Ok(quote! { Leaf });
+            return Ok(quote! { progenitor_client::ResponseRecoveryKind::Leaf });
         };
         if let Some(reference) = map.get("$ref").and_then(Value::as_str) {
             let Some(name) = reference.strip_prefix("#/components/schemas/") else {
-                return Ok(quote! { Unsupported });
+                return Ok(quote! { progenitor_client::ResponseRecoveryKind::Unsupported });
             };
             let name = name.replace("~1", "/").replace("~0", "~");
             let Some(schema) = self.response_recovery.definitions.get(&name).cloned() else {
-                return Ok(quote! { Unsupported });
+                return Ok(quote! { progenitor_client::ResponseRecoveryKind::Unsupported });
             };
             // A reference with validation siblings is a conjunction, not a ref.
             if map.keys().any(|key| !annotation(key) && key != "$ref") {
-                return Ok(quote! { Unsupported });
+                return Ok(quote! { progenitor_client::ResponseRecoveryKind::Unsupported });
             }
             let typ = self
                 .type_space
                 .add_type(&Schema::new_ref(reference.into()))?;
             let target = self.recovery_node(&schema, Some(typ))?;
-            return Ok(quote! { Ref(#target) });
+            return Ok(quote! { progenitor_client::ResponseRecoveryKind::Ref(#target) });
         }
         if map.contains_key("allOf") || map.contains_key("not") {
-            return Ok(quote! { Unsupported });
+            return Ok(quote! { progenitor_client::ResponseRecoveryKind::Unsupported });
         }
         if let Some(branches) = map.get("oneOf").or_else(|| map.get("anyOf")) {
             // Compound union/object constraints need a conjunction-aware adapter.
@@ -112,7 +113,7 @@ impl Generator {
                 .keys()
                 .any(|key| !annotation(key) && !matches!(key.as_str(), "oneOf" | "anyOf" | "type"))
             {
-                return Ok(quote! { Unsupported });
+                return Ok(quote! { progenitor_client::ResponseRecoveryKind::Unsupported });
             }
             let branches = branches
                 .as_array()
@@ -120,10 +121,12 @@ impl Generator {
                 .iter()
                 .map(|branch| self.recovery_child(branch))
                 .collect::<Result<Vec<_>>>()?;
-            return Ok(quote! { Union(&[#(#branches),*]) });
+            return Ok(
+                quote! { progenitor_client::ResponseRecoveryKind::Union(&[#(#branches),*]) },
+            );
         }
         if map.contains_key("patternProperties") || map.contains_key("dependencies") {
-            return Ok(quote! { Unsupported });
+            return Ok(quote! { progenitor_client::ResponseRecoveryKind::Unsupported });
         }
         if map.contains_key("properties") || map.get("type") == Some(&Value::from("object")) {
             let mut properties = Vec::new();
@@ -134,26 +137,30 @@ impl Generator {
                 }
             }
             let additional = match map.get("additionalProperties") {
-                Some(Value::Bool(false)) => quote! { Closed },
-                Some(Value::Bool(true)) | None => quote! { Open },
+                Some(Value::Bool(false)) => {
+                    quote! { progenitor_client::ResponseAdditionalProperties::Closed }
+                }
+                Some(Value::Bool(true)) | None => {
+                    quote! { progenitor_client::ResponseAdditionalProperties::Open }
+                }
                 Some(schema) => {
                     let child = self.recovery_child(schema)?;
-                    quote! { Typed(#child) }
+                    quote! { progenitor_client::ResponseAdditionalProperties::Typed(#child) }
                 }
             };
             return Ok(quote! {
-                Object { properties: &[#(#properties),*], additional: #additional }
+                progenitor_client::ResponseRecoveryKind::Object { properties: &[#(#properties),*], additional: #additional }
             });
         }
         if let Some(items) = map.get("items") {
             if items.is_array() {
                 // Tuple/additional-item interactions remain strict-only.
-                return Ok(quote! { Unsupported });
+                return Ok(quote! { progenitor_client::ResponseRecoveryKind::Unsupported });
             }
             let child = self.recovery_child(items)?;
-            return Ok(quote! { Array(#child) });
+            return Ok(quote! { progenitor_client::ResponseRecoveryKind::Array(#child) });
         }
-        Ok(quote! { Leaf })
+        Ok(quote! { progenitor_client::ResponseRecoveryKind::Leaf })
     }
 
     /// The returned expression is already awaited and concretely typed.
@@ -207,12 +214,13 @@ impl Generator {
                 })
             })
             .collect::<Result<Vec<_>>>()?;
+        let node_count = nodes.len();
         Ok(quote! {
+            static __RESPONSE_RECOVERY_NODES: [progenitor_client::ResponseRecoveryNode; #node_count] = [#(#nodes),*];
+
             impl Client {
-                fn __response_recovery_nodes() -> &'static [progenitor_client::ResponseRecoveryNode] {
-                    use progenitor_client::ResponseRecoveryKind::*;
-                    use progenitor_client::ResponseAdditionalProperties::*;
-                    &[#(#nodes),*]
+                const fn __response_recovery_nodes() -> &'static [progenitor_client::ResponseRecoveryNode] {
+                    &__RESPONSE_RECOVERY_NODES
                 }
             }
         })

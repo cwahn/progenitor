@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///`UnoBody`
     #[derive(
@@ -17,7 +14,7 @@ pub mod types {
 
     impl UnoBody {
         pub fn builder() -> builder::UnoBody {
-            Default::default()
+            <builder::UnoBody as ::std::default::Default>::default()
         }
     }
 
@@ -35,7 +32,7 @@ pub mod types {
         impl ::std::default::Default for UnoBody {
             fn default() -> Self {
                 Self {
-                    gateway: Ok(Default::default()),
+                    gateway: Ok(<::std::option::Option<::std::string::String>>::default()),
                     required: Err("no value supplied for required".to_string()),
                 }
             }
@@ -196,14 +193,12 @@ impl Client {
 }
 
 /// Types for composing operation parameters.
-#[allow(clippy::all)]
 pub mod builder {
     use super::types;
-    #[allow(unused_imports)]
-    use super::{
-        encode_path, ByteStream, ClientHooks, ClientInfo, Error, OperationInfo, RequestBuilderExt,
-        ResponseValue,
-    };
+    use super::ByteStream;
+    use super::Error;
+    use super::ResponseValue;
+    use progenitor_client::{ClientHooks, ClientInfo};
     ///Builder for [`Client::uno`]
     ///
     ///[`Client::uno`]: super::Client::uno
@@ -217,9 +212,9 @@ pub mod builder {
     impl<'a> Uno<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 gateway: Err("gateway was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::UnoBody as ::std::default::Default>::default()),
             }
         }
 
@@ -241,7 +236,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `UnoBody` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `UnoBody` for body failed: {s}"));
             self
         }
 
@@ -264,13 +259,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::UnoBody::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/uno", client.baseurl,);
+            let url = format!("{}/uno", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -278,16 +272,22 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("gateway", &gateway))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "uno",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<ByteStream>, Error<()>> {
             match response.status().as_u16() {
                 200..=299 => Ok(ResponseValue::stream(response)),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }

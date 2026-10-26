@@ -1,7 +1,5 @@
 // Copyright 2025 Oxide Computer Company
 
-#![allow(dead_code)]
-
 //! Support code for generated clients.
 
 use std::ops::{Deref, DerefMut};
@@ -304,7 +302,9 @@ pub struct OperationInfo {
 /// implement this for `&Client`; to override the default behavior, implement
 /// some or all of the interfaces for the `Client` type (without the
 /// reference). This mechanism relies on so-called "auto-ref specialization".
-#[allow(async_fn_in_trait, unused)]
+// Trait RPIT captures all input lifetimes without promising Send. Explicitly
+// capture unused arguments inside each future as async fn does, preserving
+// default-future auto traits as well as lazy execution.
 #[diagnostic::on_unimplemented(
     message = "`{Self}` does not implement `ClientHooks<{Inner}>`",
     label = "missing `impl ClientHooks<{Inner}> for {Self}`",
@@ -316,21 +316,27 @@ where
 {
     /// Runs prior to the execution of the request. This may be used to modify
     /// the request before it is transmitted.
-    async fn pre<E>(
+    fn pre<E>(
         &self,
-        request: &mut reqwest::Request,
-        info: &OperationInfo,
-    ) -> std::result::Result<(), Error<E>> {
-        Ok(())
+        _request: &mut reqwest::Request,
+        _info: &OperationInfo,
+    ) -> impl std::future::Future<Output = std::result::Result<(), Error<E>>> {
+        async move {
+            let (_self, _request, _info) = (self, _request, _info);
+            Ok(())
+        }
     }
 
     /// Runs after completion of the request.
-    async fn post<E>(
+    fn post<E>(
         &self,
-        result: &reqwest::Result<reqwest::Response>,
-        info: &OperationInfo,
-    ) -> std::result::Result<(), Error<E>> {
-        Ok(())
+        _result: &reqwest::Result<reqwest::Response>,
+        _info: &OperationInfo,
+    ) -> impl std::future::Future<Output = std::result::Result<(), Error<E>>> {
+        async move {
+            let (_self, _result, _info) = (self, _result, _info);
+            Ok(())
+        }
     }
 
     /// Execute the request. Note that for almost any reasonable implementation
@@ -354,12 +360,15 @@ where
     /// #   }
     /// # }
     /// ```
-    async fn exec(
+    fn exec(
         &self,
         request: reqwest::Request,
-        info: &OperationInfo,
-    ) -> reqwest::Result<reqwest::Response> {
-        self.client().execute(request).await
+        _info: &OperationInfo,
+    ) -> impl std::future::Future<Output = reqwest::Result<reqwest::Response>> {
+        async move {
+            let (this, request, _info) = (self, request, _info);
+            this.client().execute(request).await
+        }
     }
 }
 
@@ -835,24 +844,6 @@ fn warn_unknown_response_field(
     );
 }
 
-#[cfg(test)]
-mod response_warning_tests {
-    use super::ResponseWarningDedup;
-
-    #[test]
-    fn warning_dedup_is_bounded_and_suppresses_repeated_and_overflow_keys() {
-        let mut dedup = ResponseWarningDedup::default();
-        assert!(dedup.admit(("operation", 200, "spec", "/[]/extra".into())));
-        assert!(!dedup.admit(("operation", 200, "spec", "/[]/extra".into())));
-        for index in 1..1024 {
-            assert!(dedup.admit(("operation", 200, "spec", format!("/extra{index}"))));
-        }
-        assert!(!dedup.admit(("operation", 200, "spec", "/overflow".into())));
-        assert!(!dedup.admit(("operation", 200, "spec", "/[]/extra".into())));
-        assert_eq!(dedup.0.len(), 1024);
-    }
-}
-
 #[cfg(not(target_arch = "wasm32"))]
 impl ResponseValue<reqwest::Upgraded> {
     #[doc(hidden)]
@@ -870,7 +861,7 @@ impl ResponseValue<reqwest::Upgraded> {
                 headers,
             })
         } else {
-            Err(Error::UnexpectedResponse(response))
+            Err(Error::UnexpectedResponse(Box::new(response)))
         }
     }
 }
@@ -895,7 +886,7 @@ impl<T> ResponseValue<JsonEventStream<T>> {
     /// [`Error::UnexpectedResponse`]. JSON decoding occurs only when polled.
     pub fn event_stream<E>(response: reqwest::Response) -> Result<Self, Error<E>> {
         if !has_media_type(&response, "text/event-stream") {
-            return Err(Error::UnexpectedResponse(response));
+            return Err(Error::UnexpectedResponse(Box::new(response)));
         }
         let status = response.status();
         let headers = response.headers().clone();
@@ -1063,7 +1054,7 @@ pub enum Error<E = ()> {
     InvalidUpgrade(reqwest::Error),
 
     /// A documented, expected error response.
-    ErrorResponse(ResponseValue<E>),
+    ErrorResponse(Box<ResponseValue<E>>),
 
     /// Encountered an error reading the body for an expected response.
     ResponseBodyError(reqwest::Error),
@@ -1073,7 +1064,7 @@ pub enum Error<E = ()> {
 
     /// A response not listed in the API description. This may represent a
     /// success or failure response; check `status().is_success()`.
-    UnexpectedResponse(reqwest::Response),
+    UnexpectedResponse(Box<reqwest::Response>),
 
     /// A custom error from a consumer-defined hook.
     Custom(String),
@@ -1136,15 +1127,18 @@ impl<E> Error<E> {
             Error::InvalidRequest(s) => Error::InvalidRequest(s),
             Error::Custom(s) => Error::Custom(s),
             Error::CommunicationError(e) => Error::CommunicationError(e),
-            Error::ErrorResponse(ResponseValue {
-                inner: _,
-                status,
-                headers,
-            }) => Error::ErrorResponse(ResponseValue {
-                inner: (),
-                status,
-                headers,
-            }),
+            Error::ErrorResponse(response) => {
+                let ResponseValue {
+                    inner: _,
+                    status,
+                    headers,
+                } = *response;
+                Error::ErrorResponse(Box::new(ResponseValue {
+                    inner: (),
+                    status,
+                    headers,
+                }))
+            }
             Error::InvalidUpgrade(e) => Error::InvalidUpgrade(e),
             Error::ResponseBodyError(e) => Error::ResponseBodyError(e),
             Error::InvalidResponsePayload(b, e) => Error::InvalidResponsePayload(b, e),
@@ -1535,5 +1529,23 @@ where
 
     fn end(self) -> Result<Self::Ok, Self::Error> {
         self.inner.end()
+    }
+}
+
+#[cfg(test)]
+mod response_warning_tests {
+    use super::ResponseWarningDedup;
+
+    #[test]
+    fn warning_dedup_is_bounded_and_suppresses_repeated_and_overflow_keys() {
+        let mut dedup = ResponseWarningDedup::default();
+        assert!(dedup.admit(("operation", 200, "spec", "/[]/extra".into())));
+        assert!(!dedup.admit(("operation", 200, "spec", "/[]/extra".into())));
+        for index in 1..1024 {
+            assert!(dedup.admit(("operation", 200, "spec", format!("/extra{index}"))));
+        }
+        assert!(!dedup.admit(("operation", 200, "spec", "/overflow".into())));
+        assert!(!dedup.admit(("operation", 200, "spec", "/[]/extra".into())));
+        assert_eq!(dedup.0.len(), 1024);
     }
 }

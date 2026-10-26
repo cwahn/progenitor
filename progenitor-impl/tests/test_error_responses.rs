@@ -83,6 +83,46 @@ fn one_error_schema_keeps_existing_public_type() {
 }
 
 #[test]
+fn identical_homogeneous_decoders_share_patterns_without_changing_error_payloads() {
+    let schema = json!({"$ref": "#/components/schemas/ResponseError"});
+    let document = document(json!({
+        "204": {"description": "Success"},
+        "400": response(schema.clone()), "404": response(schema.clone()),
+        "429": response(schema.clone()), "503": response(schema)
+    }));
+    for style in [InterfaceStyle::Positional, InterfaceStyle::Builder] {
+        let code = generated(&document, style);
+        let compact = code.split_whitespace().collect::<String>();
+        assert!(compact.contains("400u16|404u16|429u16|503u16=>"), "{code}");
+        assert_eq!(code.matches("Error::ErrorResponse(").count(), 1, "{code}");
+        assert!(compact.contains("Error::ErrorResponse(::std::boxed::Box::new(ResponseValue::from_response(response).await?"), "{code}");
+        assert!(
+            compact.contains("Error::UnexpectedResponse(::std::boxed::Box::new(response))"),
+            "{code}"
+        );
+        assert!(
+            compact.contains("204u16=>Ok(ResponseValue::empty(response))"),
+            "{code}"
+        );
+    }
+}
+
+#[test]
+fn identical_default_decoder_retains_catch_all_semantics() {
+    let schema = json!({"$ref": "#/components/schemas/ResponseError"});
+    let document = document(json!({
+        "200": response(schema.clone()),
+        "400": response(schema.clone()), "4XX": response(schema.clone()),
+        "default": response(schema)
+    }));
+    let code = generated(&document, InterfaceStyle::Positional);
+    let compact = code.split_whitespace().collect::<String>();
+    assert_eq!(code.matches("Error::ErrorResponse(").count(), 1, "{code}");
+    assert!(compact.contains("_=>Err(Error::ErrorResponse("), "{code}");
+    assert!(!code.contains("Error::UnexpectedResponse("), "{code}");
+}
+
+#[test]
 fn exact_status_precedes_range_and_default_is_last() {
     let document = document(json!({
         "200": response(json!({"$ref": "#/components/schemas/ResponseError"})),

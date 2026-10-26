@@ -1,9 +1,7 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::encode_path;
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///Describes properties that should uniquely identify a Gimlet.
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -114,7 +112,7 @@ pub mod types {
     ///The maximum supported byte count is [`i64::MAX`].  This makes it
     /// somewhat inconvenient to define constructors: a u32 constructor can be
     /// infallible, but an i64 constructor can fail (if the value is negative)
-    /// and a u64 constructor can fail (if the value is larger than i64::MAX).
+    /// and a u64 constructor can fail (if the value is larger than `i64::MAX`).
     /// We provide all of these for consumers' convenience.
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     #[serde(transparent)]
@@ -963,19 +961,22 @@ pub mod types {
     ///Note that any gaps, unsorted bins, or non-finite values will result in
     /// an error.
     ///
-    ///Example ------- ```rust use oximeter::histogram::{BinRange, Histogram};
+    ///Example ------- ```rust use `oximeter::histogram::{BinRange`,
+    /// Histogram};
     ///
     ///let edges = [0i64, 10, 20]; let mut hist =
-    /// Histogram::new(&edges).unwrap(); assert_eq!(hist.n_bins(), 4); // One
-    /// additional bin for the range (20..) assert_eq!(hist.n_samples(), 0);
-    /// hist.sample(4); hist.sample(100); assert_eq!(hist.n_samples(), 2);
+    /// `Histogram::new(&edges).unwrap()`; `assert_eq!(hist.n_bins()`, 4); //
+    /// One additional bin for the range (20..) `assert_eq!(hist.n_samples()`,
+    /// 0); hist.sample(4); hist.sample(100); `assert_eq!(hist.n_samples()`, 2);
     ///
-    ///let data = hist.iter().collect::<Vec<_>>(); assert_eq!(data[0].range,
-    /// BinRange::range(i64::MIN, 0)); // An additional bin for `..0`
-    /// assert_eq!(data[0].count, 0); // Nothing is in this bin
+    ///let data = `hist.iter().collect::`<Vec<_>>();
+    /// `assert_eq!(data`[0].range, `BinRange::range(i64::MIN`, 0)); // An
+    /// additional bin for `..0` `assert_eq!(data`[0].count, 0); // Nothing is
+    /// in this bin
     ///
-    ///assert_eq!(data[1].range, BinRange::range(0, 10)); // The range `0..10`
-    /// assert_eq!(data[1].count, 1); // 4 is sampled into this bin ```
+    ///`assert_eq!(data`[1].range, `BinRange::range(0`, 10)); // The range
+    /// `0..10` `assert_eq!(data`[1].count, 1); // 4 is sampled into this bin
+    /// ```
     ///
     ///Notes -----
     ///
@@ -1012,19 +1013,22 @@ pub mod types {
     ///Note that any gaps, unsorted bins, or non-finite values will result in
     /// an error.
     ///
-    ///Example ------- ```rust use oximeter::histogram::{BinRange, Histogram};
+    ///Example ------- ```rust use `oximeter::histogram::{BinRange`,
+    /// Histogram};
     ///
     ///let edges = [0i64, 10, 20]; let mut hist =
-    /// Histogram::new(&edges).unwrap(); assert_eq!(hist.n_bins(), 4); // One
-    /// additional bin for the range (20..) assert_eq!(hist.n_samples(), 0);
-    /// hist.sample(4); hist.sample(100); assert_eq!(hist.n_samples(), 2);
+    /// `Histogram::new(&edges).unwrap()`; `assert_eq!(hist.n_bins()`, 4); //
+    /// One additional bin for the range (20..) `assert_eq!(hist.n_samples()`,
+    /// 0); hist.sample(4); hist.sample(100); `assert_eq!(hist.n_samples()`, 2);
     ///
-    ///let data = hist.iter().collect::<Vec<_>>(); assert_eq!(data[0].range,
-    /// BinRange::range(i64::MIN, 0)); // An additional bin for `..0`
-    /// assert_eq!(data[0].count, 0); // Nothing is in this bin
+    ///let data = `hist.iter().collect::`<Vec<_>>();
+    /// `assert_eq!(data`[0].range, `BinRange::range(i64::MIN`, 0)); // An
+    /// additional bin for `..0` `assert_eq!(data`[0].count, 0); // Nothing is
+    /// in this bin
     ///
-    ///assert_eq!(data[1].range, BinRange::range(0, 10)); // The range `0..10`
-    /// assert_eq!(data[1].count, 1); // 4 is sampled into this bin ```
+    ///`assert_eq!(data`[1].range, `BinRange::range(0`, 10)); // The range
+    /// `0..10` `assert_eq!(data`[1].count, 1); // 4 is sampled into this bin
+    /// ```
     ///
     ///Notes -----
     ///
@@ -1418,7 +1422,7 @@ pub mod types {
         pub start: bool,
         ///User data for instance initialization systems (such as cloud-init).
         /// Must be a Base64-encoded string, as specified in RFC 4648 § 4 (+ and
-        /// / characters with padding). Maximum 32 KiB unencoded data.
+        /// / characters with padding). Maximum 32 `KiB` unencoded data.
         #[serde(default)]
         pub user_data: ::std::string::String,
     }
@@ -1680,9 +1684,9 @@ pub mod types {
     impl ::std::str::FromStr for IpNet {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-            if let Ok(v) = value.parse() {
+            if let Ok(v) = value.parse::<Ipv4Net>() {
                 Ok(Self::V4(v))
-            } else if let Ok(v) = value.parse() {
+            } else if let Ok(v) = value.parse::<Ipv6Net>() {
                 Ok(Self::V6(v))
             } else {
                 Err("string conversion failed for all variants".into())
@@ -1800,7 +1804,7 @@ pub mod types {
         }
     }
 
-    ///An IPv4 subnet, including prefix and subnet mask
+    ///An `IPv4` subnet, including prefix and subnet mask
     #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     #[serde(transparent)]
     pub struct Ipv4Net(::std::string::String);
@@ -1869,7 +1873,7 @@ pub mod types {
         }
     }
 
-    ///A non-decreasing IPv4 address range, inclusive of both ends.
+    ///A non-decreasing `IPv4` address range, inclusive of both ends.
     ///
     ///The first address must be less than or equal to the last address.
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -1878,7 +1882,7 @@ pub mod types {
         pub last: ::std::net::Ipv4Addr,
     }
 
-    ///An IPv6 subnet, including prefix and subnet mask
+    ///An `IPv6` subnet, including prefix and subnet mask
     #[derive(:: serde :: Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
     #[serde(transparent)]
     pub struct Ipv6Net(::std::string::String);
@@ -1946,7 +1950,7 @@ pub mod types {
         }
     }
 
-    ///A non-decreasing IPv6 address range, inclusive of both ends.
+    ///A non-decreasing `IPv6` address range, inclusive of both ends.
     ///
     ///The first address must be less than or equal to the last address.
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -1976,16 +1980,16 @@ pub mod types {
     impl ::std::str::FromStr for L4PortRange {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
+                ::std::sync::LazyLock::new(|| {
+                    ::regress::Regex::new("^[0-9]{1,5}(-[0-9]{1,5})?$").unwrap()
+                });
             if value.chars().count() > 11usize {
                 return Err("longer than 11 characters".into());
             }
             if value.chars().count() < 1usize {
                 return Err("shorter than 1 characters".into());
             }
-            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
-                ::std::sync::LazyLock::new(|| {
-                    ::regress::Regex::new("^[0-9]{1,5}(-[0-9]{1,5})?$").unwrap()
-                });
             if PATTERN.find(value).is_none() {
                 return Err("doesn't match pattern \"^[0-9]{1,5}(-[0-9]{1,5})?$\"".into());
             }
@@ -2042,16 +2046,16 @@ pub mod types {
     impl ::std::str::FromStr for MacAddr {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
+                ::std::sync::LazyLock::new(|| {
+                    ::regress::Regex::new("^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$").unwrap()
+                });
             if value.chars().count() > 17usize {
                 return Err("longer than 17 characters".into());
             }
             if value.chars().count() < 17usize {
                 return Err("shorter than 17 characters".into());
             }
-            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
-                ::std::sync::LazyLock::new(|| {
-                    ::regress::Regex::new("^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$").unwrap()
-                });
             if PATTERN.find(value).is_none() {
                 return Err(
                     "doesn't match pattern \"^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$\"".into(),
@@ -2129,14 +2133,14 @@ pub mod types {
     impl ::std::str::FromStr for Name {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-            if value.chars().count() > 63usize {
-                return Err("longer than 63 characters".into());
-            }
             static PATTERN: ::std::sync::LazyLock<::regress::Regex> = ::std::sync::LazyLock::new(
                 || {
                     :: regress :: Regex :: new ("^(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)^[a-z][a-z0-9-]*[a-zA-Z0-9]$") . unwrap ()
                 },
             );
+            if value.chars().count() > 63usize {
+                return Err("longer than 63 characters".into());
+            }
             if PATTERN.find(value).is_none() {
                 return Err ("doesn't match pattern \"^(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)^[a-z][a-z0-9-]*[a-zA-Z0-9]$\"" . into ()) ;
             }
@@ -2193,9 +2197,9 @@ pub mod types {
     impl ::std::str::FromStr for NameOrId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-            if let Ok(v) = value.parse() {
+            if let Ok(v) = value.parse::<::uuid::Uuid>() {
                 Ok(Self::Id(v))
-            } else if let Ok(v) = value.parse() {
+            } else if let Ok(v) = value.parse::<Name>() {
                 Ok(Self::Name(v))
             } else {
                 Err("string conversion failed for all variants".into())
@@ -2925,11 +2929,11 @@ pub mod types {
     impl ::std::str::FromStr for RoleName {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
+                ::std::sync::LazyLock::new(|| ::regress::Regex::new("[a-z-]+\\.[a-z-]+").unwrap());
             if value.chars().count() > 63usize {
                 return Err("longer than 63 characters".into());
             }
-            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
-                ::std::sync::LazyLock::new(|| ::regress::Regex::new("[a-z-]+\\.[a-z-]+").unwrap());
             if PATTERN.find(value).is_none() {
                 return Err("doesn't match pattern \"[a-z-]+\\.[a-z-]+\"".into());
             }
@@ -3419,8 +3423,8 @@ pub mod types {
         /// initialize the Silo.
         ///
         ///Note that if configuring a SAML based identity provider,
-        /// group_attribute_name must be set for users to be considered part of
-        /// a group. See [`SamlIdentityProviderCreate`] for more information.
+        /// `group_attribute_name` must be set for users to be considered part
+        /// of a group. See [`SamlIdentityProviderCreate`] for more information.
         #[serde(skip_serializing_if = "::std::option::Option::is_none")]
         pub admin_group_name: ::std::option::Option<::std::string::String>,
         pub description: ::std::string::String,
@@ -4214,14 +4218,14 @@ pub mod types {
     impl ::std::str::FromStr for UserId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-            if value.chars().count() > 63usize {
-                return Err("longer than 63 characters".into());
-            }
             static PATTERN: ::std::sync::LazyLock<::regress::Regex> = ::std::sync::LazyLock::new(
                 || {
                     :: regress :: Regex :: new ("^(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)^[a-z][a-z0-9-]*[a-zA-Z0-9]$") . unwrap ()
                 },
             );
+            if value.chars().count() > 63usize {
+                return Err("longer than 63 characters".into());
+            }
             if PATTERN.find(value).is_none() {
                 return Err ("doesn't match pattern \"^(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)^[a-z][a-z0-9-]*[a-zA-Z0-9]$\"" . into ()) ;
             }
@@ -4308,7 +4312,7 @@ pub mod types {
         pub dns_name: Name,
         ///unique, immutable, system-controlled identifier for each resource
         pub id: ::uuid::Uuid,
-        ///The unique local IPv6 address range for subnets in this VPC
+        ///The unique local `IPv6` address range for subnets in this VPC
         pub ipv6_prefix: Ipv6Net,
         ///unique, mutable, user-controlled identifier for each resource
         pub name: Name,
@@ -4327,9 +4331,9 @@ pub mod types {
     pub struct VpcCreate {
         pub description: ::std::string::String,
         pub dns_name: Name,
-        ///The IPv6 prefix for this VPC.
+        ///The `IPv6` prefix for this VPC.
         ///
-        ///All IPv6 subnets created from this VPC must be taken from this
+        ///All `IPv6` subnets created from this VPC must be taken from this
         /// range, which sould be a Unique Local Address in the range
         /// `fd00::/48`. The default VPC Subnet will have the first `/64` range
         /// from this prefix.
@@ -4701,7 +4705,7 @@ pub mod types {
         pub targets: ::std::vec::Vec<VpcFirewallRuleTarget>,
     }
 
-    ///Updateable properties of a `Vpc`'s firewall Note that VpcFirewallRules
+    ///Updateable properties of a `Vpc`'s firewall Note that `VpcFirewallRules`
     /// are implicitly created along with a Vpc, so there is no explicit
     /// creation.
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -4829,17 +4833,17 @@ pub mod types {
     }
 
     ///A VPC subnet represents a logical grouping for instances that allows
-    /// network traffic between them, within a IPv4 subnetwork or optionall an
-    /// IPv6 subnetwork.
+    /// network traffic between them, within a `IPv4` subnetwork or optionall an
+    /// `IPv6` subnetwork.
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct VpcSubnet {
         ///human-readable free-form text about a resource
         pub description: ::std::string::String,
         ///unique, immutable, system-controlled identifier for each resource
         pub id: ::uuid::Uuid,
-        ///The IPv4 subnet CIDR block.
+        ///The `IPv4` subnet CIDR block.
         pub ipv4_block: Ipv4Net,
-        ///The IPv6 subnet CIDR block.
+        ///The `IPv6` subnet CIDR block.
         pub ipv6_block: Ipv6Net,
         ///unique, mutable, user-controlled identifier for each resource
         pub name: Name,
@@ -4856,12 +4860,12 @@ pub mod types {
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct VpcSubnetCreate {
         pub description: ::std::string::String,
-        ///The IPv4 address range for this subnet.
+        ///The `IPv4` address range for this subnet.
         ///
         ///It must be allocated from an RFC 1918 private address range, and
         /// must not overlap with any other existing subnet in the VPC.
         pub ipv4_block: Ipv4Net,
-        ///The IPv6 address range for this subnet.
+        ///The `IPv6` address range for this subnet.
         ///
         ///It must be allocated from the RFC 4193 Unique Local Address range,
         /// with the prefix equal to the parent VPC's prefix. A random `/64`
@@ -4909,7 +4913,7 @@ pub mod types {
             V
         }
 
-        pub(super) fn instance_create_network_interfaces(
+        pub(super) const fn instance_create_network_interfaces(
         ) -> super::InstanceNetworkInterfaceAttachment {
             super::InstanceNetworkInterfaceAttachment::Default
         }
@@ -5009,7 +5013,6 @@ impl ClientInfo<()> for Client {
 }
 
 impl ClientHooks<()> for &Client {}
-#[allow(clippy::all)]
 impl Client {
     ///Fetch a disk by id
     ///
@@ -5023,14 +5026,13 @@ impl Client {
         let url = format!(
             "{}/by-id/disks/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5040,7 +5042,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5049,13 +5051,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5069,14 +5068,13 @@ impl Client {
         let url = format!(
             "{}/by-id/images/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5086,7 +5084,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "image_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5095,13 +5093,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5115,14 +5110,13 @@ impl Client {
         let url = format!(
             "{}/by-id/instances/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5132,7 +5126,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5141,13 +5135,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5161,14 +5152,13 @@ impl Client {
         let url = format!(
             "{}/by-id/network-interfaces/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5178,7 +5168,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_network_interface_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5187,13 +5177,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5209,14 +5196,13 @@ impl Client {
         let url = format!(
             "{}/by-id/organizations/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5226,7 +5212,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5235,13 +5221,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5257,14 +5240,13 @@ impl Client {
         let url = format!(
             "{}/by-id/projects/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5274,7 +5256,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5283,13 +5265,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5303,14 +5282,13 @@ impl Client {
         let url = format!(
             "{}/by-id/snapshots/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5320,7 +5298,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "snapshot_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5329,13 +5307,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5349,14 +5324,13 @@ impl Client {
         let url = format!(
             "{}/by-id/vpc-router-routes/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5366,7 +5340,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_route_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5375,13 +5349,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5395,14 +5366,13 @@ impl Client {
         let url = format!(
             "{}/by-id/vpc-routers/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5412,7 +5382,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5421,13 +5391,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5441,14 +5408,13 @@ impl Client {
         let url = format!(
             "{}/by-id/vpc-subnets/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5458,7 +5424,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_subnet_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5467,13 +5433,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5487,14 +5450,13 @@ impl Client {
         let url = format!(
             "{}/by-id/vpcs/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5504,7 +5466,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -5513,17 +5475,14 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
-    ///Start an OAuth 2.0 Device Authorization Grant
+    ///Start an `OAuth` 2.0 Device Authorization Grant
     ///
     ///This endpoint is designed to be accessed from an *unauthenticated* API
     /// client. It generates and records a `device_code` and `user_code` which
@@ -5534,20 +5493,20 @@ impl Client {
         &'a self,
         body: &'a types::DeviceAuthRequest,
     ) -> Result<ResponseValue<ByteStream>, Error<ByteStream>> {
-        let url = format!("{}/device/auth", self.baseurl,);
+        use progenitor_client::RequestBuilderExt;
+        let url = format!("{}/device/auth", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
             .form_urlencoded(&body)?
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "device_auth_request",
         };
         self.pre(&mut request, &info).await?;
@@ -5556,11 +5515,13 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200..=299 => Ok(ResponseValue::stream(response)),
-            _ => Err(Error::ErrorResponse(ResponseValue::stream(response))),
+            _ => Err(Error::ErrorResponse(::std::boxed::Box::new(
+                ResponseValue::stream(response),
+            ))),
         }
     }
 
-    ///Confirm an OAuth 2.0 Device Authorization Grant
+    ///Confirm an `OAuth` 2.0 Device Authorization Grant
     ///
     ///This endpoint is designed to be accessed by the user agent (browser),
     /// not the client requesting the token. So we do not actually return the
@@ -5572,13 +5533,12 @@ impl Client {
         &'a self,
         body: &'a types::DeviceAuthVerify,
     ) -> Result<ResponseValue<()>, Error<types::Error>> {
-        let url = format!("{}/device/confirm", self.baseurl,);
+        let url = format!("{}/device/confirm", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -5589,7 +5549,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "device_auth_confirm",
         };
         self.pre(&mut request, &info).await?;
@@ -5598,13 +5558,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5618,20 +5575,20 @@ impl Client {
         &'a self,
         body: &'a types::DeviceAccessTokenRequest,
     ) -> Result<ResponseValue<ByteStream>, Error<ByteStream>> {
-        let url = format!("{}/device/token", self.baseurl,);
+        use progenitor_client::RequestBuilderExt;
+        let url = format!("{}/device/token", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
             .form_urlencoded(&body)?
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "device_access_token",
         };
         self.pre(&mut request, &info).await?;
@@ -5640,7 +5597,9 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200..=299 => Ok(ResponseValue::stream(response)),
-            _ => Err(Error::ErrorResponse(ResponseValue::stream(response))),
+            _ => Err(Error::ErrorResponse(::std::boxed::Box::new(
+                ResponseValue::stream(response),
+            ))),
         }
     }
 
@@ -5659,13 +5618,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::GroupResultsPage>, Error<types::Error>> {
-        let url = format!("{}/groups", self.baseurl,);
+        let url = format!("{}/groups", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5681,7 +5639,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "group_list",
         };
         self.pre(&mut request, &info).await?;
@@ -5690,13 +5648,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5744,13 +5699,12 @@ impl Client {
         &'a self,
         body: &'a types::SpoofLoginBody,
     ) -> Result<ResponseValue<()>, Error<types::Error>> {
-        let url = format!("{}/login", self.baseurl,);
+        let url = format!("{}/login", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -5761,7 +5715,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "login_spoof",
         };
         self.pre(&mut request, &info).await?;
@@ -5770,13 +5724,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5791,21 +5742,20 @@ impl Client {
         let url = format!(
             "{}/login/{}/local",
             self.baseurl,
-            encode_path(&silo_name.to_string()),
+            encode_path(&silo_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "login_local",
         };
         self.pre(&mut request, &info).await?;
@@ -5814,13 +5764,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200..=299 => Ok(ResponseValue::stream(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5839,16 +5786,15 @@ impl Client {
             "{}/login/{}/saml/{}",
             self.baseurl,
             encode_path(&silo_name.to_string()),
-            encode_path(&provider_name.to_string()),
+            encode_path(&provider_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self.client.get(url).headers(header_map).build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "login_saml_begin",
         };
         self.pre(&mut request, &info).await?;
@@ -5857,13 +5803,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200..=299 => Ok(ResponseValue::stream(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5880,14 +5823,13 @@ impl Client {
             "{}/login/{}/saml/{}",
             self.baseurl,
             encode_path(&silo_name.to_string()),
-            encode_path(&provider_name.to_string()),
+            encode_path(&provider_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -5898,7 +5840,7 @@ impl Client {
             .body(body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "login_saml",
         };
         self.pre(&mut request, &info).await?;
@@ -5907,25 +5849,21 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200..=299 => Ok(ResponseValue::stream(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
     ///Sends a `POST` request to `/logout`
     pub async fn logout<'a>(&'a self) -> Result<ResponseValue<()>, Error<types::Error>> {
-        let url = format!("{}/logout", self.baseurl,);
+        let url = format!("{}/logout", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -5935,7 +5873,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "logout",
         };
         self.pre(&mut request, &info).await?;
@@ -5944,13 +5882,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -5971,13 +5906,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::NameOrIdSortMode>,
     ) -> Result<ResponseValue<types::OrganizationResultsPage>, Error<types::Error>> {
-        let url = format!("{}/organizations", self.baseurl,);
+        let url = format!("{}/organizations", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -5993,7 +5927,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_list",
         };
         self.pre(&mut request, &info).await?;
@@ -6002,13 +5936,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6063,13 +5994,12 @@ impl Client {
         &'a self,
         body: &'a types::OrganizationCreate,
     ) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
-        let url = format!("{}/organizations", self.baseurl,);
+        let url = format!("{}/organizations", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -6080,7 +6010,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_create",
         };
         self.pre(&mut request, &info).await?;
@@ -6089,13 +6019,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6114,14 +6041,13 @@ impl Client {
         let url = format!(
             "{}/organizations/{}",
             self.baseurl,
-            encode_path(&organization_name.to_string()),
+            encode_path(&organization_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -6131,7 +6057,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_view",
         };
         self.pre(&mut request, &info).await?;
@@ -6140,13 +6066,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6167,14 +6090,13 @@ impl Client {
         let url = format!(
             "{}/organizations/{}",
             self.baseurl,
-            encode_path(&organization_name.to_string()),
+            encode_path(&organization_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -6185,7 +6107,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_update",
         };
         self.pre(&mut request, &info).await?;
@@ -6194,13 +6116,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6219,14 +6138,13 @@ impl Client {
         let url = format!(
             "{}/organizations/{}",
             self.baseurl,
-            encode_path(&organization_name.to_string()),
+            encode_path(&organization_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -6236,7 +6154,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -6245,13 +6163,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6270,14 +6185,13 @@ impl Client {
         let url = format!(
             "{}/organizations/{}/policy",
             self.baseurl,
-            encode_path(&organization_name.to_string()),
+            encode_path(&organization_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -6287,7 +6201,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_policy_view",
         };
         self.pre(&mut request, &info).await?;
@@ -6296,13 +6210,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6323,14 +6234,13 @@ impl Client {
         let url = format!(
             "{}/organizations/{}/policy",
             self.baseurl,
-            encode_path(&organization_name.to_string()),
+            encode_path(&organization_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -6341,7 +6251,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_policy_update",
         };
         self.pre(&mut request, &info).await?;
@@ -6350,13 +6260,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6382,14 +6289,13 @@ impl Client {
         let url = format!(
             "{}/organizations/{}/projects",
             self.baseurl,
-            encode_path(&organization_name.to_string()),
+            encode_path(&organization_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -6405,7 +6311,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_list",
         };
         self.pre(&mut request, &info).await?;
@@ -6414,13 +6320,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6485,14 +6388,13 @@ impl Client {
         let url = format!(
             "{}/organizations/{}/projects",
             self.baseurl,
-            encode_path(&organization_name.to_string()),
+            encode_path(&organization_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -6503,7 +6405,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_create",
         };
         self.pre(&mut request, &info).await?;
@@ -6512,13 +6414,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6541,14 +6440,13 @@ impl Client {
             "{}/organizations/{}/projects/{}",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -6558,7 +6456,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_view",
         };
         self.pre(&mut request, &info).await?;
@@ -6567,13 +6465,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6598,14 +6493,13 @@ impl Client {
             "{}/organizations/{}/projects/{}",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -6616,7 +6510,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_update",
         };
         self.pre(&mut request, &info).await?;
@@ -6625,13 +6519,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6654,14 +6545,13 @@ impl Client {
             "{}/organizations/{}/projects/{}",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -6671,7 +6561,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -6680,13 +6570,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6716,14 +6603,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/disks",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -6739,7 +6625,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_list",
         };
         self.pre(&mut request, &info).await?;
@@ -6748,13 +6634,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6829,14 +6712,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/disks",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -6847,7 +6729,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_create",
         };
         self.pre(&mut request, &info).await?;
@@ -6856,13 +6738,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6884,14 +6763,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&disk_name.to_string()),
+            encode_path(&disk_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -6901,7 +6779,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_view",
         };
         self.pre(&mut request, &info).await?;
@@ -6910,13 +6788,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -6936,14 +6811,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&disk_name.to_string()),
+            encode_path(&disk_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -6953,7 +6827,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -6962,13 +6836,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7005,14 +6876,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&disk_name.to_string()),
-            encode_path(&metric_name.to_string()),
+            encode_path(&metric_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -7032,7 +6902,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_metrics_list",
         };
         self.pre(&mut request, &info).await?;
@@ -7041,13 +6911,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7147,14 +7014,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/images",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -7170,7 +7036,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "image_list",
         };
         self.pre(&mut request, &info).await?;
@@ -7179,13 +7045,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7263,14 +7126,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/images",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -7281,7 +7143,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "image_create",
         };
         self.pre(&mut request, &info).await?;
@@ -7290,13 +7152,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7318,14 +7177,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&image_name.to_string()),
+            encode_path(&image_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -7335,7 +7193,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "image_view",
         };
         self.pre(&mut request, &info).await?;
@@ -7344,13 +7202,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7374,14 +7229,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&image_name.to_string()),
+            encode_path(&image_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -7391,7 +7245,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "image_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -7400,13 +7254,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7434,14 +7285,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/instances",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -7457,7 +7307,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_list",
         };
         self.pre(&mut request, &info).await?;
@@ -7466,13 +7316,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7548,14 +7395,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/instances",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -7566,7 +7412,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_create",
         };
         self.pre(&mut request, &info).await?;
@@ -7575,13 +7421,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7603,14 +7446,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -7620,7 +7462,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_view",
         };
         self.pre(&mut request, &info).await?;
@@ -7629,13 +7471,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7655,14 +7494,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -7672,7 +7510,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -7681,13 +7519,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7721,14 +7556,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -7744,7 +7578,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_disk_list",
         };
         self.pre(&mut request, &info).await?;
@@ -7753,13 +7587,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7844,14 +7675,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -7862,7 +7692,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_disk_attach",
         };
         self.pre(&mut request, &info).await?;
@@ -7871,13 +7701,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7900,14 +7727,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -7918,7 +7744,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_disk_detach",
         };
         self.pre(&mut request, &info).await?;
@@ -7927,13 +7753,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -7953,14 +7776,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -7970,7 +7792,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_external_ip_list",
         };
         self.pre(&mut request, &info).await?;
@@ -7979,13 +7801,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8008,14 +7827,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -8026,7 +7844,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_migrate",
         };
         self.pre(&mut request, &info).await?;
@@ -8035,13 +7853,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8073,14 +7888,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -8096,7 +7910,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_network_interface_list",
         };
         self.pre(&mut request, &info).await?;
@@ -8105,13 +7919,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8193,14 +8004,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -8211,7 +8021,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_network_interface_create",
         };
         self.pre(&mut request, &info).await?;
@@ -8220,13 +8030,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8248,14 +8055,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&instance_name.to_string()),
-            encode_path(&interface_name.to_string()),
+            encode_path(&interface_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -8265,7 +8071,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_network_interface_view",
         };
         self.pre(&mut request, &info).await?;
@@ -8274,13 +8080,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8303,14 +8106,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&instance_name.to_string()),
-            encode_path(&interface_name.to_string()),
+            encode_path(&interface_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -8321,7 +8123,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_network_interface_update",
         };
         self.pre(&mut request, &info).await?;
@@ -8330,13 +8132,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8363,14 +8162,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&instance_name.to_string()),
-            encode_path(&interface_name.to_string()),
+            encode_path(&interface_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -8380,7 +8178,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_network_interface_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -8389,13 +8187,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8417,14 +8212,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -8434,7 +8228,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_reboot",
         };
         self.pre(&mut request, &info).await?;
@@ -8443,13 +8237,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8490,14 +8281,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -8516,7 +8306,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_serial_console",
         };
         self.pre(&mut request, &info).await?;
@@ -8525,13 +8315,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8553,14 +8340,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -8576,7 +8362,7 @@ impl Client {
                 ),
             )
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_serial_console_stream",
         };
         self.pre(&mut request, &info).await?;
@@ -8585,7 +8371,7 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             101u16 => ResponseValue::upgrade(response).await,
-            _ => Err(Error::UnexpectedResponse(response)),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8607,14 +8393,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -8630,7 +8415,7 @@ impl Client {
                 ),
             )
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_serial_console_stream_v2",
         };
         self.pre(&mut request, &info).await?;
@@ -8639,13 +8424,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             101u16 => ResponseValue::upgrade(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8667,14 +8449,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -8684,7 +8465,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_start",
         };
         self.pre(&mut request, &info).await?;
@@ -8693,13 +8474,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8721,14 +8499,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&instance_name.to_string()),
+            encode_path(&instance_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -8738,7 +8515,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_stop",
         };
         self.pre(&mut request, &info).await?;
@@ -8747,13 +8524,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8776,14 +8550,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/policy",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -8793,7 +8566,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_policy_view",
         };
         self.pre(&mut request, &info).await?;
@@ -8802,13 +8575,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8831,14 +8601,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/policy",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -8849,7 +8618,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_policy_update",
         };
         self.pre(&mut request, &info).await?;
@@ -8858,13 +8627,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -8892,14 +8658,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/snapshots",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -8915,7 +8680,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "snapshot_list",
         };
         self.pre(&mut request, &info).await?;
@@ -8924,13 +8689,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9006,14 +8768,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/snapshots",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -9024,7 +8785,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "snapshot_create",
         };
         self.pre(&mut request, &info).await?;
@@ -9033,13 +8794,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9059,14 +8817,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&snapshot_name.to_string()),
+            encode_path(&snapshot_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -9076,7 +8833,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "snapshot_view",
         };
         self.pre(&mut request, &info).await?;
@@ -9085,13 +8842,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9111,14 +8865,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&snapshot_name.to_string()),
+            encode_path(&snapshot_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -9128,7 +8881,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "snapshot_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -9137,13 +8890,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9171,14 +8921,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/vpcs",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -9194,7 +8943,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_list",
         };
         self.pre(&mut request, &info).await?;
@@ -9203,13 +8952,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9282,14 +9028,13 @@ impl Client {
             "{}/organizations/{}/projects/{}/vpcs",
             self.baseurl,
             encode_path(&organization_name.to_string()),
-            encode_path(&project_name.to_string()),
+            encode_path(&project_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -9300,7 +9045,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_create",
         };
         self.pre(&mut request, &info).await?;
@@ -9309,13 +9054,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9335,14 +9077,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&vpc_name.to_string()),
+            encode_path(&vpc_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -9352,7 +9093,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_view",
         };
         self.pre(&mut request, &info).await?;
@@ -9361,13 +9102,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9388,14 +9126,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&vpc_name.to_string()),
+            encode_path(&vpc_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -9406,7 +9143,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_update",
         };
         self.pre(&mut request, &info).await?;
@@ -9415,13 +9152,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9441,14 +9175,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&vpc_name.to_string()),
+            encode_path(&vpc_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -9458,7 +9191,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -9467,13 +9200,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9493,14 +9223,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&vpc_name.to_string()),
+            encode_path(&vpc_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -9510,7 +9239,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_firewall_rules_view",
         };
         self.pre(&mut request, &info).await?;
@@ -9519,13 +9248,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9546,14 +9272,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&vpc_name.to_string()),
+            encode_path(&vpc_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -9564,7 +9289,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_firewall_rules_update",
         };
         self.pre(&mut request, &info).await?;
@@ -9573,13 +9298,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9611,14 +9333,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&vpc_name.to_string()),
+            encode_path(&vpc_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -9634,7 +9355,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_list",
         };
         self.pre(&mut request, &info).await?;
@@ -9643,13 +9364,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9731,14 +9449,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&vpc_name.to_string()),
+            encode_path(&vpc_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -9749,7 +9466,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_create",
         };
         self.pre(&mut request, &info).await?;
@@ -9758,13 +9475,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9786,14 +9500,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
-            encode_path(&router_name.to_string()),
+            encode_path(&router_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -9803,7 +9516,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_view",
         };
         self.pre(&mut request, &info).await?;
@@ -9812,13 +9525,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9841,14 +9551,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
-            encode_path(&router_name.to_string()),
+            encode_path(&router_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -9859,7 +9568,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_update",
         };
         self.pre(&mut request, &info).await?;
@@ -9868,13 +9577,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9896,14 +9602,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
-            encode_path(&router_name.to_string()),
+            encode_path(&router_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -9913,7 +9618,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -9922,13 +9627,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -9965,14 +9667,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
-            encode_path(&router_name.to_string()),
+            encode_path(&router_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -9988,7 +9689,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_route_list",
         };
         self.pre(&mut request, &info).await?;
@@ -9997,13 +9698,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10094,14 +9792,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
-            encode_path(&router_name.to_string()),
+            encode_path(&router_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -10112,7 +9809,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_route_create",
         };
         self.pre(&mut request, &info).await?;
@@ -10121,13 +9818,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10151,14 +9845,13 @@ impl Client {
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
             encode_path(&router_name.to_string()),
-            encode_path(&route_name.to_string()),
+            encode_path(&route_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -10168,7 +9861,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_route_view",
         };
         self.pre(&mut request, &info).await?;
@@ -10177,13 +9870,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10208,14 +9898,13 @@ impl Client {
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
             encode_path(&router_name.to_string()),
-            encode_path(&route_name.to_string()),
+            encode_path(&route_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -10226,7 +9915,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_route_update",
         };
         self.pre(&mut request, &info).await?;
@@ -10235,13 +9924,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10265,14 +9951,13 @@ impl Client {
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
             encode_path(&router_name.to_string()),
-            encode_path(&route_name.to_string()),
+            encode_path(&route_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -10282,7 +9967,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_router_route_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -10291,13 +9976,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10329,14 +10011,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&vpc_name.to_string()),
+            encode_path(&vpc_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -10352,7 +10033,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_subnet_list",
         };
         self.pre(&mut request, &info).await?;
@@ -10361,13 +10042,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10449,14 +10127,13 @@ impl Client {
             self.baseurl,
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
-            encode_path(&vpc_name.to_string()),
+            encode_path(&vpc_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -10467,7 +10144,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_subnet_create",
         };
         self.pre(&mut request, &info).await?;
@@ -10476,13 +10153,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10504,14 +10178,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
-            encode_path(&subnet_name.to_string()),
+            encode_path(&subnet_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -10521,7 +10194,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_subnet_view",
         };
         self.pre(&mut request, &info).await?;
@@ -10530,13 +10203,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10559,14 +10229,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
-            encode_path(&subnet_name.to_string()),
+            encode_path(&subnet_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -10577,7 +10246,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_subnet_update",
         };
         self.pre(&mut request, &info).await?;
@@ -10586,13 +10255,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10614,14 +10280,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
-            encode_path(&subnet_name.to_string()),
+            encode_path(&subnet_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -10631,7 +10296,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_subnet_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -10640,13 +10305,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10681,14 +10343,13 @@ impl Client {
             encode_path(&organization_name.to_string()),
             encode_path(&project_name.to_string()),
             encode_path(&vpc_name.to_string()),
-            encode_path(&subnet_name.to_string()),
+            encode_path(&subnet_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -10704,7 +10365,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "vpc_subnet_list_network_interfaces",
         };
         self.pre(&mut request, &info).await?;
@@ -10713,13 +10374,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10795,13 +10453,12 @@ impl Client {
     pub async fn policy_view<'a>(
         &'a self,
     ) -> Result<ResponseValue<types::SiloRolePolicy>, Error<types::Error>> {
-        let url = format!("{}/policy", self.baseurl,);
+        let url = format!("{}/policy", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -10811,7 +10468,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "policy_view",
         };
         self.pre(&mut request, &info).await?;
@@ -10820,13 +10477,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10837,13 +10491,12 @@ impl Client {
         &'a self,
         body: &'a types::SiloRolePolicy,
     ) -> Result<ResponseValue<types::SiloRolePolicy>, Error<types::Error>> {
-        let url = format!("{}/policy", self.baseurl,);
+        let url = format!("{}/policy", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -10854,7 +10507,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "policy_update",
         };
         self.pre(&mut request, &info).await?;
@@ -10863,13 +10516,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10886,13 +10536,12 @@ impl Client {
         limit: Option<::std::num::NonZeroU32>,
         page_token: Option<&'a str>,
     ) -> Result<ResponseValue<types::RoleResultsPage>, Error<types::Error>> {
-        let url = format!("{}/roles", self.baseurl,);
+        let url = format!("{}/roles", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -10907,7 +10556,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "role_list",
         };
         self.pre(&mut request, &info).await?;
@@ -10916,13 +10565,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -10973,17 +10619,12 @@ impl Client {
         &'a self,
         role_name: &'a str,
     ) -> Result<ResponseValue<types::Role>, Error<types::Error>> {
-        let url = format!(
-            "{}/roles/{}",
-            self.baseurl,
-            encode_path(&role_name.to_string()),
-        );
+        let url = format!("{}/roles/{}", self.baseurl, encode_path(role_name));
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -10993,7 +10634,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "role_view",
         };
         self.pre(&mut request, &info).await?;
@@ -11002,13 +10643,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11018,13 +10656,12 @@ impl Client {
     pub async fn session_me<'a>(
         &'a self,
     ) -> Result<ResponseValue<types::User>, Error<types::Error>> {
-        let url = format!("{}/session/me", self.baseurl,);
+        let url = format!("{}/session/me", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11034,7 +10671,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "session_me",
         };
         self.pre(&mut request, &info).await?;
@@ -11043,13 +10680,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11068,13 +10702,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::GroupResultsPage>, Error<types::Error>> {
-        let url = format!("{}/session/me/groups", self.baseurl,);
+        let url = format!("{}/session/me/groups", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11090,7 +10723,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "session_me_groups",
         };
         self.pre(&mut request, &info).await?;
@@ -11099,13 +10732,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11165,13 +10795,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::NameSortMode>,
     ) -> Result<ResponseValue<types::SshKeyResultsPage>, Error<types::Error>> {
-        let url = format!("{}/session/me/sshkeys", self.baseurl,);
+        let url = format!("{}/session/me/sshkeys", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11187,7 +10816,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "session_sshkey_list",
         };
         self.pre(&mut request, &info).await?;
@@ -11196,13 +10825,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11256,13 +10882,12 @@ impl Client {
         &'a self,
         body: &'a types::SshKeyCreate,
     ) -> Result<ResponseValue<types::SshKey>, Error<types::Error>> {
-        let url = format!("{}/session/me/sshkeys", self.baseurl,);
+        let url = format!("{}/session/me/sshkeys", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -11273,7 +10898,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "session_sshkey_create",
         };
         self.pre(&mut request, &info).await?;
@@ -11282,13 +10907,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11305,14 +10927,13 @@ impl Client {
         let url = format!(
             "{}/session/me/sshkeys/{}",
             self.baseurl,
-            encode_path(&ssh_key_name.to_string()),
+            encode_path(&ssh_key_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11322,7 +10943,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "session_sshkey_view",
         };
         self.pre(&mut request, &info).await?;
@@ -11331,13 +10952,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11354,14 +10972,13 @@ impl Client {
         let url = format!(
             "{}/session/me/sshkeys/{}",
             self.baseurl,
-            encode_path(&ssh_key_name.to_string()),
+            encode_path(&ssh_key_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -11371,7 +10988,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "session_sshkey_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -11380,13 +10997,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11400,14 +11014,13 @@ impl Client {
         let url = format!(
             "{}/system/by-id/images/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11417,7 +11030,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_image_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -11426,13 +11039,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11446,14 +11056,13 @@ impl Client {
         let url = format!(
             "{}/system/by-id/ip-pools/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11463,7 +11072,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -11472,13 +11081,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11492,14 +11098,13 @@ impl Client {
         let url = format!(
             "{}/system/by-id/silos/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11509,7 +11114,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_view_by_id",
         };
         self.pre(&mut request, &info).await?;
@@ -11518,13 +11123,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11547,13 +11149,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::NameSortMode>,
     ) -> Result<ResponseValue<types::CertificateResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/certificates", self.baseurl,);
+        let url = format!("{}/system/certificates", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11569,7 +11170,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "certificate_list",
         };
         self.pre(&mut request, &info).await?;
@@ -11578,13 +11179,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11642,13 +11240,12 @@ impl Client {
         &'a self,
         body: &'a types::CertificateCreate,
     ) -> Result<ResponseValue<types::Certificate>, Error<types::Error>> {
-        let url = format!("{}/system/certificates", self.baseurl,);
+        let url = format!("{}/system/certificates", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -11659,7 +11256,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "certificate_create",
         };
         self.pre(&mut request, &info).await?;
@@ -11668,13 +11265,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11690,14 +11284,13 @@ impl Client {
         let url = format!(
             "{}/system/certificates/{}",
             self.baseurl,
-            encode_path(&certificate.to_string()),
+            encode_path(&certificate.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11707,7 +11300,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "certificate_view",
         };
         self.pre(&mut request, &info).await?;
@@ -11716,13 +11309,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11738,14 +11328,13 @@ impl Client {
         let url = format!(
             "{}/system/certificates/{}",
             self.baseurl,
-            encode_path(&certificate.to_string()),
+            encode_path(&certificate.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -11755,7 +11344,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "certificate_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -11764,13 +11353,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11789,13 +11375,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::PhysicalDiskResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/hardware/disks", self.baseurl,);
+        let url = format!("{}/system/hardware/disks", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11811,7 +11396,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "physical_disk_list",
         };
         self.pre(&mut request, &info).await?;
@@ -11820,13 +11405,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11885,13 +11467,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::RackResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/hardware/racks", self.baseurl,);
+        let url = format!("{}/system/hardware/racks", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11907,7 +11488,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "rack_list",
         };
         self.pre(&mut request, &info).await?;
@@ -11916,13 +11497,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -11978,14 +11556,13 @@ impl Client {
         let url = format!(
             "{}/system/hardware/racks/{}",
             self.baseurl,
-            encode_path(&rack_id.to_string()),
+            encode_path(&rack_id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -11995,7 +11572,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "rack_view",
         };
         self.pre(&mut request, &info).await?;
@@ -12004,13 +11581,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12029,13 +11603,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::SledResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/hardware/sleds", self.baseurl,);
+        let url = format!("{}/system/hardware/sleds", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -12051,7 +11624,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "sled_list",
         };
         self.pre(&mut request, &info).await?;
@@ -12060,13 +11633,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12122,14 +11692,13 @@ impl Client {
         let url = format!(
             "{}/system/hardware/sleds/{}",
             self.baseurl,
-            encode_path(&sled_id.to_string()),
+            encode_path(&sled_id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -12139,7 +11708,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "sled_view",
         };
         self.pre(&mut request, &info).await?;
@@ -12148,13 +11717,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12178,14 +11744,13 @@ impl Client {
         let url = format!(
             "{}/system/hardware/sleds/{}/disks",
             self.baseurl,
-            encode_path(&sled_id.to_string()),
+            encode_path(&sled_id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -12201,7 +11766,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "sled_physical_disk_list",
         };
         self.pre(&mut request, &info).await?;
@@ -12210,13 +11775,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12282,13 +11844,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::NameSortMode>,
     ) -> Result<ResponseValue<types::GlobalImageResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/images", self.baseurl,);
+        let url = format!("{}/system/images", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -12304,7 +11865,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_image_list",
         };
         self.pre(&mut request, &info).await?;
@@ -12313,13 +11874,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12377,13 +11935,12 @@ impl Client {
         &'a self,
         body: &'a types::GlobalImageCreate,
     ) -> Result<ResponseValue<types::GlobalImage>, Error<types::Error>> {
-        let url = format!("{}/system/images", self.baseurl,);
+        let url = format!("{}/system/images", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -12394,7 +11951,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_image_create",
         };
         self.pre(&mut request, &info).await?;
@@ -12403,13 +11960,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12425,14 +11979,13 @@ impl Client {
         let url = format!(
             "{}/system/images/{}",
             self.baseurl,
-            encode_path(&image_name.to_string()),
+            encode_path(&image_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -12442,7 +11995,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_image_view",
         };
         self.pre(&mut request, &info).await?;
@@ -12451,13 +12004,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12475,14 +12025,13 @@ impl Client {
         let url = format!(
             "{}/system/images/{}",
             self.baseurl,
-            encode_path(&image_name.to_string()),
+            encode_path(&image_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -12492,7 +12041,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_image_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -12501,13 +12050,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12526,13 +12072,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::NameOrIdSortMode>,
     ) -> Result<ResponseValue<types::IpPoolResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/ip-pools", self.baseurl,);
+        let url = format!("{}/system/ip-pools", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -12548,7 +12093,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_list",
         };
         self.pre(&mut request, &info).await?;
@@ -12557,13 +12102,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12613,13 +12155,12 @@ impl Client {
         &'a self,
         body: &'a types::IpPoolCreate,
     ) -> Result<ResponseValue<types::IpPool>, Error<types::Error>> {
-        let url = format!("{}/system/ip-pools", self.baseurl,);
+        let url = format!("{}/system/ip-pools", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -12630,7 +12171,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_create",
         };
         self.pre(&mut request, &info).await?;
@@ -12639,13 +12180,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12659,14 +12197,13 @@ impl Client {
         let url = format!(
             "{}/system/ip-pools/{}",
             self.baseurl,
-            encode_path(&pool_name.to_string()),
+            encode_path(&pool_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -12676,7 +12213,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_view",
         };
         self.pre(&mut request, &info).await?;
@@ -12685,13 +12222,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12706,14 +12240,13 @@ impl Client {
         let url = format!(
             "{}/system/ip-pools/{}",
             self.baseurl,
-            encode_path(&pool_name.to_string()),
+            encode_path(&pool_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -12724,7 +12257,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_update",
         };
         self.pre(&mut request, &info).await?;
@@ -12733,13 +12266,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12753,14 +12283,13 @@ impl Client {
         let url = format!(
             "{}/system/ip-pools/{}",
             self.baseurl,
-            encode_path(&pool_name.to_string()),
+            encode_path(&pool_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -12770,7 +12299,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -12779,13 +12308,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12809,14 +12335,13 @@ impl Client {
         let url = format!(
             "{}/system/ip-pools/{}/ranges",
             self.baseurl,
-            encode_path(&pool_name.to_string()),
+            encode_path(&pool_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -12831,7 +12356,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_range_list",
         };
         self.pre(&mut request, &info).await?;
@@ -12840,13 +12365,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12903,14 +12425,13 @@ impl Client {
         let url = format!(
             "{}/system/ip-pools/{}/ranges/add",
             self.baseurl,
-            encode_path(&pool_name.to_string()),
+            encode_path(&pool_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -12921,7 +12442,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_range_add",
         };
         self.pre(&mut request, &info).await?;
@@ -12930,13 +12451,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12951,14 +12469,13 @@ impl Client {
         let url = format!(
             "{}/system/ip-pools/{}/ranges/remove",
             self.baseurl,
-            encode_path(&pool_name.to_string()),
+            encode_path(&pool_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -12969,7 +12486,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_range_remove",
         };
         self.pre(&mut request, &info).await?;
@@ -12978,13 +12495,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -12994,13 +12508,12 @@ impl Client {
     pub async fn ip_pool_service_view<'a>(
         &'a self,
     ) -> Result<ResponseValue<types::IpPool>, Error<types::Error>> {
-        let url = format!("{}/system/ip-pools-service", self.baseurl,);
+        let url = format!("{}/system/ip-pools-service", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -13010,7 +12523,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_service_view",
         };
         self.pre(&mut request, &info).await?;
@@ -13019,13 +12532,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13044,13 +12554,12 @@ impl Client {
         limit: Option<::std::num::NonZeroU32>,
         page_token: Option<&'a str>,
     ) -> Result<ResponseValue<types::IpPoolRangeResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/ip-pools-service/ranges", self.baseurl,);
+        let url = format!("{}/system/ip-pools-service/ranges", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -13065,7 +12574,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_service_range_list",
         };
         self.pre(&mut request, &info).await?;
@@ -13074,13 +12583,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13131,13 +12637,12 @@ impl Client {
         &'a self,
         body: &'a types::IpRange,
     ) -> Result<ResponseValue<types::IpPoolRange>, Error<types::Error>> {
-        let url = format!("{}/system/ip-pools-service/ranges/add", self.baseurl,);
+        let url = format!("{}/system/ip-pools-service/ranges/add", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -13148,7 +12653,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_service_range_add",
         };
         self.pre(&mut request, &info).await?;
@@ -13157,13 +12662,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13174,13 +12676,12 @@ impl Client {
         &'a self,
         body: &'a types::IpRange,
     ) -> Result<ResponseValue<()>, Error<types::Error>> {
-        let url = format!("{}/system/ip-pools-service/ranges/remove", self.baseurl,);
+        let url = format!("{}/system/ip-pools-service/ranges/remove", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -13191,7 +12692,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ip_pool_service_range_remove",
         };
         self.pre(&mut request, &info).await?;
@@ -13200,13 +12701,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13234,14 +12732,13 @@ impl Client {
         let url = format!(
             "{}/system/metrics/{}",
             self.baseurl,
-            encode_path(&metric_name.to_string()),
+            encode_path(&metric_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -13262,7 +12759,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_metric",
         };
         self.pre(&mut request, &info).await?;
@@ -13271,13 +12768,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13287,13 +12781,12 @@ impl Client {
     pub async fn system_policy_view<'a>(
         &'a self,
     ) -> Result<ResponseValue<types::FleetRolePolicy>, Error<types::Error>> {
-        let url = format!("{}/system/policy", self.baseurl,);
+        let url = format!("{}/system/policy", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -13303,7 +12796,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_policy_view",
         };
         self.pre(&mut request, &info).await?;
@@ -13312,13 +12805,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13329,13 +12819,12 @@ impl Client {
         &'a self,
         body: &'a types::FleetRolePolicy,
     ) -> Result<ResponseValue<types::FleetRolePolicy>, Error<types::Error>> {
-        let url = format!("{}/system/policy", self.baseurl,);
+        let url = format!("{}/system/policy", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -13346,7 +12835,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_policy_update",
         };
         self.pre(&mut request, &info).await?;
@@ -13355,13 +12844,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13380,13 +12866,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::SagaResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/sagas", self.baseurl,);
+        let url = format!("{}/system/sagas", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -13402,7 +12887,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "saga_list",
         };
         self.pre(&mut request, &info).await?;
@@ -13411,13 +12896,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13470,14 +12952,13 @@ impl Client {
         let url = format!(
             "{}/system/sagas/{}",
             self.baseurl,
-            encode_path(&saga_id.to_string()),
+            encode_path(&saga_id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -13487,7 +12968,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "saga_view",
         };
         self.pre(&mut request, &info).await?;
@@ -13496,13 +12977,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13523,13 +13001,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::NameOrIdSortMode>,
     ) -> Result<ResponseValue<types::SiloResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/silos", self.baseurl,);
+        let url = format!("{}/system/silos", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -13545,7 +13022,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_list",
         };
         self.pre(&mut request, &info).await?;
@@ -13554,13 +13031,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13612,13 +13086,12 @@ impl Client {
         &'a self,
         body: &'a types::SiloCreate,
     ) -> Result<ResponseValue<types::Silo>, Error<types::Error>> {
-        let url = format!("{}/system/silos", self.baseurl,);
+        let url = format!("{}/system/silos", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -13629,7 +13102,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_create",
         };
         self.pre(&mut request, &info).await?;
@@ -13638,13 +13111,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13663,14 +13133,13 @@ impl Client {
         let url = format!(
             "{}/system/silos/{}",
             self.baseurl,
-            encode_path(&silo_name.to_string()),
+            encode_path(&silo_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -13680,7 +13149,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_view",
         };
         self.pre(&mut request, &info).await?;
@@ -13689,13 +13158,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13714,14 +13180,13 @@ impl Client {
         let url = format!(
             "{}/system/silos/{}",
             self.baseurl,
-            encode_path(&silo_name.to_string()),
+            encode_path(&silo_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -13731,7 +13196,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -13740,13 +13205,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13770,14 +13232,13 @@ impl Client {
         let url = format!(
             "{}/system/silos/{}/identity-providers",
             self.baseurl,
-            encode_path(&silo_name.to_string()),
+            encode_path(&silo_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -13793,7 +13254,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_identity_provider_list",
         };
         self.pre(&mut request, &info).await?;
@@ -13802,13 +13263,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13875,14 +13333,13 @@ impl Client {
         let url = format!(
             "{}/system/silos/{}/identity-providers/local/users",
             self.baseurl,
-            encode_path(&silo_name.to_string()),
+            encode_path(&silo_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -13893,7 +13350,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "local_idp_user_create",
         };
         self.pre(&mut request, &info).await?;
@@ -13902,13 +13359,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13929,14 +13383,13 @@ impl Client {
             "{}/system/silos/{}/identity-providers/local/users/{}",
             self.baseurl,
             encode_path(&silo_name.to_string()),
-            encode_path(&user_id.to_string()),
+            encode_path(&user_id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -13946,7 +13399,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "local_idp_user_delete",
         };
         self.pre(&mut request, &info).await?;
@@ -13955,13 +13408,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -13988,14 +13438,13 @@ impl Client {
             "{}/system/silos/{}/identity-providers/local/users/{}/set-password",
             self.baseurl,
             encode_path(&silo_name.to_string()),
-            encode_path(&user_id.to_string()),
+            encode_path(&user_id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -14006,7 +13455,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "local_idp_user_set_password",
         };
         self.pre(&mut request, &info).await?;
@@ -14015,13 +13464,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14041,14 +13487,13 @@ impl Client {
         let url = format!(
             "{}/system/silos/{}/identity-providers/saml",
             self.baseurl,
-            encode_path(&silo_name.to_string()),
+            encode_path(&silo_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -14059,7 +13504,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "saml_identity_provider_create",
         };
         self.pre(&mut request, &info).await?;
@@ -14068,13 +13513,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14095,14 +13537,13 @@ impl Client {
             "{}/system/silos/{}/identity-providers/saml/{}",
             self.baseurl,
             encode_path(&silo_name.to_string()),
-            encode_path(&provider_name.to_string()),
+            encode_path(&provider_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14112,7 +13553,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "saml_identity_provider_view",
         };
         self.pre(&mut request, &info).await?;
@@ -14121,13 +13562,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14144,14 +13582,13 @@ impl Client {
         let url = format!(
             "{}/system/silos/{}/policy",
             self.baseurl,
-            encode_path(&silo_name.to_string()),
+            encode_path(&silo_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14161,7 +13598,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_policy_view",
         };
         self.pre(&mut request, &info).await?;
@@ -14170,13 +13607,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14195,14 +13629,13 @@ impl Client {
         let url = format!(
             "{}/system/silos/{}/policy",
             self.baseurl,
-            encode_path(&silo_name.to_string()),
+            encode_path(&silo_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -14213,7 +13646,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_policy_update",
         };
         self.pre(&mut request, &info).await?;
@@ -14222,13 +13655,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14252,14 +13682,13 @@ impl Client {
         let url = format!(
             "{}/system/silos/{}/users/all",
             self.baseurl,
-            encode_path(&silo_name.to_string()),
+            encode_path(&silo_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14275,7 +13704,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_users_list",
         };
         self.pre(&mut request, &info).await?;
@@ -14284,13 +13713,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14351,14 +13777,13 @@ impl Client {
             "{}/system/silos/{}/users/id/{}",
             self.baseurl,
             encode_path(&silo_name.to_string()),
-            encode_path(&user_id.to_string()),
+            encode_path(&user_id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14368,7 +13793,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "silo_user_view",
         };
         self.pre(&mut request, &info).await?;
@@ -14377,13 +13802,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14402,13 +13824,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::NameSortMode>,
     ) -> Result<ResponseValue<types::UserBuiltinResultsPage>, Error<types::Error>> {
-        let url = format!("{}/system/user", self.baseurl,);
+        let url = format!("{}/system/user", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14424,7 +13845,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_user_list",
         };
         self.pre(&mut request, &info).await?;
@@ -14433,13 +13854,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14496,14 +13914,13 @@ impl Client {
         let url = format!(
             "{}/system/user/{}",
             self.baseurl,
-            encode_path(&user_name.to_string()),
+            encode_path(&user_name.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14513,7 +13930,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_user_view",
         };
         self.pre(&mut request, &info).await?;
@@ -14522,13 +13939,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14545,13 +13959,12 @@ impl Client {
         limit: Option<::std::num::NonZeroU32>,
         page_token: Option<&'a str>,
     ) -> Result<ResponseValue<types::TimeseriesSchemaResultsPage>, Error<types::Error>> {
-        let url = format!("{}/timeseries/schema", self.baseurl,);
+        let url = format!("{}/timeseries/schema", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14566,7 +13979,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "timeseries_schema_get",
         };
         self.pre(&mut request, &info).await?;
@@ -14575,13 +13988,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14638,13 +14048,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::UserResultsPage>, Error<types::Error>> {
-        let url = format!("{}/users", self.baseurl,);
+        let url = format!("{}/users", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14660,7 +14069,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "user_list",
         };
         self.pre(&mut request, &info).await?;
@@ -14669,13 +14078,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14737,13 +14143,12 @@ impl Client {
         project: Option<&'a types::NameOrId>,
         sort_by: Option<types::NameOrIdSortMode>,
     ) -> Result<ResponseValue<types::DiskResultsPage>, Error<types::Error>> {
-        let url = format!("{}/v1/disks", self.baseurl,);
+        let url = format!("{}/v1/disks", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14764,7 +14169,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_list_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -14773,13 +14178,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14835,13 +14237,12 @@ impl Client {
         project: &'a types::NameOrId,
         body: &'a types::DiskCreate,
     ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
-        let url = format!("{}/v1/disks", self.baseurl,);
+        let url = format!("{}/v1/disks", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -14857,7 +14258,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_create_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -14866,13 +14267,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14888,14 +14286,13 @@ impl Client {
         let url = format!(
             "{}/v1/disks/{}",
             self.baseurl,
-            encode_path(&disk.to_string()),
+            encode_path(&disk.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -14910,7 +14307,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_view_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -14919,13 +14316,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -14941,14 +14335,13 @@ impl Client {
         let url = format!(
             "{}/v1/disks/{}",
             self.baseurl,
-            encode_path(&disk.to_string()),
+            encode_path(&disk.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -14963,7 +14356,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "disk_delete_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -14972,13 +14365,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15001,13 +14391,12 @@ impl Client {
         project: Option<&'a types::NameOrId>,
         sort_by: Option<types::NameOrIdSortMode>,
     ) -> Result<ResponseValue<types::InstanceResultsPage>, Error<types::Error>> {
-        let url = format!("{}/v1/instances", self.baseurl,);
+        let url = format!("{}/v1/instances", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -15028,7 +14417,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_list_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15037,13 +14426,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15100,13 +14486,12 @@ impl Client {
         project: &'a types::NameOrId,
         body: &'a types::InstanceCreate,
     ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
-        let url = format!("{}/v1/instances", self.baseurl,);
+        let url = format!("{}/v1/instances", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -15122,7 +14507,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_create_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15131,13 +14516,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15153,14 +14535,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -15175,7 +14556,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_view_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15184,13 +14565,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15206,14 +14584,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -15228,7 +14605,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_delete_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15237,13 +14614,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15271,14 +14645,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}/disks",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -15299,7 +14672,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_disk_list_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15308,13 +14681,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15383,14 +14753,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}/disks/attach",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -15406,7 +14775,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_disk_attach_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15415,13 +14784,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15438,14 +14804,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}/disks/detach",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -15461,7 +14826,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_disk_detach_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15470,13 +14835,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15493,14 +14855,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}/migrate",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -15516,7 +14877,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_migrate_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15525,13 +14886,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15547,14 +14905,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}/reboot",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -15569,7 +14926,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_reboot_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15578,13 +14935,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15619,14 +14973,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}/serial-console",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -15650,7 +15003,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_serial_console_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15659,13 +15012,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15682,14 +15032,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}/serial-console/stream",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -15710,7 +15059,7 @@ impl Client {
                 ),
             )
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_serial_console_stream_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15719,13 +15068,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             101u16 => ResponseValue::upgrade(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15741,14 +15087,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}/start",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -15763,7 +15108,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_start_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15772,13 +15117,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15794,14 +15136,13 @@ impl Client {
         let url = format!(
             "{}/v1/instances/{}/stop",
             self.baseurl,
-            encode_path(&instance.to_string()),
+            encode_path(&instance.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -15816,7 +15157,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("project", &project))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "instance_stop_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15825,13 +15166,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15850,13 +15188,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::NameOrIdSortMode>,
     ) -> Result<ResponseValue<types::OrganizationResultsPage>, Error<types::Error>> {
-        let url = format!("{}/v1/organizations", self.baseurl,);
+        let url = format!("{}/v1/organizations", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -15872,7 +15209,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_list_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15881,13 +15218,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15938,13 +15272,12 @@ impl Client {
         &'a self,
         body: &'a types::OrganizationCreate,
     ) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
-        let url = format!("{}/v1/organizations", self.baseurl,);
+        let url = format!("{}/v1/organizations", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -15955,7 +15288,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_create_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -15964,13 +15297,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -15984,14 +15314,13 @@ impl Client {
         let url = format!(
             "{}/v1/organizations/{}",
             self.baseurl,
-            encode_path(&organization.to_string()),
+            encode_path(&organization.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -16001,7 +15330,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_view_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16010,13 +15339,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16031,14 +15357,13 @@ impl Client {
         let url = format!(
             "{}/v1/organizations/{}",
             self.baseurl,
-            encode_path(&organization.to_string()),
+            encode_path(&organization.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -16049,7 +15374,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_update_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16058,13 +15383,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16078,14 +15400,13 @@ impl Client {
         let url = format!(
             "{}/v1/organizations/{}",
             self.baseurl,
-            encode_path(&organization.to_string()),
+            encode_path(&organization.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -16095,7 +15416,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_delete_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16104,13 +15425,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16124,14 +15442,13 @@ impl Client {
         let url = format!(
             "{}/v1/organizations/{}/policy",
             self.baseurl,
-            encode_path(&organization.to_string()),
+            encode_path(&organization.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -16141,7 +15458,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_policy_view_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16150,13 +15467,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16171,14 +15485,13 @@ impl Client {
         let url = format!(
             "{}/v1/organizations/{}/policy",
             self.baseurl,
-            encode_path(&organization.to_string()),
+            encode_path(&organization.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -16189,7 +15502,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "organization_policy_update_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16198,13 +15511,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16225,13 +15535,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::NameOrIdSortMode>,
     ) -> Result<ResponseValue<types::ProjectResultsPage>, Error<types::Error>> {
-        let url = format!("{}/v1/projects", self.baseurl,);
+        let url = format!("{}/v1/projects", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -16251,7 +15560,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_list_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16260,13 +15569,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16319,13 +15625,12 @@ impl Client {
         organization: &'a types::NameOrId,
         body: &'a types::ProjectCreate,
     ) -> Result<ResponseValue<types::Project>, Error<types::Error>> {
-        let url = format!("{}/v1/projects", self.baseurl,);
+        let url = format!("{}/v1/projects", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -16340,7 +15645,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_create_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16349,13 +15654,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16370,14 +15672,13 @@ impl Client {
         let url = format!(
             "{}/v1/projects/{}",
             self.baseurl,
-            encode_path(&project.to_string()),
+            encode_path(&project.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -16391,7 +15692,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_view_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16400,13 +15701,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16422,14 +15720,13 @@ impl Client {
         let url = format!(
             "{}/v1/projects/{}",
             self.baseurl,
-            encode_path(&project.to_string()),
+            encode_path(&project.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -16444,7 +15741,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_update_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16453,13 +15750,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16474,14 +15768,13 @@ impl Client {
         let url = format!(
             "{}/v1/projects/{}",
             self.baseurl,
-            encode_path(&project.to_string()),
+            encode_path(&project.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .delete(url)
@@ -16495,7 +15788,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_delete_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16504,13 +15797,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16525,14 +15815,13 @@ impl Client {
         let url = format!(
             "{}/v1/projects/{}/policy",
             self.baseurl,
-            encode_path(&project.to_string()),
+            encode_path(&project.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -16546,7 +15835,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_policy_view_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16555,13 +15844,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16577,14 +15863,13 @@ impl Client {
         let url = format!(
             "{}/v1/projects/{}/policy",
             self.baseurl,
-            encode_path(&project.to_string()),
+            encode_path(&project.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .put(url)
@@ -16599,7 +15884,7 @@ impl Client {
             ))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "project_policy_update_v1",
         };
         self.pre(&mut request, &info).await?;
@@ -16608,13 +15893,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16633,13 +15915,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::UpdateableComponentResultsPage>, Error<types::Error>> {
-        let url = format!("{}/v1/system/update/components", self.baseurl,);
+        let url = format!("{}/v1/system/update/components", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -16655,7 +15936,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_component_version_list",
         };
         self.pre(&mut request, &info).await?;
@@ -16664,13 +15945,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16729,13 +16007,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::UpdateDeploymentResultsPage>, Error<types::Error>> {
-        let url = format!("{}/v1/system/update/deployments", self.baseurl,);
+        let url = format!("{}/v1/system/update/deployments", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -16751,7 +16028,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "update_deployments_list",
         };
         self.pre(&mut request, &info).await?;
@@ -16760,13 +16037,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16820,14 +16094,13 @@ impl Client {
         let url = format!(
             "{}/v1/system/update/deployments/{}",
             self.baseurl,
-            encode_path(&id.to_string()),
+            encode_path(&id.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -16837,7 +16110,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "update_deployment_view",
         };
         self.pre(&mut request, &info).await?;
@@ -16846,13 +16119,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16862,13 +16132,12 @@ impl Client {
     pub async fn system_update_refresh<'a>(
         &'a self,
     ) -> Result<ResponseValue<()>, Error<types::Error>> {
-        let url = format!("{}/v1/system/update/refresh", self.baseurl,);
+        let url = format!("{}/v1/system/update/refresh", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -16878,7 +16147,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_update_refresh",
         };
         self.pre(&mut request, &info).await?;
@@ -16887,13 +16156,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16904,13 +16170,12 @@ impl Client {
         &'a self,
         body: &'a types::SystemUpdateStart,
     ) -> Result<ResponseValue<types::UpdateDeployment>, Error<types::Error>> {
-        let url = format!("{}/v1/system/update/start", self.baseurl,);
+        let url = format!("{}/v1/system/update/start", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -16921,7 +16186,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_update_start",
         };
         self.pre(&mut request, &info).await?;
@@ -16930,13 +16195,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             202u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16948,13 +16210,12 @@ impl Client {
     pub async fn system_update_stop<'a>(
         &'a self,
     ) -> Result<ResponseValue<()>, Error<types::Error>> {
-        let url = format!("{}/v1/system/update/stop", self.baseurl,);
+        let url = format!("{}/v1/system/update/stop", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -16964,7 +16225,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_update_stop",
         };
         self.pre(&mut request, &info).await?;
@@ -16973,13 +16234,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -16998,13 +16256,12 @@ impl Client {
         page_token: Option<&'a str>,
         sort_by: Option<types::IdSortMode>,
     ) -> Result<ResponseValue<types::SystemUpdateResultsPage>, Error<types::Error>> {
-        let url = format!("{}/v1/system/update/updates", self.baseurl,);
+        let url = format!("{}/v1/system/update/updates", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -17020,7 +16277,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_update_list",
         };
         self.pre(&mut request, &info).await?;
@@ -17029,13 +16286,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -17089,14 +16343,13 @@ impl Client {
         let url = format!(
             "{}/v1/system/update/updates/{}",
             self.baseurl,
-            encode_path(&version.to_string()),
+            encode_path(&version.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -17106,7 +16359,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_update_view",
         };
         self.pre(&mut request, &info).await?;
@@ -17115,13 +16368,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -17136,14 +16386,13 @@ impl Client {
         let url = format!(
             "{}/v1/system/update/updates/{}/components",
             self.baseurl,
-            encode_path(&version.to_string()),
+            encode_path(&version.to_string())
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -17153,7 +16402,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_update_components_list",
         };
         self.pre(&mut request, &info).await?;
@@ -17162,13 +16411,10 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -17178,13 +16424,12 @@ impl Client {
     pub async fn system_version<'a>(
         &'a self,
     ) -> Result<ResponseValue<types::SystemVersion>, Error<types::Error>> {
-        let url = format!("{}/v1/system/update/version", self.baseurl,);
+        let url = format!("{}/v1/system/update/version", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -17194,7 +16439,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "system_version",
         };
         self.pre(&mut request, &info).await?;
@@ -17203,19 +16448,15 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200u16 => ResponseValue::from_response(response).await,
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 }
 
 /// Items consumers will typically use such as the Client.
 pub mod prelude {
-    #[allow(unused_imports)]
     pub use super::Client;
 }

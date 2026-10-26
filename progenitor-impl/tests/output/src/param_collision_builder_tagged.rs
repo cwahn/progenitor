@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     /// Error types.
     pub mod error {
@@ -128,14 +125,11 @@ impl Client {
 }
 
 /// Types for composing operation parameters.
-#[allow(clippy::all)]
 pub mod builder {
-    use super::types;
-    #[allow(unused_imports)]
-    use super::{
-        encode_path, ByteStream, ClientHooks, ClientInfo, Error, OperationInfo, RequestBuilderExt,
-        ResponseValue,
-    };
+    use super::Error;
+    use super::ResponseValue;
+    use progenitor_client::encode_path;
+    use progenitor_client::{ClientHooks, ClientInfo};
     ///Builder for [`Client::key_get`]
     ///
     ///[`Client::key_get`]: super::Client::key_get
@@ -151,9 +145,9 @@ pub mod builder {
     }
 
     impl<'a> KeyGet<'a> {
-        pub fn new(client: &'a super::Client) -> Self {
+        pub fn new(_client: &'a super::Client) -> Self {
             Self {
-                _client: client,
+                _client,
                 query: Err("query was not initialized".to_string()),
                 client: Err("client was not initialized".to_string()),
                 request: Err("request was not initialized".to_string()),
@@ -243,14 +237,13 @@ pub mod builder {
             let _url = format!(
                 "{}/key/{}",
                 _client.baseurl,
-                encode_path(&query.to_string()),
+                encode_path(&query.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut _request = _client
                 .client
                 .get(_url)
@@ -261,16 +254,20 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("url", &url))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "key_get",
             };
             _client.pre(&mut _request, &info).await?;
             let _result = _client.exec(_request, &info).await;
             _client.post(&_result, &info).await?;
             let _response = _result?;
+            Self::__decode_response(_response)
+        }
+
+        fn __decode_response(_response: reqwest::Response) -> Result<ResponseValue<()>, Error<()>> {
             match _response.status().as_u16() {
                 200u16 => Ok(ResponseValue::empty(_response)),
-                _ => Err(Error::UnexpectedResponse(_response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(_response))),
             }
         }
     }
@@ -279,6 +276,5 @@ pub mod builder {
 /// Items consumers will typically use such as the Client and
 /// extension traits.
 pub mod prelude {
-    #[allow(unused_imports)]
     pub use super::Client;
 }

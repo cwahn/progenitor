@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///`BodyWithDefaults`
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -124,27 +121,25 @@ impl ClientInfo<()> for Client {
 }
 
 impl ClientHooks<()> for &Client {}
-#[allow(clippy::all)]
 impl Client {
     ///Sends a `POST` request to `/`
     pub async fn default_params<'a>(
         &'a self,
         body: &'a types::BodyWithDefaults,
     ) -> Result<ResponseValue<ByteStream>, Error<ByteStream>> {
-        let url = format!("{}/", self.baseurl,);
+        let url = format!("{}/", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "default_params",
         };
         self.pre(&mut request, &info).await?;
@@ -153,13 +148,14 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             200..=299 => Ok(ResponseValue::stream(response)),
-            _ => Err(Error::ErrorResponse(ResponseValue::stream(response))),
+            _ => Err(Error::ErrorResponse(::std::boxed::Box::new(
+                ResponseValue::stream(response),
+            ))),
         }
     }
 }
 
 /// Items consumers will typically use such as the Client.
 pub mod prelude {
-    #[allow(unused_imports)]
     pub use super::Client;
 }

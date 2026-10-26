@@ -1,9 +1,7 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::encode_path;
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///Error information from a response.
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -106,7 +104,6 @@ impl ClientInfo<()> for Client {
 }
 
 impl ClientHooks<()> for &Client {}
-#[allow(clippy::all)]
 impl Client {
     ///Sends a `GET` request to `/{ref}/{type}/{trait}`
     pub async fn renamed_parameters<'a>(
@@ -121,16 +118,15 @@ impl Client {
         let url = format!(
             "{}/{}/{}/{}",
             self.baseurl,
-            encode_path(&ref_.to_string()),
-            encode_path(&type_.to_string()),
-            encode_path(&trait_.to_string()),
+            encode_path(ref_),
+            encode_path(type_),
+            encode_path(trait_)
         );
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -143,7 +139,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("use", &use_))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "renamed_parameters",
         };
         self.pre(&mut request, &info).await?;
@@ -152,19 +148,15 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             204u16 => Ok(ResponseValue::empty(response)),
-            400u16..=499u16 => Err(Error::ErrorResponse(
+            400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(::std::boxed::Box::new(
                 ResponseValue::from_response(response).await?,
-            )),
-            500u16..=599u16 => Err(Error::ErrorResponse(
-                ResponseValue::from_response(response).await?,
-            )),
-            _ => Err(Error::UnexpectedResponse(response)),
+            ))),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 }
 
 /// Items consumers will typically use such as the Client.
 pub mod prelude {
-    #[allow(unused_imports)]
     pub use super::Client;
 }

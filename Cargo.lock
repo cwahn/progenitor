@@ -2100,6 +2100,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "pulldown-cmark"
+version = "0.13.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "278e9268c93b9e498a2da46c34d90ba93a3255eb99009646398f34bc73ab36eb"
+dependencies = [
+ "bitflags",
+ "memchr",
+ "unicase",
+]
+
+[[package]]
 name = "quinn"
 version = "0.11.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3340,7 +3351,7 @@ checksum = "562d481066bde0658276a35467c4af00bdc6ee726305698a55b86e61d7ad82bb"
 [[package]]
 name = "typify"
 version = "0.8.0"
-source = "git+https://github.com/cwahn/typify?rev=7fe40aa5eda9af9f2392d5c8c18092dfae8611c7#7fe40aa5eda9af9f2392d5c8c18092dfae8611c7"
+source = "git+https://github.com/cwahn/typify?rev=e3683cb99e5faa73bf60a63f77afbdfbe1dffa42#e3683cb99e5faa73bf60a63f77afbdfbe1dffa42"
 dependencies = [
  "typify-impl",
  "typify-macro",
@@ -3349,11 +3360,12 @@ dependencies = [
 [[package]]
 name = "typify-impl"
 version = "0.8.0"
-source = "git+https://github.com/cwahn/typify?rev=7fe40aa5eda9af9f2392d5c8c18092dfae8611c7#7fe40aa5eda9af9f2392d5c8c18092dfae8611c7"
+source = "git+https://github.com/cwahn/typify?rev=e3683cb99e5faa73bf60a63f77afbdfbe1dffa42#e3683cb99e5faa73bf60a63f77afbdfbe1dffa42"
 dependencies = [
  "heck",
  "log",
  "proc-macro2",
+ "pulldown-cmark",
  "quote",
  "regress",
  "schemars",
@@ -3368,7 +3380,7 @@ dependencies = [
 [[package]]
 name = "typify-macro"
 version = "0.8.0"
-source = "git+https://github.com/cwahn/typify?rev=7fe40aa5eda9af9f2392d5c8c18092dfae8611c7#7fe40aa5eda9af9f2392d5c8c18092dfae8611c7"
+source = "git+https://github.com/cwahn/typify?rev=e3683cb99e5faa73bf60a63f77afbdfbe1dffa42#e3683cb99e5faa73bf60a63f77afbdfbe1dffa42"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3380,6 +3392,12 @@ dependencies = [
  "syn 3.0.6",
  "typify-impl",
 ]
+
+[[package]]
+name = "unicase"
+version = "2.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "357cc3acc6a036009fd6c973ed009037c732d60d0b4f6c673e9041497482a28f"
 
 [[package]]
 name = "unicode-ident"

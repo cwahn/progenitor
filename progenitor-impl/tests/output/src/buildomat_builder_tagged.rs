@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///`GetThingOrThingsId`
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -26,6 +23,7 @@ pub mod types {
         Clone,
         Copy,
         Debug,
+        Default,
         Eq,
         Hash,
         Ord,
@@ -35,6 +33,7 @@ pub mod types {
     pub enum HeaderArgAcceptLanguage {
         #[serde(rename = "de")]
         De,
+        #[default]
         #[serde(rename = "en")]
         En,
     }
@@ -75,12 +74,6 @@ pub mod types {
         }
     }
 
-    impl ::std::default::Default for HeaderArgAcceptLanguage {
-        fn default() -> Self {
-            HeaderArgAcceptLanguage::En
-        }
-    }
-
     ///`ObjWithOptionArray`
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
     pub struct ObjWithOptionArray {
@@ -91,7 +84,7 @@ pub mod types {
 
     impl ObjWithOptionArray {
         pub fn builder() -> builder::ObjWithOptionArray {
-            Default::default()
+            <builder::ObjWithOptionArray as ::std::default::Default>::default()
         }
     }
 
@@ -107,7 +100,7 @@ pub mod types {
 
     impl Task {
         pub fn builder() -> builder::Task {
-            Default::default()
+            <builder::Task as ::std::default::Default>::default()
         }
     }
 
@@ -122,7 +115,7 @@ pub mod types {
 
     impl TaskEvent {
         pub fn builder() -> builder::TaskEvent {
-            Default::default()
+            <builder::TaskEvent as ::std::default::Default>::default()
         }
     }
 
@@ -136,7 +129,7 @@ pub mod types {
 
     impl TaskOutput {
         pub fn builder() -> builder::TaskOutput {
-            Default::default()
+            <builder::TaskOutput as ::std::default::Default>::default()
         }
     }
 
@@ -152,7 +145,7 @@ pub mod types {
 
     impl TaskSubmit {
         pub fn builder() -> builder::TaskSubmit {
-            Default::default()
+            <builder::TaskSubmit as ::std::default::Default>::default()
         }
     }
 
@@ -164,7 +157,7 @@ pub mod types {
 
     impl TaskSubmitResult {
         pub fn builder() -> builder::TaskSubmitResult {
-            Default::default()
+            <builder::TaskSubmitResult as ::std::default::Default>::default()
         }
     }
 
@@ -176,7 +169,7 @@ pub mod types {
 
     impl UploadedChunk {
         pub fn builder() -> builder::UploadedChunk {
-            Default::default()
+            <builder::UploadedChunk as ::std::default::Default>::default()
         }
     }
 
@@ -188,7 +181,7 @@ pub mod types {
 
     impl UserCreate {
         pub fn builder() -> builder::UserCreate {
-            Default::default()
+            <builder::UserCreate as ::std::default::Default>::default()
         }
     }
 
@@ -202,7 +195,7 @@ pub mod types {
 
     impl UserCreateResult {
         pub fn builder() -> builder::UserCreateResult {
-            Default::default()
+            <builder::UserCreateResult as ::std::default::Default>::default()
         }
     }
 
@@ -215,7 +208,7 @@ pub mod types {
 
     impl WhoamiResult {
         pub fn builder() -> builder::WhoamiResult {
-            Default::default()
+            <builder::WhoamiResult as ::std::default::Default>::default()
         }
     }
 
@@ -234,7 +227,7 @@ pub mod types {
 
     impl Worker {
         pub fn builder() -> builder::Worker {
-            Default::default()
+            <builder::Worker as ::std::default::Default>::default()
         }
     }
 
@@ -248,7 +241,7 @@ pub mod types {
 
     impl WorkerAddOutput {
         pub fn builder() -> builder::WorkerAddOutput {
-            Default::default()
+            <builder::WorkerAddOutput as ::std::default::Default>::default()
         }
     }
 
@@ -262,7 +255,7 @@ pub mod types {
 
     impl WorkerAppendTask {
         pub fn builder() -> builder::WorkerAppendTask {
-            Default::default()
+            <builder::WorkerAppendTask as ::std::default::Default>::default()
         }
     }
 
@@ -275,7 +268,7 @@ pub mod types {
 
     impl WorkerBootstrap {
         pub fn builder() -> builder::WorkerBootstrap {
-            Default::default()
+            <builder::WorkerBootstrap as ::std::default::Default>::default()
         }
     }
 
@@ -287,7 +280,7 @@ pub mod types {
 
     impl WorkerBootstrapResult {
         pub fn builder() -> builder::WorkerBootstrapResult {
-            Default::default()
+            <builder::WorkerBootstrapResult as ::std::default::Default>::default()
         }
     }
 
@@ -299,7 +292,7 @@ pub mod types {
 
     impl WorkerCompleteTask {
         pub fn builder() -> builder::WorkerCompleteTask {
-            Default::default()
+            <builder::WorkerCompleteTask as ::std::default::Default>::default()
         }
     }
 
@@ -313,7 +306,7 @@ pub mod types {
 
     impl WorkerPingResult {
         pub fn builder() -> builder::WorkerPingResult {
-            Default::default()
+            <builder::WorkerPingResult as ::std::default::Default>::default()
         }
     }
 
@@ -327,7 +320,7 @@ pub mod types {
 
     impl WorkerPingTask {
         pub fn builder() -> builder::WorkerPingTask {
-            Default::default()
+            <builder::WorkerPingTask as ::std::default::Default>::default()
         }
     }
 
@@ -341,7 +334,7 @@ pub mod types {
 
     impl WorkerTask {
         pub fn builder() -> builder::WorkerTask {
-            Default::default()
+            <builder::WorkerTask as ::std::default::Default>::default()
         }
     }
 
@@ -353,7 +346,7 @@ pub mod types {
 
     impl WorkersResult {
         pub fn builder() -> builder::WorkersResult {
-            Default::default()
+            <builder::WorkersResult as ::std::default::Default>::default()
         }
     }
 
@@ -705,7 +698,7 @@ pub mod types {
                 Self {
                     default: Err("no value supplied for default".to_string()),
                     name: Err("no value supplied for name".to_string()),
-                    output_rules: Ok(Default::default()),
+                    output_rules: Ok(<::std::vec::Vec<::std::string::String>>::default()),
                     script: Err("no value supplied for script".to_string()),
                 }
             }
@@ -1057,8 +1050,10 @@ pub mod types {
                 Self {
                     deleted: Err("no value supplied for deleted".to_string()),
                     id: Err("no value supplied for id".to_string()),
-                    instance_id: Ok(Default::default()),
-                    lastping: Ok(Default::default()),
+                    instance_id: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    lastping: Ok(<::std::option::Option<
+                        ::chrono::DateTime<::chrono::offset::Utc>,
+                    >>::default()),
                     recycle: Err("no value supplied for recycle".to_string()),
                     tasks: Err("no value supplied for tasks".to_string()),
                 }
@@ -1469,7 +1464,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     poweroff: Err("no value supplied for poweroff".to_string()),
-                    task: Ok(Default::default()),
+                    task: Ok(<::std::option::Option<super::WorkerPingTask>>::default()),
                 }
             }
         }
@@ -2059,14 +2054,13 @@ impl Client {
 }
 
 /// Types for composing operation parameters.
-#[allow(clippy::all)]
 pub mod builder {
     use super::types;
-    #[allow(unused_imports)]
-    use super::{
-        encode_path, ByteStream, ClientHooks, ClientInfo, Error, OperationInfo, RequestBuilderExt,
-        ResponseValue,
-    };
+    use super::ByteStream;
+    use super::Error;
+    use super::ResponseValue;
+    use progenitor_client::encode_path;
+    use progenitor_client::{ClientHooks, ClientInfo};
     ///Builder for [`Client::control_hold`]
     ///
     ///[`Client::control_hold`]: super::Client::control_hold
@@ -2077,19 +2071,18 @@ pub mod builder {
 
     impl<'a> ControlHold<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `POST` request to `/v1/control/hold`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client } = self;
-            let url = format!("{}/v1/control/hold", client.baseurl,);
+            let url = format!("{}/v1/control/hold", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -2099,16 +2092,22 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "control_hold",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2123,30 +2122,33 @@ pub mod builder {
 
     impl<'a> ControlResume<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `POST` request to `/v1/control/resume`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client } = self;
-            let url = format!("{}/v1/control/resume", client.baseurl,);
+            let url = format!("{}/v1/control/resume", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client.client.post(url).headers(header_map).build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "control_resume",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(response: reqwest::Response) -> Result<ResponseValue<()>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => Ok(ResponseValue::empty(response)),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2163,7 +2165,7 @@ pub mod builder {
     impl<'a> TaskGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 task: Err("task was not initialized".to_string()),
             }
         }
@@ -2182,17 +2184,12 @@ pub mod builder {
         pub async fn send(self) -> Result<ResponseValue<types::Task>, Error<()>> {
             let Self { client, task } = self;
             let task = task.map_err(Error::InvalidRequest)?;
-            let url = format!(
-                "{}/v1/task/{}",
-                client.baseurl,
-                encode_path(&task.to_string()),
-            );
+            let url = format!("{}/v1/task/{}", client.baseurl, encode_path(task.as_str()));
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2202,16 +2199,22 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "task_get",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Task>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2226,19 +2229,18 @@ pub mod builder {
 
     impl<'a> TasksGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/v1/tasks`
         pub async fn send(self) -> Result<ResponseValue<::std::vec::Vec<types::Task>>, Error<()>> {
             let Self { client } = self;
-            let url = format!("{}/v1/tasks", client.baseurl,);
+            let url = format!("{}/v1/tasks", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2248,16 +2250,22 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "tasks_get",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<::std::vec::Vec<types::Task>>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2274,8 +2282,8 @@ pub mod builder {
     impl<'a> TaskSubmit<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::TaskSubmit as ::std::default::Default>::default()),
             }
         }
 
@@ -2287,7 +2295,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `TaskSubmit` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `TaskSubmit` for body failed: {s}"));
             self
         }
 
@@ -2305,13 +2313,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::TaskSubmit::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/tasks", client.baseurl,);
+            let url = format!("{}/v1/tasks", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -2322,16 +2329,22 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "task_submit",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::TaskSubmitResult>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2349,7 +2362,7 @@ pub mod builder {
     impl<'a> TaskEventsGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 task: Err("task was not initialized".to_string()),
                 minseq: Ok(None),
             }
@@ -2390,14 +2403,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/tasks/{}/events",
                 client.baseurl,
-                encode_path(&task.to_string()),
+                encode_path(task.as_str())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2408,16 +2420,22 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("minseq", &minseq))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "task_events_get",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<::std::vec::Vec<types::TaskEvent>>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2434,7 +2452,7 @@ pub mod builder {
     impl<'a> TaskOutputsGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 task: Err("task was not initialized".to_string()),
             }
         }
@@ -2458,14 +2476,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/tasks/{}/outputs",
                 client.baseurl,
-                encode_path(&task.to_string()),
+                encode_path(task.as_str())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2475,16 +2492,22 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "task_outputs_get",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<::std::vec::Vec<types::TaskOutput>>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2502,7 +2525,7 @@ pub mod builder {
     impl<'a> TaskOutputDownload<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 task: Err("task was not initialized".to_string()),
                 output: Err("output was not initialized".to_string()),
             }
@@ -2540,26 +2563,31 @@ pub mod builder {
             let url = format!(
                 "{}/v1/tasks/{}/outputs/{}",
                 client.baseurl,
-                encode_path(&task.to_string()),
-                encode_path(&output.to_string()),
+                encode_path(task.as_str()),
+                encode_path(output.as_str())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client.client.get(url).headers(header_map).build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "task_output_download",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<ByteStream>, Error<()>> {
             match response.status().as_u16() {
                 200..=299 => Ok(ResponseValue::stream(response)),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2576,8 +2604,8 @@ pub mod builder {
     impl<'a> UserCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::UserCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -2589,7 +2617,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `UserCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `UserCreate` for body failed: {s}"));
             self
         }
 
@@ -2607,13 +2635,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::UserCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/users", client.baseurl,);
+            let url = format!("{}/v1/users", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -2624,16 +2651,22 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "user_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UserCreateResult>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2648,19 +2681,18 @@ pub mod builder {
 
     impl<'a> Whoami<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/v1/whoami`
         pub async fn send(self) -> Result<ResponseValue<types::WhoamiResult>, Error<()>> {
             let Self { client } = self;
-            let url = format!("{}/v1/whoami", client.baseurl,);
+            let url = format!("{}/v1/whoami", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2670,16 +2702,22 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "whoami",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::WhoamiResult>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2696,7 +2734,7 @@ pub mod builder {
     impl<'a> WhoamiPutName<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 body: Err("body was not initialized".to_string()),
             }
         }
@@ -2716,13 +2754,12 @@ pub mod builder {
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client, body } = self;
             let body = body.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/whoami/name", client.baseurl,);
+            let url = format!("{}/v1/whoami/name", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -2733,16 +2770,20 @@ pub mod builder {
                 .body(body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "whoami_put_name",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(response: reqwest::Response) -> Result<ResponseValue<()>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => Ok(ResponseValue::empty(response)),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2759,8 +2800,8 @@ pub mod builder {
     impl<'a> WorkerBootstrap<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::WorkerBootstrap as ::std::default::Default>::default()),
             }
         }
 
@@ -2772,7 +2813,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `WorkerBootstrap` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `WorkerBootstrap` for body failed: {s}"));
             self
         }
 
@@ -2790,13 +2831,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::WorkerBootstrap::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/worker/bootstrap", client.baseurl,);
+            let url = format!("{}/v1/worker/bootstrap", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -2807,16 +2847,22 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "worker_bootstrap",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::WorkerBootstrapResult>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2831,19 +2877,18 @@ pub mod builder {
 
     impl<'a> WorkerPing<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/v1/worker/ping`
         pub async fn send(self) -> Result<ResponseValue<types::WorkerPingResult>, Error<()>> {
             let Self { client } = self;
-            let url = format!("{}/v1/worker/ping", client.baseurl,);
+            let url = format!("{}/v1/worker/ping", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2853,16 +2898,22 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "worker_ping",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::WorkerPingResult>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2880,9 +2931,9 @@ pub mod builder {
     impl<'a> WorkerTaskAppend<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 task: Err("task was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::WorkerAppendTask as ::std::default::Default>::default()),
             }
         }
 
@@ -2904,7 +2955,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `WorkerAppendTask` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `WorkerAppendTask` for body failed: {s}"));
             self
         }
 
@@ -2928,30 +2979,33 @@ pub mod builder {
             let url = format!(
                 "{}/v1/worker/task/{}/append",
                 client.baseurl,
-                encode_path(&task.to_string()),
+                encode_path(task.as_str())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "worker_task_append",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(response: reqwest::Response) -> Result<ResponseValue<()>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => Ok(ResponseValue::empty(response)),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2969,7 +3023,7 @@ pub mod builder {
     impl<'a> WorkerTaskUploadChunk<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 task: Err("task was not initialized".to_string()),
                 body: Err("body was not initialized".to_string()),
             }
@@ -3003,14 +3057,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/worker/task/{}/chunk",
                 client.baseurl,
-                encode_path(&task.to_string()),
+                encode_path(task.as_str())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -3025,16 +3078,22 @@ pub mod builder {
                 .body(body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "worker_task_upload_chunk",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UploadedChunk>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -3052,9 +3111,11 @@ pub mod builder {
     impl<'a> WorkerTaskComplete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 task: Err("task was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(
+                    <types::builder::WorkerCompleteTask as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -3076,7 +3137,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `WorkerCompleteTask` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `WorkerCompleteTask` for body failed: {s}"));
             self
         }
 
@@ -3100,30 +3161,33 @@ pub mod builder {
             let url = format!(
                 "{}/v1/worker/task/{}/complete",
                 client.baseurl,
-                encode_path(&task.to_string()),
+                encode_path(task.as_str())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "worker_task_complete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(response: reqwest::Response) -> Result<ResponseValue<()>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => Ok(ResponseValue::empty(response)),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -3141,9 +3205,9 @@ pub mod builder {
     impl<'a> WorkerTaskAddOutput<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 task: Err("task was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::WorkerAddOutput as ::std::default::Default>::default()),
             }
         }
 
@@ -3165,7 +3229,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `WorkerAddOutput` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `WorkerAddOutput` for body failed: {s}"));
             self
         }
 
@@ -3187,30 +3251,33 @@ pub mod builder {
             let url = format!(
                 "{}/v1/worker/task/{}/output",
                 client.baseurl,
-                encode_path(&task.to_string()),
+                encode_path(task.as_str())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "worker_task_add_output",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(response: reqwest::Response) -> Result<ResponseValue<()>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => Ok(ResponseValue::empty(response)),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -3225,19 +3292,18 @@ pub mod builder {
 
     impl<'a> WorkersList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/v1/workers`
         pub async fn send(self) -> Result<ResponseValue<types::WorkersResult>, Error<()>> {
             let Self { client } = self;
-            let url = format!("{}/v1/workers", client.baseurl,);
+            let url = format!("{}/v1/workers", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -3247,16 +3313,22 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "workers_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::WorkersResult>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -3271,30 +3343,33 @@ pub mod builder {
 
     impl<'a> WorkersRecycle<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `POST` request to `/v1/workers/recycle`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<()>> {
             let Self { client } = self;
-            let url = format!("{}/v1/workers/recycle", client.baseurl,);
+            let url = format!("{}/v1/workers/recycle", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client.client.post(url).headers(header_map).build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "workers_recycle",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(response: reqwest::Response) -> Result<ResponseValue<()>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => Ok(ResponseValue::empty(response)),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -3311,7 +3386,7 @@ pub mod builder {
     impl<'a> GetThingOrThings<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Ok(None),
             }
         }
@@ -3331,13 +3406,12 @@ pub mod builder {
         pub async fn send(self) -> Result<ResponseValue<::std::string::String>, Error<()>> {
             let Self { client, id } = self;
             let id = id.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/things", client.baseurl,);
+            let url = format!("{}/v1/things", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -3348,16 +3422,22 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("id", &id))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "get_thing_or_things",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<::std::string::String>, Error<()>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -3374,7 +3454,7 @@ pub mod builder {
     impl<'a> HeaderArg<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 accept_language: Ok(None),
             }
         }
@@ -3396,7 +3476,7 @@ pub mod builder {
                 accept_language,
             } = self;
             let accept_language = accept_language.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/header-arg", client.baseurl,);
+            let url = format!("{}/v1/header-arg", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
@@ -3405,18 +3485,23 @@ pub mod builder {
             if let Some(value) = accept_language {
                 header_map.append("accept-language", value.to_string().try_into()?);
             }
-            #[allow(unused_mut)]
             let mut request = client.client.get(url).headers(header_map).build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "header_arg",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(response: reqwest::Response) -> Result<ResponseValue<()>, Error<()>> {
             match response.status().as_u16() {
                 200..=299 => Ok(ResponseValue::empty(response)),
-                _ => Err(Error::ErrorResponse(ResponseValue::empty(response))),
+                _ => Err(Error::ErrorResponse(::std::boxed::Box::new(
+                    ResponseValue::empty(response),
+                ))),
             }
         }
     }
@@ -3425,6 +3510,5 @@ pub mod builder {
 /// Items consumers will typically use such as the Client and
 /// extension traits.
 pub mod prelude {
-    #[allow(unused_imports)]
     pub use super::Client;
 }

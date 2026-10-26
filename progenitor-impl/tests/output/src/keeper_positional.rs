@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///`EnrolBody`
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -178,7 +175,6 @@ impl ClientInfo<()> for Client {
 }
 
 impl ClientHooks<()> for &Client {}
-#[allow(clippy::all)]
 impl Client {
     ///Sends a `POST` request to `/enrol`
     ///
@@ -190,21 +186,20 @@ impl Client {
         authorization: &'a str,
         body: &'a types::EnrolBody,
     ) -> Result<ResponseValue<()>, Error<()>> {
-        let url = format!("{}/enrol", self.baseurl,);
+        let url = format!("{}/enrol", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
         header_map.append("Authorization", authorization.to_string().try_into()?);
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "enrol",
         };
         self.pre(&mut request, &info).await?;
@@ -213,7 +208,7 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => Ok(ResponseValue::empty(response)),
-            _ => Err(Error::UnexpectedResponse(response)),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -225,14 +220,13 @@ impl Client {
         &'a self,
         authorization: &'a str,
     ) -> Result<ResponseValue<types::GlobalJobsResult>, Error<()>> {
-        let url = format!("{}/global/jobs", self.baseurl,);
+        let url = format!("{}/global/jobs", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
         header_map.append("Authorization", authorization.to_string().try_into()?);
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -242,7 +236,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "global_jobs",
         };
         self.pre(&mut request, &info).await?;
@@ -251,7 +245,7 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            _ => Err(Error::UnexpectedResponse(response)),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -263,14 +257,13 @@ impl Client {
         &'a self,
         authorization: &'a str,
     ) -> Result<ResponseValue<types::PingResult>, Error<()>> {
-        let url = format!("{}/ping", self.baseurl,);
+        let url = format!("{}/ping", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
         header_map.append("Authorization", authorization.to_string().try_into()?);
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .get(url)
@@ -280,7 +273,7 @@ impl Client {
             )
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "ping",
         };
         self.pre(&mut request, &info).await?;
@@ -289,7 +282,7 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            _ => Err(Error::UnexpectedResponse(response)),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -303,14 +296,13 @@ impl Client {
         authorization: &'a str,
         body: &'a types::ReportFinishBody,
     ) -> Result<ResponseValue<types::ReportResult>, Error<()>> {
-        let url = format!("{}/report/finish", self.baseurl,);
+        let url = format!("{}/report/finish", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
         header_map.append("Authorization", authorization.to_string().try_into()?);
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -321,7 +313,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "report_finish",
         };
         self.pre(&mut request, &info).await?;
@@ -330,7 +322,7 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            _ => Err(Error::UnexpectedResponse(response)),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -344,14 +336,13 @@ impl Client {
         authorization: &'a str,
         body: &'a types::ReportOutputBody,
     ) -> Result<ResponseValue<types::ReportResult>, Error<()>> {
-        let url = format!("{}/report/output", self.baseurl,);
+        let url = format!("{}/report/output", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
         header_map.append("Authorization", authorization.to_string().try_into()?);
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -362,7 +353,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "report_output",
         };
         self.pre(&mut request, &info).await?;
@@ -371,7 +362,7 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            _ => Err(Error::UnexpectedResponse(response)),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 
@@ -385,14 +376,13 @@ impl Client {
         authorization: &'a str,
         body: &'a types::ReportStartBody,
     ) -> Result<ResponseValue<types::ReportResult>, Error<()>> {
-        let url = format!("{}/report/start", self.baseurl,);
+        let url = format!("{}/report/start", self.baseurl);
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
         header_map.append("Authorization", authorization.to_string().try_into()?);
-        #[allow(unused_mut)]
         let mut request = self
             .client
             .post(url)
@@ -403,7 +393,7 @@ impl Client {
             .json(&body)
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "report_start",
         };
         self.pre(&mut request, &info).await?;
@@ -412,13 +402,12 @@ impl Client {
         let response = result?;
         match response.status().as_u16() {
             201u16 => ResponseValue::from_response(response).await,
-            _ => Err(Error::UnexpectedResponse(response)),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
         }
     }
 }
 
 /// Items consumers will typically use such as the Client.
 pub mod prelude {
-    #[allow(unused_imports)]
     pub use super::Client;
 }

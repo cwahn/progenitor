@@ -82,6 +82,8 @@ struct MethodSigBody {
     success: TokenStream,
     error: TokenStream,
     body: TokenStream,
+    decode: TokenStream,
+    response_ident: proc_macro2::Ident,
 }
 
 struct BuilderImpl {
@@ -683,7 +685,10 @@ impl Generator {
             success: success_type,
             error: error_type,
             body,
+            decode,
+            response_ident: _,
         } = self.method_sig_body(method, quote! { Self }, quote! { self }, has_inner)?;
+        let body = quote! { #body #decode };
 
         let method_impl = quote! {
             #[doc = #doc_comment]
@@ -934,18 +939,36 @@ impl Generator {
             quote! {}
         };
 
-        // Generate the path rename map; then use it to generate code for
-        // assigning the path parameters to the `url` variable.
-        let url_renames = method
+        // Compile typed path arguments: strings can be encoded by reference,
+        // while other schema types retain their Display representation.
+        let url_parameters = method
             .params
             .iter()
             .filter_map(|param| match &param.kind {
-                OperationParameterKind::Path => Some((&param.api_name, &param.name)),
+                OperationParameterKind::Path => {
+                    let name = format_ident!("{}", param.name);
+                    let OperationParameterType::Type(id) = &param.typ else {
+                        unreachable!("path parameters have schema types");
+                    };
+                    let value = if matches!(
+                        self.type_space.get_type(id).unwrap().details(),
+                        typify::TypeDetails::String
+                    ) {
+                        if self.settings.interface == crate::InterfaceStyle::Builder {
+                            quote! { encode_path(#name.as_str()) }
+                        } else {
+                            quote! { encode_path(#name) }
+                        }
+                    } else {
+                        quote! { encode_path(&#name.to_string()) }
+                    };
+                    Some((&param.api_name, value))
+                }
                 _ => None,
             })
             .collect();
 
-        let url_path = method.path.compile(url_renames, client_value.clone());
+        let url_path = method.path.compile(url_parameters, client_value.clone());
         let url_path = quote! {
             let #url_ident = #url_path;
         };
@@ -1078,20 +1101,39 @@ impl Generator {
         let (error_response_items, error_type, heterogeneous_errors) =
             self.error_responses(method)?;
 
-        let error_response_matches = error_response_items.iter().map(|response| {
-            let pat = match &response.status_code {
-                OperationResponseStatus::Code(code) => {
-                    quote! { #code }
-                }
-                OperationResponseStatus::Range(r) => {
-                    let min = r * 100;
-                    let max = min + 99;
-                    quote! { #min ..= #max }
-                }
-
-                OperationResponseStatus::Default => {
-                    quote! { _ }
-                }
+        // Combine only adjacent identical decoders. Moving a range past an
+        // intervening exact status could otherwise change validator selection.
+        let mut error_groups: Vec<Vec<&OperationResponse>> = Vec::new();
+        for response in &error_response_items {
+            if let Some(group) = error_groups.last_mut()
+                && !heterogeneous_errors
+                && group[0].typ == response.typ
+                && group[0].recovery == response.recovery
+            {
+                group.push(response);
+            } else {
+                error_groups.push(vec![response]);
+            }
+        }
+        let error_response_matches = error_groups.iter().map(|group| {
+            let response = group[0];
+            let pat = if group
+                .iter()
+                .any(|response| response.status_code.is_default())
+            {
+                // The default covers the preceding identical decoders too.
+                quote! { _ }
+            } else {
+                let patterns = group.iter().map(|response| match &response.status_code {
+                    OperationResponseStatus::Code(code) => quote! { #code },
+                    OperationResponseStatus::Range(r) => {
+                        let min = r * 100;
+                        let max = min + 99;
+                        quote! { #min ..= #max }
+                    }
+                    OperationResponseStatus::Default => unreachable!(),
+                });
+                quote! { #(#patterns)|* }
             };
 
             let variant = crate::response_enum::error_variant(&response.status_code);
@@ -1106,25 +1148,25 @@ impl Generator {
                         &client_type,
                     );
                     quote! {
-                        Err(Error::ErrorResponse(
+                        Err(Error::ErrorResponse(::std::boxed::Box::new(
                             #decode?
                                 .map::<_, _, Error<#enum_path>>(#enum_path::#variant)?
-                        ))
+                        )))
                     }
                 }
                 OperationResponseKind::None if heterogeneous_errors => {
                     quote! {
-                        Err(Error::ErrorResponse(
+                        Err(Error::ErrorResponse(::std::boxed::Box::new(
                             ResponseValue::empty(#response_ident)
                                 .map::<_, _, Error<#enum_path>>(#enum_path::#variant)?
-                        ))
+                        )))
                     }
                 }
                 OperationResponseKind::Type(_) if response.recovery.is_none() => {
                     quote! {
-                        Err(Error::ErrorResponse(
+                        Err(Error::ErrorResponse(::std::boxed::Box::new(
                             ResponseValue::from_response(#response_ident).await?
-                        ))
+                        )))
                     }
                 }
                 OperationResponseKind::Type(type_id) => {
@@ -1136,23 +1178,23 @@ impl Generator {
                         &client_type,
                     );
                     quote! {
-                        Err(Error::ErrorResponse(
+                        Err(Error::ErrorResponse(::std::boxed::Box::new(
                             #decode?
-                        ))
+                        )))
                     }
                 }
                 OperationResponseKind::None => {
                     quote! {
-                        Err(Error::ErrorResponse(
+                        Err(Error::ErrorResponse(::std::boxed::Box::new(
                             ResponseValue::empty(#response_ident)
-                        ))
+                        )))
                     }
                 }
                 OperationResponseKind::Raw => {
                     quote! {
-                        Err(Error::ErrorResponse(
+                        Err(Error::ErrorResponse(::std::boxed::Box::new(
                             ResponseValue::stream(#response_ident)
-                        ))
+                        )))
                     }
                 }
                 OperationResponseKind::Upgrade => {
@@ -1208,7 +1250,7 @@ impl Generator {
         let default_response = if method.responses.iter().any(|r| r.status_code.is_default()) {
             quote! {}
         } else {
-            quote! { _ => Err(Error::UnexpectedResponse(#response_ident)), }
+            quote! { _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(#response_ident))), }
         };
 
         let inner = match has_inner {
@@ -1245,12 +1287,23 @@ impl Generator {
         let operation_id = &method.operation_id;
         let method_func = format_ident!("{}", method.method.as_str());
 
+        let form_import = method
+            .params
+            .iter()
+            .any(|param| {
+                matches!(
+                    param.kind,
+                    OperationParameterKind::Body(BodyContentType::FormUrlencoded)
+                )
+            })
+            .then(|| quote! { use progenitor_client::RequestBuilderExt; });
+
         let body_impl = quote! {
+            #form_import
             #url_path
 
             #headers_build
 
-            #[allow(unused_mut)]
             let mut #request_ident = #client_value.client
                 . #method_func (#url_ident)
                 #accept_header
@@ -1260,7 +1313,7 @@ impl Generator {
                 #websock_hdrs
                 .build()?;
 
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: #operation_id,
             };
 
@@ -1281,7 +1334,8 @@ impl Generator {
             #post_hook
 
             let #response_ident = #result_ident?;
-
+        };
+        let decode = quote! {
             match #response_ident.status().as_u16() {
                 // These will be of the form...
                 // 201 => ResponseValue::from_response(response).await,
@@ -1304,16 +1358,16 @@ impl Generator {
                 // This is almost identical to the success types except
                 // they are wrapped in Error::ErrorResponse...
                 // 400 => {
-                //     Err(Error::ErrorResponse(
+                //     Err(Error::ErrorResponse(Box::new(
                 //         ResponseValue::from_response(response.await?)
-                //     ))
+                //     )))
                 // }
                 #(#error_response_matches)*
 
                 // The default response is either an Error with a known
                 // type if the operation defines a default (as above) or
                 // an Error::UnexpectedResponse...
-                // _ => Err(Error::UnexpectedResponse(response)),
+                // _ => Err(Error::UnexpectedResponse(Box::new(response))),
                 #default_response
             }
         };
@@ -1333,6 +1387,8 @@ impl Generator {
             success,
             error: error_type,
             body: body_impl,
+            decode,
+            response_ident,
         })
     }
 
@@ -1645,9 +1701,10 @@ impl Generator {
 
                     // Fill in the appropriate initial value for the
                     // param_types generated above.
-                    if let (OperationParameterKind::Body(_), Some(_)) = (&param.kind, ty.builder())
+                    if let (OperationParameterKind::Body(_), Some(builder)) =
+                        (&param.kind, ty.builder())
                     {
-                        Ok(quote! { Ok(::std::default::Default::default()) })
+                        Ok(quote! { Ok(<#builder as ::std::default::Default>::default()) })
                     } else if param.kind.is_required() {
                         let err_msg = format!("{} was not initialized", param.name);
                         Ok(quote! { Err(#err_msg.to_string()) })
@@ -1753,7 +1810,7 @@ impl Generator {
                                 assert_eq!(param.name, "body");
                                 let typ = ty.ident();
                                 let err_msg = format!(
-                                    "conversion to `{}` for {} failed: {{}}",
+                                    "conversion to `{}` for {} failed: {{s}}",
                                     ty.name(),
                                     param.name,
                                 );
@@ -1766,7 +1823,7 @@ impl Generator {
                                     {
                                         self.body = value.try_into()
                                             .map(From::from)
-                                            .map_err(|s| format!(#err_msg, s));
+                                            .map_err(|s| format!(#err_msg));
                                         self
                                     }
 
@@ -1824,6 +1881,8 @@ impl Generator {
             success,
             error,
             body,
+            decode,
+            response_ident,
         } = self.method_sig_body(
             method,
             quote! { super::Client },
@@ -1836,6 +1895,17 @@ impl Generator {
             method.method.as_str().to_ascii_uppercase(),
             method.path.to_string(),
         );
+        let decode_ident = unique_ident_from("__decode_response", &param_names);
+        let decode_is_async = method.responses.iter().any(|response| {
+            (response.status_code.is_success_or_default()
+                || response.status_code.is_error_or_default())
+                && matches!(
+                    response.typ,
+                    OperationResponseKind::Type(_) | OperationResponseKind::Upgrade
+                )
+        });
+        let decode_async = decode_is_async.then(|| quote! { async });
+        let decode_await = decode_is_async.then(|| quote! { .await });
         let send_impl = quote! {
             #[doc = #send_doc]
             pub async fn send(self) -> Result<
@@ -1863,6 +1933,14 @@ impl Generator {
 
                 // Do the work.
                 #body
+                Self::#decode_ident(#response_ident)#decode_await
+            }
+
+            #decode_async fn #decode_ident(#response_ident: reqwest::Response) -> Result<
+                ResponseValue<#success>,
+                Error<#error>,
+            > {
+                #decode
             }
         };
 
@@ -2036,9 +2114,9 @@ impl Generator {
             }
 
             impl<'a> #struct_ident<'a> {
-                pub fn new(client: &'a super::Client) -> Self {
+                pub fn new(#client_ident: &'a super::Client) -> Self {
                     Self {
-                        #client_ident: client,
+                        #client_ident,
                         #( #param_names: #param_values, )*
                     }
                 }
@@ -2158,6 +2236,7 @@ impl Generator {
                 let desc = tag_info
                     .get(&tag)
                     .and_then(|tag| tag.description.as_ref())
+                    .map(|description| typify::render_doc_markdown(description))
                     .map(|d| quote! { #[doc = #d] });
                 let tr = format_ident!("Client{}Ext", sanitize(&tag, Case::Pascal));
                 let (trait_methods, trait_impls): (Vec<TokenStream>, Vec<TokenStream>) =
@@ -2339,7 +2418,7 @@ fn make_doc_comment(method: &OperationMethod) -> String {
         }
     }
 
-    buf
+    typify::render_doc_markdown(&buf)
 }
 
 fn make_stream_doc_comment(method: &OperationMethod) -> String {
@@ -2383,7 +2462,7 @@ fn make_stream_doc_comment(method: &OperationMethod) -> String {
         }
     }
 
-    buf
+    typify::render_doc_markdown(&buf)
 }
 
 fn sort_params(raw_params: &mut [OperationParameter], names: &[String]) {

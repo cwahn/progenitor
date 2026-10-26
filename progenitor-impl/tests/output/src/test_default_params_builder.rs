@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///`BodyWithDefaults`
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -19,7 +16,7 @@ pub mod types {
 
     impl BodyWithDefaults {
         pub fn builder() -> builder::BodyWithDefaults {
-            Default::default()
+            <builder::BodyWithDefaults as ::std::default::Default>::default()
         }
     }
 
@@ -39,7 +36,7 @@ pub mod types {
                     forty_two: Ok(super::defaults::default_u64::<u32, 42>()),
                     s: Err("no value supplied for s".to_string()),
                     something: Ok(super::defaults::body_with_defaults_something()),
-                    yes: Ok(Default::default()),
+                    yes: Ok(<bool>::default()),
                 }
             }
         }
@@ -235,14 +232,12 @@ impl Client {
 }
 
 /// Types for composing operation parameters.
-#[allow(clippy::all)]
 pub mod builder {
     use super::types;
-    #[allow(unused_imports)]
-    use super::{
-        encode_path, ByteStream, ClientHooks, ClientInfo, Error, OperationInfo, RequestBuilderExt,
-        ResponseValue,
-    };
+    use super::ByteStream;
+    use super::Error;
+    use super::ResponseValue;
+    use progenitor_client::{ClientHooks, ClientInfo};
     ///Builder for [`Client::default_params`]
     ///
     ///[`Client::default_params`]: super::Client::default_params
@@ -255,8 +250,8 @@ pub mod builder {
     impl<'a> DefaultParams<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::BodyWithDefaults as ::std::default::Default>::default()),
             }
         }
 
@@ -268,7 +263,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `BodyWithDefaults` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `BodyWithDefaults` for body failed: {s}"));
             self
         }
 
@@ -288,29 +283,36 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::BodyWithDefaults::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/", client.baseurl,);
+            let url = format!("{}/", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "default_params",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<ByteStream>, Error<ByteStream>> {
             match response.status().as_u16() {
                 200..=299 => Ok(ResponseValue::stream(response)),
-                _ => Err(Error::ErrorResponse(ResponseValue::stream(response))),
+                _ => Err(Error::ErrorResponse(::std::boxed::Box::new(
+                    ResponseValue::stream(response),
+                ))),
             }
         }
     }

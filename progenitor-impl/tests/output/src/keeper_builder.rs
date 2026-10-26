@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///`EnrolBody`
     #[derive(
@@ -16,7 +13,7 @@ pub mod types {
 
     impl EnrolBody {
         pub fn builder() -> builder::EnrolBody {
-            Default::default()
+            <builder::EnrolBody as ::std::default::Default>::default()
         }
     }
 
@@ -30,7 +27,7 @@ pub mod types {
 
     impl GlobalJobsResult {
         pub fn builder() -> builder::GlobalJobsResult {
-            Default::default()
+            <builder::GlobalJobsResult as ::std::default::Default>::default()
         }
     }
 
@@ -46,7 +43,7 @@ pub mod types {
 
     impl OutputRecord {
         pub fn builder() -> builder::OutputRecord {
-            Default::default()
+            <builder::OutputRecord as ::std::default::Default>::default()
         }
     }
 
@@ -61,7 +58,7 @@ pub mod types {
 
     impl PingResult {
         pub fn builder() -> builder::PingResult {
-            Default::default()
+            <builder::PingResult as ::std::default::Default>::default()
         }
     }
 
@@ -78,7 +75,7 @@ pub mod types {
 
     impl ReportFinishBody {
         pub fn builder() -> builder::ReportFinishBody {
-            Default::default()
+            <builder::ReportFinishBody as ::std::default::Default>::default()
         }
     }
 
@@ -96,7 +93,7 @@ pub mod types {
 
     impl ReportId {
         pub fn builder() -> builder::ReportId {
-            Default::default()
+            <builder::ReportId as ::std::default::Default>::default()
         }
     }
 
@@ -111,7 +108,7 @@ pub mod types {
 
     impl ReportOutputBody {
         pub fn builder() -> builder::ReportOutputBody {
-            Default::default()
+            <builder::ReportOutputBody as ::std::default::Default>::default()
         }
     }
 
@@ -125,7 +122,7 @@ pub mod types {
 
     impl ReportResult {
         pub fn builder() -> builder::ReportResult {
-            Default::default()
+            <builder::ReportResult as ::std::default::Default>::default()
         }
     }
 
@@ -141,7 +138,7 @@ pub mod types {
 
     impl ReportStartBody {
         pub fn builder() -> builder::ReportStartBody {
-            Default::default()
+            <builder::ReportStartBody as ::std::default::Default>::default()
         }
     }
 
@@ -160,7 +157,7 @@ pub mod types {
 
     impl ReportSummary {
         pub fn builder() -> builder::ReportSummary {
-            Default::default()
+            <builder::ReportSummary as ::std::default::Default>::default()
         }
     }
 
@@ -1088,14 +1085,11 @@ impl Client {
 }
 
 /// Types for composing operation parameters.
-#[allow(clippy::all)]
 pub mod builder {
     use super::types;
-    #[allow(unused_imports)]
-    use super::{
-        encode_path, ByteStream, ClientHooks, ClientInfo, Error, OperationInfo, RequestBuilderExt,
-        ResponseValue,
-    };
+    use super::Error;
+    use super::ResponseValue;
+    use progenitor_client::{ClientHooks, ClientInfo};
     ///Builder for [`Client::enrol`]
     ///
     ///[`Client::enrol`]: super::Client::enrol
@@ -1109,9 +1103,9 @@ pub mod builder {
     impl<'a> Enrol<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 authorization: Err("authorization was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::EnrolBody as ::std::default::Default>::default()),
             }
         }
 
@@ -1133,7 +1127,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `EnrolBody` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `EnrolBody` for body failed: {s}"));
             self
         }
 
@@ -1156,30 +1150,33 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::EnrolBody::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/enrol", client.baseurl,);
+            let url = format!("{}/enrol", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
             header_map.append("Authorization", authorization.to_string().try_into()?);
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "enrol",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(response: reqwest::Response) -> Result<ResponseValue<()>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => Ok(ResponseValue::empty(response)),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -1196,7 +1193,7 @@ pub mod builder {
     impl<'a> GlobalJobs<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 authorization: Err("authorization was not initialized".to_string()),
             }
         }
@@ -1218,14 +1215,13 @@ pub mod builder {
                 authorization,
             } = self;
             let authorization = authorization.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/global/jobs", client.baseurl,);
+            let url = format!("{}/global/jobs", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
             header_map.append("Authorization", authorization.to_string().try_into()?);
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -1235,16 +1231,22 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "global_jobs",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::GlobalJobsResult>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -1261,7 +1263,7 @@ pub mod builder {
     impl<'a> Ping<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 authorization: Err("authorization was not initialized".to_string()),
             }
         }
@@ -1283,14 +1285,13 @@ pub mod builder {
                 authorization,
             } = self;
             let authorization = authorization.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/ping", client.baseurl,);
+            let url = format!("{}/ping", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
             header_map.append("Authorization", authorization.to_string().try_into()?);
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -1300,16 +1301,22 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ping",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::PingResult>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -1327,9 +1334,9 @@ pub mod builder {
     impl<'a> ReportFinish<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 authorization: Err("authorization was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ReportFinishBody as ::std::default::Default>::default()),
             }
         }
 
@@ -1351,7 +1358,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ReportFinishBody` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ReportFinishBody` for body failed: {s}"));
             self
         }
 
@@ -1376,14 +1383,13 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::ReportFinishBody::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/report/finish", client.baseurl,);
+            let url = format!("{}/report/finish", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
             header_map.append("Authorization", authorization.to_string().try_into()?);
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -1394,16 +1400,22 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "report_finish",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ReportResult>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -1421,9 +1433,9 @@ pub mod builder {
     impl<'a> ReportOutput<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 authorization: Err("authorization was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ReportOutputBody as ::std::default::Default>::default()),
             }
         }
 
@@ -1445,7 +1457,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ReportOutputBody` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ReportOutputBody` for body failed: {s}"));
             self
         }
 
@@ -1470,14 +1482,13 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::ReportOutputBody::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/report/output", client.baseurl,);
+            let url = format!("{}/report/output", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
             header_map.append("Authorization", authorization.to_string().try_into()?);
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -1488,16 +1499,22 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "report_output",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ReportResult>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -1515,9 +1532,9 @@ pub mod builder {
     impl<'a> ReportStart<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 authorization: Err("authorization was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ReportStartBody as ::std::default::Default>::default()),
             }
         }
 
@@ -1539,7 +1556,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ReportStartBody` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ReportStartBody` for body failed: {s}"));
             self
         }
 
@@ -1562,14 +1579,13 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::ReportStartBody::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/report/start", client.baseurl,);
+            let url = format!("{}/report/start", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(2usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
             header_map.append("Authorization", authorization.to_string().try_into()?);
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -1580,16 +1596,22 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "report_start",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ReportResult>, Error<()>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }

@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///`CrucibleOpts`
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -28,7 +25,7 @@ pub mod types {
 
     impl CrucibleOpts {
         pub fn builder() -> builder::CrucibleOpts {
-            Default::default()
+            <builder::CrucibleOpts as ::std::default::Default>::default()
         }
     }
 
@@ -42,7 +39,7 @@ pub mod types {
 
     impl DiskAttachment {
         pub fn builder() -> builder::DiskAttachment {
-            Default::default()
+            <builder::DiskAttachment as ::std::default::Default>::default()
         }
     }
 
@@ -75,7 +72,7 @@ pub mod types {
 
     impl DiskRequest {
         pub fn builder() -> builder::DiskRequest {
-            Default::default()
+            <builder::DiskRequest as ::std::default::Default>::default()
         }
     }
 
@@ -90,7 +87,7 @@ pub mod types {
 
     impl Error {
         pub fn builder() -> builder::Error {
-            Default::default()
+            <builder::Error as ::std::default::Default>::default()
         }
     }
 
@@ -105,7 +102,7 @@ pub mod types {
 
     impl Instance {
         pub fn builder() -> builder::Instance {
-            Default::default()
+            <builder::Instance as ::std::default::Default>::default()
         }
     }
 
@@ -125,7 +122,7 @@ pub mod types {
 
     impl InstanceEnsureRequest {
         pub fn builder() -> builder::InstanceEnsureRequest {
-            Default::default()
+            <builder::InstanceEnsureRequest as ::std::default::Default>::default()
         }
     }
 
@@ -138,7 +135,7 @@ pub mod types {
 
     impl InstanceEnsureResponse {
         pub fn builder() -> builder::InstanceEnsureResponse {
-            Default::default()
+            <builder::InstanceEnsureResponse as ::std::default::Default>::default()
         }
     }
 
@@ -150,7 +147,7 @@ pub mod types {
 
     impl InstanceGetResponse {
         pub fn builder() -> builder::InstanceGetResponse {
-            Default::default()
+            <builder::InstanceGetResponse as ::std::default::Default>::default()
         }
     }
 
@@ -164,7 +161,7 @@ pub mod types {
 
     impl InstanceMigrateInitiateRequest {
         pub fn builder() -> builder::InstanceMigrateInitiateRequest {
-            Default::default()
+            <builder::InstanceMigrateInitiateRequest as ::std::default::Default>::default()
         }
     }
 
@@ -176,7 +173,7 @@ pub mod types {
 
     impl InstanceMigrateInitiateResponse {
         pub fn builder() -> builder::InstanceMigrateInitiateResponse {
-            Default::default()
+            <builder::InstanceMigrateInitiateResponse as ::std::default::Default>::default()
         }
     }
 
@@ -188,7 +185,7 @@ pub mod types {
 
     impl InstanceMigrateStatusRequest {
         pub fn builder() -> builder::InstanceMigrateStatusRequest {
-            Default::default()
+            <builder::InstanceMigrateStatusRequest as ::std::default::Default>::default()
         }
     }
 
@@ -200,7 +197,7 @@ pub mod types {
 
     impl InstanceMigrateStatusResponse {
         pub fn builder() -> builder::InstanceMigrateStatusResponse {
-            Default::default()
+            <builder::InstanceMigrateStatusResponse as ::std::default::Default>::default()
         }
     }
 
@@ -215,7 +212,7 @@ pub mod types {
         pub id: ::uuid::Uuid,
         ///ID of the image used to initialize this Instance.
         pub image_id: ::uuid::Uuid,
-        ///Size of memory allocated to the Instance, in MiB.
+        ///Size of memory allocated to the Instance, in `MiB`.
         pub memory: u64,
         ///Human-readable name of the Instance.
         pub name: ::std::string::String,
@@ -225,7 +222,7 @@ pub mod types {
 
     impl InstanceProperties {
         pub fn builder() -> builder::InstanceProperties {
-            Default::default()
+            <builder::InstanceProperties as ::std::default::Default>::default()
         }
     }
 
@@ -316,7 +313,7 @@ pub mod types {
 
     impl InstanceStateMonitorRequest {
         pub fn builder() -> builder::InstanceStateMonitorRequest {
-            Default::default()
+            <builder::InstanceStateMonitorRequest as ::std::default::Default>::default()
         }
     }
 
@@ -330,7 +327,7 @@ pub mod types {
 
     impl InstanceStateMonitorResponse {
         pub fn builder() -> builder::InstanceStateMonitorResponse {
-            Default::default()
+            <builder::InstanceStateMonitorResponse as ::std::default::Default>::default()
         }
     }
 
@@ -481,7 +478,7 @@ pub mod types {
 
     impl NetworkInterface {
         pub fn builder() -> builder::NetworkInterface {
-            Default::default()
+            <builder::NetworkInterface as ::std::default::Default>::default()
         }
     }
 
@@ -508,7 +505,7 @@ pub mod types {
 
     impl NetworkInterfaceRequest {
         pub fn builder() -> builder::NetworkInterfaceRequest {
-            Default::default()
+            <builder::NetworkInterfaceRequest as ::std::default::Default>::default()
         }
     }
 
@@ -633,15 +630,15 @@ pub mod types {
         impl ::std::default::Default for CrucibleOpts {
             fn default() -> Self {
                 Self {
-                    cert_pem: Ok(Default::default()),
-                    control: Ok(Default::default()),
-                    flush_timeout: Ok(Default::default()),
+                    cert_pem: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    control: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    flush_timeout: Ok(<::std::option::Option<u32>>::default()),
                     id: Err("no value supplied for id".to_string()),
-                    key: Ok(Default::default()),
-                    key_pem: Ok(Default::default()),
+                    key: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    key_pem: Ok(<::std::option::Option<::std::string::String>>::default()),
                     lossy: Err("no value supplied for lossy".to_string()),
                     read_only: Err("no value supplied for read_only".to_string()),
-                    root_cert_pem: Ok(Default::default()),
+                    root_cert_pem: Ok(<::std::option::Option<::std::string::String>>::default()),
                     target: Err("no value supplied for target".to_string()),
                 }
             }
@@ -991,7 +988,7 @@ pub mod types {
         impl ::std::default::Default for Error {
             fn default() -> Self {
                 Self {
-                    error_code: Ok(Default::default()),
+                    error_code: Ok(<::std::option::Option<::std::string::String>>::default()),
                     message: Err("no value supplied for message".to_string()),
                     request_id: Err("no value supplied for request_id".to_string()),
                 }
@@ -1169,10 +1166,12 @@ pub mod types {
         impl ::std::default::Default for InstanceEnsureRequest {
             fn default() -> Self {
                 Self {
-                    cloud_init_bytes: Ok(Default::default()),
-                    disks: Ok(Default::default()),
-                    migrate: Ok(Default::default()),
-                    nics: Ok(Default::default()),
+                    cloud_init_bytes: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    disks: Ok(<::std::vec::Vec<super::DiskRequest>>::default()),
+                    migrate: Ok(
+                        <::std::option::Option<super::InstanceMigrateInitiateRequest>>::default(),
+                    ),
+                    nics: Ok(<::std::vec::Vec<super::NetworkInterfaceRequest>>::default()),
                     properties: Err("no value supplied for properties".to_string()),
                 }
             }
@@ -1271,7 +1270,9 @@ pub mod types {
         impl ::std::default::Default for InstanceEnsureResponse {
             fn default() -> Self {
                 Self {
-                    migrate: Ok(Default::default()),
+                    migrate: Ok(<::std::option::Option<
+                        super::InstanceMigrateInitiateResponse,
+                    >>::default()),
                 }
             }
         }
@@ -2110,14 +2111,12 @@ impl Client {
 }
 
 /// Types for composing operation parameters.
-#[allow(clippy::all)]
 pub mod builder {
     use super::types;
-    #[allow(unused_imports)]
-    use super::{
-        encode_path, ByteStream, ClientHooks, ClientInfo, Error, OperationInfo, RequestBuilderExt,
-        ResponseValue,
-    };
+    use super::Error;
+    use super::ResponseValue;
+    use progenitor_client::encode_path;
+    use progenitor_client::{ClientHooks, ClientInfo};
     ///Builder for [`Client::instance_get`]
     ///
     ///[`Client::instance_get`]: super::Client::instance_get
@@ -2128,7 +2127,7 @@ pub mod builder {
 
     impl<'a> InstanceGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/instance`
@@ -2136,13 +2135,12 @@ pub mod builder {
             self,
         ) -> Result<ResponseValue<types::InstanceGetResponse>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/instance", client.baseurl,);
+            let url = format!("{}/instance", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2152,22 +2150,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_get",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::InstanceGetResponse>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2184,8 +2185,10 @@ pub mod builder {
     impl<'a> InstanceEnsure<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(
+                    <types::builder::InstanceEnsureRequest as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -2194,12 +2197,10 @@ pub mod builder {
             V: std::convert::TryInto<types::InstanceEnsureRequest>,
             <V as std::convert::TryInto<types::InstanceEnsureRequest>>::Error: std::fmt::Display,
         {
-            self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `InstanceEnsureRequest` for body failed: {}",
-                    s
-                )
-            });
+            self.body = value
+                .try_into()
+                .map(From::from)
+                .map_err(|s| format!("conversion to `InstanceEnsureRequest` for body failed: {s}"));
             self
         }
 
@@ -2221,13 +2222,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::InstanceEnsureRequest::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/instance", client.baseurl,);
+            let url = format!("{}/instance", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -2238,22 +2238,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_ensure",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::InstanceEnsureResponse>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2271,7 +2274,7 @@ pub mod builder {
     impl<'a> InstanceIssueCrucibleSnapshotRequest<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
                 snapshot_id: Err("snapshot_id was not initialized".to_string()),
             }
@@ -2311,14 +2314,13 @@ pub mod builder {
                 "{}/instance/disk/{}/snapshot/{}",
                 client.baseurl,
                 encode_path(&id.to_string()),
-                encode_path(&snapshot_id.to_string()),
+                encode_path(&snapshot_id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -2328,22 +2330,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_issue_crucible_snapshot_request",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2359,10 +2364,7 @@ pub mod builder {
 
     impl<'a> InstanceMigrateStatus<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
-            }
+            Self { client , body : Ok (< types :: builder :: InstanceMigrateStatusRequest as :: std :: default :: Default > :: default ()) , }
         }
 
         pub fn body<V>(mut self, value: V) -> Self
@@ -2372,10 +2374,7 @@ pub mod builder {
                 std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `InstanceMigrateStatusRequest` for body failed: {}",
-                    s
-                )
+                format!("conversion to `InstanceMigrateStatusRequest` for body failed: {s}")
             });
             self
         }
@@ -2401,13 +2400,12 @@ pub mod builder {
                     types::InstanceMigrateStatusRequest::try_from(v).map_err(|e| e.to_string())
                 })
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/instance/migrate/status", client.baseurl,);
+            let url = format!("{}/instance/migrate/status", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2418,22 +2416,26 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_migrate_status",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::InstanceMigrateStatusResponse>, Error<types::Error>>
+        {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2448,19 +2450,18 @@ pub mod builder {
 
     impl<'a> InstanceSerial<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/instance/serial`
         pub async fn send(self) -> Result<ResponseValue<reqwest::Upgraded>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/instance/serial", client.baseurl,);
+            let url = format!("{}/instance/serial", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2476,22 +2477,25 @@ pub mod builder {
                     ),
                 )
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_serial",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<reqwest::Upgraded>, Error<types::Error>> {
             match response.status().as_u16() {
                 101u16 => ResponseValue::upgrade(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2508,7 +2512,7 @@ pub mod builder {
     impl<'a> InstanceStatePut<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 body: Err("body was not initialized".to_string()),
             }
         }
@@ -2527,13 +2531,12 @@ pub mod builder {
         pub async fn send(self) -> Result<ResponseValue<()>, Error<types::Error>> {
             let Self { client, body } = self;
             let body = body.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/instance/state", client.baseurl,);
+            let url = format!("{}/instance/state", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -2544,22 +2547,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_state_put",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2575,10 +2581,7 @@ pub mod builder {
 
     impl<'a> InstanceStateMonitor<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
-            }
+            Self { client , body : Ok (< types :: builder :: InstanceStateMonitorRequest as :: std :: default :: Default > :: default ()) , }
         }
 
         pub fn body<V>(mut self, value: V) -> Self
@@ -2588,10 +2591,7 @@ pub mod builder {
                 std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `InstanceStateMonitorRequest` for body failed: {}",
-                    s
-                )
+                format!("conversion to `InstanceStateMonitorRequest` for body failed: {s}")
             });
             self
         }
@@ -2617,13 +2617,12 @@ pub mod builder {
                     types::InstanceStateMonitorRequest::try_from(v).map_err(|e| e.to_string())
                 })
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/instance/state-monitor", client.baseurl,);
+            let url = format!("{}/instance/state-monitor", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -2634,22 +2633,26 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_state_monitor",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::InstanceStateMonitorResponse>, Error<types::Error>>
+        {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -2658,6 +2661,5 @@ pub mod builder {
 /// Items consumers will typically use such as the Client and
 /// extension traits.
 pub mod prelude {
-    #[allow(unused_imports)]
     pub use super::Client;
 }

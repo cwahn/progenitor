@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///Describes properties that should uniquely identify a Gimlet.
     #[derive(
@@ -17,7 +14,7 @@ pub mod types {
 
     impl Baseboard {
         pub fn builder() -> builder::Baseboard {
-            Default::default()
+            <builder::Baseboard as ::std::default::Default>::default()
         }
     }
 
@@ -78,7 +75,7 @@ pub mod types {
 
     impl Bindouble {
         pub fn builder() -> builder::Bindouble {
-            Default::default()
+            <builder::Bindouble as ::std::default::Default>::default()
         }
     }
 
@@ -95,7 +92,7 @@ pub mod types {
 
     impl Binint64 {
         pub fn builder() -> builder::Binint64 {
-            Default::default()
+            <builder::Binint64 as ::std::default::Default>::default()
         }
     }
 
@@ -162,7 +159,7 @@ pub mod types {
     ///The maximum supported byte count is [`i64::MAX`].  This makes it
     /// somewhat inconvenient to define constructors: a u32 constructor can be
     /// infallible, but an i64 constructor can fail (if the value is negative)
-    /// and a u64 constructor can fail (if the value is larger than i64::MAX).
+    /// and a u64 constructor can fail (if the value is larger than `i64::MAX`).
     /// We provide all of these for consumers' convenience.
     #[derive(
         :: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, schemars :: JsonSchema,
@@ -235,7 +232,7 @@ pub mod types {
 
     impl Certificate {
         pub fn builder() -> builder::Certificate {
-            Default::default()
+            <builder::Certificate as ::std::default::Default>::default()
         }
     }
 
@@ -257,7 +254,7 @@ pub mod types {
 
     impl CertificateCreate {
         pub fn builder() -> builder::CertificateCreate {
-            Default::default()
+            <builder::CertificateCreate as ::std::default::Default>::default()
         }
     }
 
@@ -275,7 +272,7 @@ pub mod types {
 
     impl CertificateResultsPage {
         pub fn builder() -> builder::CertificateResultsPage {
-            Default::default()
+            <builder::CertificateResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -297,7 +294,7 @@ pub mod types {
 
     impl ComponentUpdate {
         pub fn builder() -> builder::ComponentUpdate {
-            Default::default()
+            <builder::ComponentUpdate as ::std::default::Default>::default()
         }
     }
 
@@ -315,7 +312,7 @@ pub mod types {
 
     impl ComponentUpdateResultsPage {
         pub fn builder() -> builder::ComponentUpdateResultsPage {
-            Default::default()
+            <builder::ComponentUpdateResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -330,7 +327,7 @@ pub mod types {
 
     impl Cumulativedouble {
         pub fn builder() -> builder::Cumulativedouble {
-            Default::default()
+            <builder::Cumulativedouble as ::std::default::Default>::default()
         }
     }
 
@@ -345,7 +342,7 @@ pub mod types {
 
     impl Cumulativeint64 {
         pub fn builder() -> builder::Cumulativeint64 {
-            Default::default()
+            <builder::Cumulativeint64 as ::std::default::Default>::default()
         }
     }
 
@@ -521,7 +518,7 @@ pub mod types {
 
     impl DerEncodedKeyPair {
         pub fn builder() -> builder::DerEncodedKeyPair {
-            Default::default()
+            <builder::DerEncodedKeyPair as ::std::default::Default>::default()
         }
     }
 
@@ -537,7 +534,7 @@ pub mod types {
 
     impl DeviceAccessTokenRequest {
         pub fn builder() -> builder::DeviceAccessTokenRequest {
-            Default::default()
+            <builder::DeviceAccessTokenRequest as ::std::default::Default>::default()
         }
     }
 
@@ -551,7 +548,7 @@ pub mod types {
 
     impl DeviceAuthRequest {
         pub fn builder() -> builder::DeviceAuthRequest {
-            Default::default()
+            <builder::DeviceAuthRequest as ::std::default::Default>::default()
         }
     }
 
@@ -565,7 +562,7 @@ pub mod types {
 
     impl DeviceAuthVerify {
         pub fn builder() -> builder::DeviceAuthVerify {
-            Default::default()
+            <builder::DeviceAuthVerify as ::std::default::Default>::default()
         }
     }
 
@@ -607,7 +604,7 @@ pub mod types {
 
     impl Disk {
         pub fn builder() -> builder::Disk {
-            Default::default()
+            <builder::Disk as ::std::default::Default>::default()
         }
     }
 
@@ -627,7 +624,7 @@ pub mod types {
 
     impl DiskCreate {
         pub fn builder() -> builder::DiskCreate {
-            Default::default()
+            <builder::DiskCreate as ::std::default::Default>::default()
         }
     }
 
@@ -643,7 +640,7 @@ pub mod types {
 
     impl DiskIdentifier {
         pub fn builder() -> builder::DiskIdentifier {
-            Default::default()
+            <builder::DiskIdentifier as ::std::default::Default>::default()
         }
     }
 
@@ -730,7 +727,7 @@ pub mod types {
 
     impl DiskPath {
         pub fn builder() -> builder::DiskPath {
-            Default::default()
+            <builder::DiskPath as ::std::default::Default>::default()
         }
     }
 
@@ -748,7 +745,7 @@ pub mod types {
 
     impl DiskResultsPage {
         pub fn builder() -> builder::DiskResultsPage {
-            Default::default()
+            <builder::DiskResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -814,7 +811,7 @@ pub mod types {
 
     impl Distribution {
         pub fn builder() -> builder::Distribution {
-            Default::default()
+            <builder::Distribution as ::std::default::Default>::default()
         }
     }
 
@@ -831,7 +828,7 @@ pub mod types {
 
     impl Error {
         pub fn builder() -> builder::Error {
-            Default::default()
+            <builder::Error as ::std::default::Default>::default()
         }
     }
 
@@ -846,7 +843,7 @@ pub mod types {
 
     impl ExternalIp {
         pub fn builder() -> builder::ExternalIp {
-            Default::default()
+            <builder::ExternalIp as ::std::default::Default>::default()
         }
     }
 
@@ -880,7 +877,7 @@ pub mod types {
 
     impl ExternalIpResultsPage {
         pub fn builder() -> builder::ExternalIpResultsPage {
-            Default::default()
+            <builder::ExternalIpResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -896,7 +893,7 @@ pub mod types {
 
     impl FieldSchema {
         pub fn builder() -> builder::FieldSchema {
-            Default::default()
+            <builder::FieldSchema as ::std::default::Default>::default()
         }
     }
 
@@ -1103,7 +1100,7 @@ pub mod types {
 
     impl FleetRolePolicy {
         pub fn builder() -> builder::FleetRolePolicy {
-            Default::default()
+            <builder::FleetRolePolicy as ::std::default::Default>::default()
         }
     }
 
@@ -1124,7 +1121,7 @@ pub mod types {
 
     impl FleetRoleRoleAssignment {
         pub fn builder() -> builder::FleetRoleRoleAssignment {
-            Default::default()
+            <builder::FleetRoleRoleAssignment as ::std::default::Default>::default()
         }
     }
 
@@ -1161,7 +1158,7 @@ pub mod types {
 
     impl GlobalImage {
         pub fn builder() -> builder::GlobalImage {
-            Default::default()
+            <builder::GlobalImage as ::std::default::Default>::default()
         }
     }
 
@@ -1183,7 +1180,7 @@ pub mod types {
 
     impl GlobalImageCreate {
         pub fn builder() -> builder::GlobalImageCreate {
-            Default::default()
+            <builder::GlobalImageCreate as ::std::default::Default>::default()
         }
     }
 
@@ -1201,7 +1198,7 @@ pub mod types {
 
     impl GlobalImageResultsPage {
         pub fn builder() -> builder::GlobalImageResultsPage {
-            Default::default()
+            <builder::GlobalImageResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -1219,7 +1216,7 @@ pub mod types {
 
     impl Group {
         pub fn builder() -> builder::Group {
-            Default::default()
+            <builder::Group as ::std::default::Default>::default()
         }
     }
 
@@ -1237,7 +1234,7 @@ pub mod types {
 
     impl GroupResultsPage {
         pub fn builder() -> builder::GroupResultsPage {
-            Default::default()
+            <builder::GroupResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -1252,19 +1249,22 @@ pub mod types {
     ///Note that any gaps, unsorted bins, or non-finite values will result in
     /// an error.
     ///
-    ///Example ------- ```rust use oximeter::histogram::{BinRange, Histogram};
+    ///Example ------- ```rust use `oximeter::histogram::{BinRange`,
+    /// Histogram};
     ///
     ///let edges = [0i64, 10, 20]; let mut hist =
-    /// Histogram::new(&edges).unwrap(); assert_eq!(hist.n_bins(), 4); // One
-    /// additional bin for the range (20..) assert_eq!(hist.n_samples(), 0);
-    /// hist.sample(4); hist.sample(100); assert_eq!(hist.n_samples(), 2);
+    /// `Histogram::new(&edges).unwrap()`; `assert_eq!(hist.n_bins()`, 4); //
+    /// One additional bin for the range (20..) `assert_eq!(hist.n_samples()`,
+    /// 0); hist.sample(4); hist.sample(100); `assert_eq!(hist.n_samples()`, 2);
     ///
-    ///let data = hist.iter().collect::<Vec<_>>(); assert_eq!(data[0].range,
-    /// BinRange::range(i64::MIN, 0)); // An additional bin for `..0`
-    /// assert_eq!(data[0].count, 0); // Nothing is in this bin
+    ///let data = `hist.iter().collect::`<Vec<_>>();
+    /// `assert_eq!(data`[0].range, `BinRange::range(i64::MIN`, 0)); // An
+    /// additional bin for `..0` `assert_eq!(data`[0].count, 0); // Nothing is
+    /// in this bin
     ///
-    ///assert_eq!(data[1].range, BinRange::range(0, 10)); // The range `0..10`
-    /// assert_eq!(data[1].count, 1); // 4 is sampled into this bin ```
+    ///`assert_eq!(data`[1].range, `BinRange::range(0`, 10)); // The range
+    /// `0..10` `assert_eq!(data`[1].count, 1); // 4 is sampled into this bin
+    /// ```
     ///
     ///Notes -----
     ///
@@ -1294,7 +1294,7 @@ pub mod types {
 
     impl Histogramdouble {
         pub fn builder() -> builder::Histogramdouble {
-            Default::default()
+            <builder::Histogramdouble as ::std::default::Default>::default()
         }
     }
 
@@ -1309,19 +1309,22 @@ pub mod types {
     ///Note that any gaps, unsorted bins, or non-finite values will result in
     /// an error.
     ///
-    ///Example ------- ```rust use oximeter::histogram::{BinRange, Histogram};
+    ///Example ------- ```rust use `oximeter::histogram::{BinRange`,
+    /// Histogram};
     ///
     ///let edges = [0i64, 10, 20]; let mut hist =
-    /// Histogram::new(&edges).unwrap(); assert_eq!(hist.n_bins(), 4); // One
-    /// additional bin for the range (20..) assert_eq!(hist.n_samples(), 0);
-    /// hist.sample(4); hist.sample(100); assert_eq!(hist.n_samples(), 2);
+    /// `Histogram::new(&edges).unwrap()`; `assert_eq!(hist.n_bins()`, 4); //
+    /// One additional bin for the range (20..) `assert_eq!(hist.n_samples()`,
+    /// 0); hist.sample(4); hist.sample(100); `assert_eq!(hist.n_samples()`, 2);
     ///
-    ///let data = hist.iter().collect::<Vec<_>>(); assert_eq!(data[0].range,
-    /// BinRange::range(i64::MIN, 0)); // An additional bin for `..0`
-    /// assert_eq!(data[0].count, 0); // Nothing is in this bin
+    ///let data = `hist.iter().collect::`<Vec<_>>();
+    /// `assert_eq!(data`[0].range, `BinRange::range(i64::MIN`, 0)); // An
+    /// additional bin for `..0` `assert_eq!(data`[0].count, 0); // Nothing is
+    /// in this bin
     ///
-    ///assert_eq!(data[1].range, BinRange::range(0, 10)); // The range `0..10`
-    /// assert_eq!(data[1].count, 1); // 4 is sampled into this bin ```
+    ///`assert_eq!(data`[1].range, `BinRange::range(0`, 10)); // The range
+    /// `0..10` `assert_eq!(data`[1].count, 1); // 4 is sampled into this bin
+    /// ```
     ///
     ///Notes -----
     ///
@@ -1351,7 +1354,7 @@ pub mod types {
 
     impl Histogramint64 {
         pub fn builder() -> builder::Histogramint64 {
-            Default::default()
+            <builder::Histogramint64 as ::std::default::Default>::default()
         }
     }
 
@@ -1432,7 +1435,7 @@ pub mod types {
 
     impl IdentityProvider {
         pub fn builder() -> builder::IdentityProvider {
-            Default::default()
+            <builder::IdentityProvider as ::std::default::Default>::default()
         }
     }
 
@@ -1450,7 +1453,7 @@ pub mod types {
 
     impl IdentityProviderResultsPage {
         pub fn builder() -> builder::IdentityProviderResultsPage {
-            Default::default()
+            <builder::IdentityProviderResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -1611,7 +1614,7 @@ pub mod types {
 
     impl Image {
         pub fn builder() -> builder::Image {
-            Default::default()
+            <builder::Image as ::std::default::Default>::default()
         }
     }
 
@@ -1631,7 +1634,7 @@ pub mod types {
 
     impl ImageCreate {
         pub fn builder() -> builder::ImageCreate {
-            Default::default()
+            <builder::ImageCreate as ::std::default::Default>::default()
         }
     }
 
@@ -1649,7 +1652,7 @@ pub mod types {
 
     impl ImageResultsPage {
         pub fn builder() -> builder::ImageResultsPage {
-            Default::default()
+            <builder::ImageResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -1696,7 +1699,7 @@ pub mod types {
 
     impl Instance {
         pub fn builder() -> builder::Instance {
-            Default::default()
+            <builder::Instance as ::std::default::Default>::default()
         }
     }
 
@@ -1782,14 +1785,14 @@ pub mod types {
         pub start: bool,
         ///User data for instance initialization systems (such as cloud-init).
         /// Must be a Base64-encoded string, as specified in RFC 4648 § 4 (+ and
-        /// / characters with padding). Maximum 32 KiB unencoded data.
+        /// / characters with padding). Maximum 32 `KiB` unencoded data.
         #[serde(default)]
         pub user_data: ::std::string::String,
     }
 
     impl InstanceCreate {
         pub fn builder() -> builder::InstanceCreate {
-            Default::default()
+            <builder::InstanceCreate as ::std::default::Default>::default()
         }
     }
 
@@ -1828,7 +1831,7 @@ pub mod types {
 
     impl InstanceMigrate {
         pub fn builder() -> builder::InstanceMigrate {
-            Default::default()
+            <builder::InstanceMigrate as ::std::default::Default>::default()
         }
     }
 
@@ -1873,7 +1876,7 @@ pub mod types {
 
     impl InstanceResultsPage {
         pub fn builder() -> builder::InstanceResultsPage {
-            Default::default()
+            <builder::InstanceResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -1893,7 +1896,7 @@ pub mod types {
 
     impl InstanceSerialConsoleData {
         pub fn builder() -> builder::InstanceSerialConsoleData {
-            Default::default()
+            <builder::InstanceSerialConsoleData as ::std::default::Default>::default()
         }
     }
 
@@ -2082,9 +2085,9 @@ pub mod types {
     impl ::std::str::FromStr for IpNet {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-            if let Ok(v) = value.parse() {
+            if let Ok(v) = value.parse::<Ipv4Net>() {
                 Ok(Self::V4(v))
-            } else if let Ok(v) = value.parse() {
+            } else if let Ok(v) = value.parse::<Ipv6Net>() {
                 Ok(Self::V6(v))
             } else {
                 Err("string conversion failed for all variants".into())
@@ -2140,7 +2143,7 @@ pub mod types {
 
     impl IpPool {
         pub fn builder() -> builder::IpPool {
-            Default::default()
+            <builder::IpPool as ::std::default::Default>::default()
         }
     }
 
@@ -2157,7 +2160,7 @@ pub mod types {
 
     impl IpPoolCreate {
         pub fn builder() -> builder::IpPoolCreate {
-            Default::default()
+            <builder::IpPoolCreate as ::std::default::Default>::default()
         }
     }
 
@@ -2173,7 +2176,7 @@ pub mod types {
 
     impl IpPoolRange {
         pub fn builder() -> builder::IpPoolRange {
-            Default::default()
+            <builder::IpPoolRange as ::std::default::Default>::default()
         }
     }
 
@@ -2191,7 +2194,7 @@ pub mod types {
 
     impl IpPoolRangeResultsPage {
         pub fn builder() -> builder::IpPoolRangeResultsPage {
-            Default::default()
+            <builder::IpPoolRangeResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -2209,7 +2212,7 @@ pub mod types {
 
     impl IpPoolResultsPage {
         pub fn builder() -> builder::IpPoolResultsPage {
-            Default::default()
+            <builder::IpPoolResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -2231,7 +2234,7 @@ pub mod types {
 
     impl IpPoolUpdate {
         pub fn builder() -> builder::IpPoolUpdate {
-            Default::default()
+            <builder::IpPoolUpdate as ::std::default::Default>::default()
         }
     }
 
@@ -2257,7 +2260,7 @@ pub mod types {
         }
     }
 
-    ///An IPv4 subnet, including prefix and subnet mask
+    ///An `IPv4` subnet, including prefix and subnet mask
     #[derive(
         :: serde :: Serialize,
         Clone,
@@ -2336,7 +2339,7 @@ pub mod types {
         }
     }
 
-    ///A non-decreasing IPv4 address range, inclusive of both ends.
+    ///A non-decreasing `IPv4` address range, inclusive of both ends.
     ///
     ///The first address must be less than or equal to the last address.
     #[derive(
@@ -2349,11 +2352,11 @@ pub mod types {
 
     impl Ipv4Range {
         pub fn builder() -> builder::Ipv4Range {
-            Default::default()
+            <builder::Ipv4Range as ::std::default::Default>::default()
         }
     }
 
-    ///An IPv6 subnet, including prefix and subnet mask
+    ///An `IPv6` subnet, including prefix and subnet mask
     #[derive(
         :: serde :: Serialize,
         Clone,
@@ -2431,7 +2434,7 @@ pub mod types {
         }
     }
 
-    ///A non-decreasing IPv6 address range, inclusive of both ends.
+    ///A non-decreasing `IPv6` address range, inclusive of both ends.
     ///
     ///The first address must be less than or equal to the last address.
     #[derive(
@@ -2444,7 +2447,7 @@ pub mod types {
 
     impl Ipv6Range {
         pub fn builder() -> builder::Ipv6Range {
-            Default::default()
+            <builder::Ipv6Range as ::std::default::Default>::default()
         }
     }
 
@@ -2479,16 +2482,16 @@ pub mod types {
     impl ::std::str::FromStr for L4PortRange {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
+                ::std::sync::LazyLock::new(|| {
+                    ::regress::Regex::new("^[0-9]{1,5}(-[0-9]{1,5})?$").unwrap()
+                });
             if value.chars().count() > 11usize {
                 return Err("longer than 11 characters".into());
             }
             if value.chars().count() < 1usize {
                 return Err("shorter than 1 characters".into());
             }
-            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
-                ::std::sync::LazyLock::new(|| {
-                    ::regress::Regex::new("^[0-9]{1,5}(-[0-9]{1,5})?$").unwrap()
-                });
             if PATTERN.find(value).is_none() {
                 return Err("doesn't match pattern \"^[0-9]{1,5}(-[0-9]{1,5})?$\"".into());
             }
@@ -2555,16 +2558,16 @@ pub mod types {
     impl ::std::str::FromStr for MacAddr {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
+                ::std::sync::LazyLock::new(|| {
+                    ::regress::Regex::new("^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$").unwrap()
+                });
             if value.chars().count() > 17usize {
                 return Err("longer than 17 characters".into());
             }
             if value.chars().count() < 17usize {
                 return Err("shorter than 17 characters".into());
             }
-            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
-                ::std::sync::LazyLock::new(|| {
-                    ::regress::Regex::new("^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$").unwrap()
-                });
             if PATTERN.find(value).is_none() {
                 return Err(
                     "doesn't match pattern \"^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$\"".into(),
@@ -2614,7 +2617,7 @@ pub mod types {
 
     impl Measurement {
         pub fn builder() -> builder::Measurement {
-            Default::default()
+            <builder::Measurement as ::std::default::Default>::default()
         }
     }
 
@@ -2632,7 +2635,7 @@ pub mod types {
 
     impl MeasurementResultsPage {
         pub fn builder() -> builder::MeasurementResultsPage {
-            Default::default()
+            <builder::MeasurementResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -2668,14 +2671,14 @@ pub mod types {
     impl ::std::str::FromStr for Name {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-            if value.chars().count() > 63usize {
-                return Err("longer than 63 characters".into());
-            }
             static PATTERN: ::std::sync::LazyLock<::regress::Regex> = ::std::sync::LazyLock::new(
                 || {
                     :: regress :: Regex :: new ("^(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)^[a-z][a-z0-9-]*[a-zA-Z0-9]$") . unwrap ()
                 },
             );
+            if value.chars().count() > 63usize {
+                return Err("longer than 63 characters".into());
+            }
             if PATTERN.find(value).is_none() {
                 return Err ("doesn't match pattern \"^(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)^[a-z][a-z0-9-]*[a-zA-Z0-9]$\"" . into ()) ;
             }
@@ -2734,9 +2737,9 @@ pub mod types {
     impl ::std::str::FromStr for NameOrId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-            if let Ok(v) = value.parse() {
+            if let Ok(v) = value.parse::<::uuid::Uuid>() {
                 Ok(Self::Id(v))
-            } else if let Ok(v) = value.parse() {
+            } else if let Ok(v) = value.parse::<Name>() {
                 Ok(Self::Name(v))
             } else {
                 Err("string conversion failed for all variants".into())
@@ -2924,7 +2927,7 @@ pub mod types {
 
     impl NetworkInterface {
         pub fn builder() -> builder::NetworkInterface {
-            Default::default()
+            <builder::NetworkInterface as ::std::default::Default>::default()
         }
     }
 
@@ -2948,7 +2951,7 @@ pub mod types {
 
     impl NetworkInterfaceCreate {
         pub fn builder() -> builder::NetworkInterfaceCreate {
-            Default::default()
+            <builder::NetworkInterfaceCreate as ::std::default::Default>::default()
         }
     }
 
@@ -2966,7 +2969,7 @@ pub mod types {
 
     impl NetworkInterfaceResultsPage {
         pub fn builder() -> builder::NetworkInterfaceResultsPage {
-            Default::default()
+            <builder::NetworkInterfaceResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -3005,7 +3008,7 @@ pub mod types {
 
     impl NetworkInterfaceUpdate {
         pub fn builder() -> builder::NetworkInterfaceUpdate {
-            Default::default()
+            <builder::NetworkInterfaceUpdate as ::std::default::Default>::default()
         }
     }
 
@@ -3080,7 +3083,7 @@ pub mod types {
 
     impl Organization {
         pub fn builder() -> builder::Organization {
-            Default::default()
+            <builder::Organization as ::std::default::Default>::default()
         }
     }
 
@@ -3096,7 +3099,7 @@ pub mod types {
 
     impl OrganizationCreate {
         pub fn builder() -> builder::OrganizationCreate {
-            Default::default()
+            <builder::OrganizationCreate as ::std::default::Default>::default()
         }
     }
 
@@ -3114,7 +3117,7 @@ pub mod types {
 
     impl OrganizationResultsPage {
         pub fn builder() -> builder::OrganizationResultsPage {
-            Default::default()
+            <builder::OrganizationResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -3195,7 +3198,7 @@ pub mod types {
 
     impl OrganizationRolePolicy {
         pub fn builder() -> builder::OrganizationRolePolicy {
-            Default::default()
+            <builder::OrganizationRolePolicy as ::std::default::Default>::default()
         }
     }
 
@@ -3216,7 +3219,7 @@ pub mod types {
 
     impl OrganizationRoleRoleAssignment {
         pub fn builder() -> builder::OrganizationRoleRoleAssignment {
-            Default::default()
+            <builder::OrganizationRoleRoleAssignment as ::std::default::Default>::default()
         }
     }
 
@@ -3239,7 +3242,7 @@ pub mod types {
 
     impl OrganizationUpdate {
         pub fn builder() -> builder::OrganizationUpdate {
-            Default::default()
+            <builder::OrganizationUpdate as ::std::default::Default>::default()
         }
     }
 
@@ -3331,7 +3334,7 @@ pub mod types {
 
     impl PhysicalDisk {
         pub fn builder() -> builder::PhysicalDisk {
-            Default::default()
+            <builder::PhysicalDisk as ::std::default::Default>::default()
         }
     }
 
@@ -3349,7 +3352,7 @@ pub mod types {
 
     impl PhysicalDiskResultsPage {
         pub fn builder() -> builder::PhysicalDiskResultsPage {
-            Default::default()
+            <builder::PhysicalDiskResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -3430,7 +3433,7 @@ pub mod types {
 
     impl Project {
         pub fn builder() -> builder::Project {
-            Default::default()
+            <builder::Project as ::std::default::Default>::default()
         }
     }
 
@@ -3446,7 +3449,7 @@ pub mod types {
 
     impl ProjectCreate {
         pub fn builder() -> builder::ProjectCreate {
-            Default::default()
+            <builder::ProjectCreate as ::std::default::Default>::default()
         }
     }
 
@@ -3464,7 +3467,7 @@ pub mod types {
 
     impl ProjectResultsPage {
         pub fn builder() -> builder::ProjectResultsPage {
-            Default::default()
+            <builder::ProjectResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -3545,7 +3548,7 @@ pub mod types {
 
     impl ProjectRolePolicy {
         pub fn builder() -> builder::ProjectRolePolicy {
-            Default::default()
+            <builder::ProjectRolePolicy as ::std::default::Default>::default()
         }
     }
 
@@ -3566,7 +3569,7 @@ pub mod types {
 
     impl ProjectRoleRoleAssignment {
         pub fn builder() -> builder::ProjectRoleRoleAssignment {
-            Default::default()
+            <builder::ProjectRoleRoleAssignment as ::std::default::Default>::default()
         }
     }
 
@@ -3589,7 +3592,7 @@ pub mod types {
 
     impl ProjectUpdate {
         pub fn builder() -> builder::ProjectUpdate {
-            Default::default()
+            <builder::ProjectUpdate as ::std::default::Default>::default()
         }
     }
 
@@ -3608,7 +3611,7 @@ pub mod types {
 
     impl Rack {
         pub fn builder() -> builder::Rack {
-            Default::default()
+            <builder::Rack as ::std::default::Default>::default()
         }
     }
 
@@ -3626,7 +3629,7 @@ pub mod types {
 
     impl RackResultsPage {
         pub fn builder() -> builder::RackResultsPage {
-            Default::default()
+            <builder::RackResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -3641,7 +3644,7 @@ pub mod types {
 
     impl Role {
         pub fn builder() -> builder::Role {
-            Default::default()
+            <builder::Role as ::std::default::Default>::default()
         }
     }
 
@@ -3675,11 +3678,11 @@ pub mod types {
     impl ::std::str::FromStr for RoleName {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
+            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
+                ::std::sync::LazyLock::new(|| ::regress::Regex::new("[a-z-]+\\.[a-z-]+").unwrap());
             if value.chars().count() > 63usize {
                 return Err("longer than 63 characters".into());
             }
-            static PATTERN: ::std::sync::LazyLock<::regress::Regex> =
-                ::std::sync::LazyLock::new(|| ::regress::Regex::new("[a-z-]+\\.[a-z-]+").unwrap());
             if PATTERN.find(value).is_none() {
                 return Err("doesn't match pattern \"[a-z-]+\\.[a-z-]+\"".into());
             }
@@ -3730,7 +3733,7 @@ pub mod types {
 
     impl RoleResultsPage {
         pub fn builder() -> builder::RoleResultsPage {
-            Default::default()
+            <builder::RoleResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -3827,7 +3830,7 @@ pub mod types {
 
     impl RouterRoute {
         pub fn builder() -> builder::RouterRoute {
-            Default::default()
+            <builder::RouterRoute as ::std::default::Default>::default()
         }
     }
 
@@ -3844,7 +3847,7 @@ pub mod types {
 
     impl RouterRouteCreateParams {
         pub fn builder() -> builder::RouterRouteCreateParams {
-            Default::default()
+            <builder::RouterRouteCreateParams as ::std::default::Default>::default()
         }
     }
 
@@ -3944,7 +3947,7 @@ pub mod types {
 
     impl RouterRouteResultsPage {
         pub fn builder() -> builder::RouterRouteResultsPage {
-            Default::default()
+            <builder::RouterRouteResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -3963,7 +3966,7 @@ pub mod types {
 
     impl RouterRouteUpdateParams {
         pub fn builder() -> builder::RouterRouteUpdateParams {
-            Default::default()
+            <builder::RouterRouteUpdateParams as ::std::default::Default>::default()
         }
     }
 
@@ -3978,7 +3981,7 @@ pub mod types {
 
     impl Saga {
         pub fn builder() -> builder::Saga {
-            Default::default()
+            <builder::Saga as ::std::default::Default>::default()
         }
     }
 
@@ -4014,7 +4017,7 @@ pub mod types {
 
     impl SagaResultsPage {
         pub fn builder() -> builder::SagaResultsPage {
-            Default::default()
+            <builder::SagaResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -4069,7 +4072,7 @@ pub mod types {
 
     impl SamlIdentityProvider {
         pub fn builder() -> builder::SamlIdentityProvider {
-            Default::default()
+            <builder::SamlIdentityProvider as ::std::default::Default>::default()
         }
     }
 
@@ -4104,7 +4107,7 @@ pub mod types {
 
     impl SamlIdentityProviderCreate {
         pub fn builder() -> builder::SamlIdentityProviderCreate {
-            Default::default()
+            <builder::SamlIdentityProviderCreate as ::std::default::Default>::default()
         }
     }
 
@@ -4256,7 +4259,7 @@ pub mod types {
 
     impl Silo {
         pub fn builder() -> builder::Silo {
-            Default::default()
+            <builder::Silo as ::std::default::Default>::default()
         }
     }
 
@@ -4271,8 +4274,8 @@ pub mod types {
         /// initialize the Silo.
         ///
         ///Note that if configuring a SAML based identity provider,
-        /// group_attribute_name must be set for users to be considered part of
-        /// a group. See [`SamlIdentityProviderCreate`] for more information.
+        /// `group_attribute_name` must be set for users to be considered part
+        /// of a group. See [`SamlIdentityProviderCreate`] for more information.
         #[serde(skip_serializing_if = "::std::option::Option::is_none")]
         pub admin_group_name: ::std::option::Option<::std::string::String>,
         pub description: ::std::string::String,
@@ -4283,7 +4286,7 @@ pub mod types {
 
     impl SiloCreate {
         pub fn builder() -> builder::SiloCreate {
-            Default::default()
+            <builder::SiloCreate as ::std::default::Default>::default()
         }
     }
 
@@ -4365,7 +4368,7 @@ pub mod types {
 
     impl SiloResultsPage {
         pub fn builder() -> builder::SiloResultsPage {
-            Default::default()
+            <builder::SiloResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -4446,7 +4449,7 @@ pub mod types {
 
     impl SiloRolePolicy {
         pub fn builder() -> builder::SiloRolePolicy {
-            Default::default()
+            <builder::SiloRolePolicy as ::std::default::Default>::default()
         }
     }
 
@@ -4467,7 +4470,7 @@ pub mod types {
 
     impl SiloRoleRoleAssignment {
         pub fn builder() -> builder::SiloRoleRoleAssignment {
-            Default::default()
+            <builder::SiloRoleRoleAssignment as ::std::default::Default>::default()
         }
     }
 
@@ -4488,7 +4491,7 @@ pub mod types {
 
     impl Sled {
         pub fn builder() -> builder::Sled {
-            Default::default()
+            <builder::Sled as ::std::default::Default>::default()
         }
     }
 
@@ -4506,7 +4509,7 @@ pub mod types {
 
     impl SledResultsPage {
         pub fn builder() -> builder::SledResultsPage {
-            Default::default()
+            <builder::SledResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -4533,7 +4536,7 @@ pub mod types {
 
     impl Snapshot {
         pub fn builder() -> builder::Snapshot {
-            Default::default()
+            <builder::Snapshot as ::std::default::Default>::default()
         }
     }
 
@@ -4551,7 +4554,7 @@ pub mod types {
 
     impl SnapshotCreate {
         pub fn builder() -> builder::SnapshotCreate {
-            Default::default()
+            <builder::SnapshotCreate as ::std::default::Default>::default()
         }
     }
 
@@ -4569,7 +4572,7 @@ pub mod types {
 
     impl SnapshotResultsPage {
         pub fn builder() -> builder::SnapshotResultsPage {
-            Default::default()
+            <builder::SnapshotResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -4648,7 +4651,7 @@ pub mod types {
 
     impl SpoofLoginBody {
         pub fn builder() -> builder::SpoofLoginBody {
-            Default::default()
+            <builder::SpoofLoginBody as ::std::default::Default>::default()
         }
     }
 
@@ -4675,7 +4678,7 @@ pub mod types {
 
     impl SshKey {
         pub fn builder() -> builder::SshKey {
-            Default::default()
+            <builder::SshKey as ::std::default::Default>::default()
         }
     }
 
@@ -4693,7 +4696,7 @@ pub mod types {
 
     impl SshKeyCreate {
         pub fn builder() -> builder::SshKeyCreate {
-            Default::default()
+            <builder::SshKeyCreate as ::std::default::Default>::default()
         }
     }
 
@@ -4711,7 +4714,7 @@ pub mod types {
 
     impl SshKeyResultsPage {
         pub fn builder() -> builder::SshKeyResultsPage {
-            Default::default()
+            <builder::SshKeyResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -4793,7 +4796,7 @@ pub mod types {
 
     impl SystemUpdate {
         pub fn builder() -> builder::SystemUpdate {
-            Default::default()
+            <builder::SystemUpdate as ::std::default::Default>::default()
         }
     }
 
@@ -4811,7 +4814,7 @@ pub mod types {
 
     impl SystemUpdateResultsPage {
         pub fn builder() -> builder::SystemUpdateResultsPage {
-            Default::default()
+            <builder::SystemUpdateResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -4825,7 +4828,7 @@ pub mod types {
 
     impl SystemUpdateStart {
         pub fn builder() -> builder::SystemUpdateStart {
-            Default::default()
+            <builder::SystemUpdateStart as ::std::default::Default>::default()
         }
     }
 
@@ -4840,7 +4843,7 @@ pub mod types {
 
     impl SystemVersion {
         pub fn builder() -> builder::SystemVersion {
-            Default::default()
+            <builder::SystemVersion as ::std::default::Default>::default()
         }
     }
 
@@ -4938,7 +4941,7 @@ pub mod types {
 
     impl TimeseriesSchema {
         pub fn builder() -> builder::TimeseriesSchema {
-            Default::default()
+            <builder::TimeseriesSchema as ::std::default::Default>::default()
         }
     }
 
@@ -4956,7 +4959,7 @@ pub mod types {
 
     impl TimeseriesSchemaResultsPage {
         pub fn builder() -> builder::TimeseriesSchemaResultsPage {
-            Default::default()
+            <builder::TimeseriesSchemaResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -4978,7 +4981,7 @@ pub mod types {
 
     impl UpdateDeployment {
         pub fn builder() -> builder::UpdateDeployment {
-            Default::default()
+            <builder::UpdateDeployment as ::std::default::Default>::default()
         }
     }
 
@@ -4996,7 +4999,7 @@ pub mod types {
 
     impl UpdateDeploymentResultsPage {
         pub fn builder() -> builder::UpdateDeploymentResultsPage {
-            Default::default()
+            <builder::UpdateDeploymentResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -5079,7 +5082,7 @@ pub mod types {
 
     impl UpdateableComponent {
         pub fn builder() -> builder::UpdateableComponent {
-            Default::default()
+            <builder::UpdateableComponent as ::std::default::Default>::default()
         }
     }
 
@@ -5097,7 +5100,7 @@ pub mod types {
 
     impl UpdateableComponentResultsPage {
         pub fn builder() -> builder::UpdateableComponentResultsPage {
-            Default::default()
+            <builder::UpdateableComponentResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -5212,7 +5215,7 @@ pub mod types {
 
     impl User {
         pub fn builder() -> builder::User {
-            Default::default()
+            <builder::User as ::std::default::Default>::default()
         }
     }
 
@@ -5235,7 +5238,7 @@ pub mod types {
 
     impl UserBuiltin {
         pub fn builder() -> builder::UserBuiltin {
-            Default::default()
+            <builder::UserBuiltin as ::std::default::Default>::default()
         }
     }
 
@@ -5253,7 +5256,7 @@ pub mod types {
 
     impl UserBuiltinResultsPage {
         pub fn builder() -> builder::UserBuiltinResultsPage {
-            Default::default()
+            <builder::UserBuiltinResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -5270,7 +5273,7 @@ pub mod types {
 
     impl UserCreate {
         pub fn builder() -> builder::UserCreate {
-            Default::default()
+            <builder::UserCreate as ::std::default::Default>::default()
         }
     }
 
@@ -5306,14 +5309,14 @@ pub mod types {
     impl ::std::str::FromStr for UserId {
         type Err = self::error::ConversionError;
         fn from_str(value: &str) -> ::std::result::Result<Self, self::error::ConversionError> {
-            if value.chars().count() > 63usize {
-                return Err("longer than 63 characters".into());
-            }
             static PATTERN: ::std::sync::LazyLock<::regress::Regex> = ::std::sync::LazyLock::new(
                 || {
                     :: regress :: Regex :: new ("^(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)^[a-z][a-z0-9-]*[a-zA-Z0-9]$") . unwrap ()
                 },
             );
+            if value.chars().count() > 63usize {
+                return Err("longer than 63 characters".into());
+            }
             if PATTERN.find(value).is_none() {
                 return Err ("doesn't match pattern \"^(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$)^[a-z][a-z0-9-]*[a-zA-Z0-9]$\"" . into ()) ;
             }
@@ -5383,7 +5386,7 @@ pub mod types {
 
     impl UserResultsPage {
         pub fn builder() -> builder::UserResultsPage {
-            Default::default()
+            <builder::UserResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -5398,7 +5401,7 @@ pub mod types {
 
     impl UsernamePasswordCredentials {
         pub fn builder() -> builder::UsernamePasswordCredentials {
-            Default::default()
+            <builder::UsernamePasswordCredentials as ::std::default::Default>::default()
         }
     }
 
@@ -5413,7 +5416,7 @@ pub mod types {
 
     impl VersionRange {
         pub fn builder() -> builder::VersionRange {
-            Default::default()
+            <builder::VersionRange as ::std::default::Default>::default()
         }
     }
 
@@ -5428,7 +5431,7 @@ pub mod types {
         pub dns_name: Name,
         ///unique, immutable, system-controlled identifier for each resource
         pub id: ::uuid::Uuid,
-        ///The unique local IPv6 address range for subnets in this VPC
+        ///The unique local `IPv6` address range for subnets in this VPC
         pub ipv6_prefix: Ipv6Net,
         ///unique, mutable, user-controlled identifier for each resource
         pub name: Name,
@@ -5444,7 +5447,7 @@ pub mod types {
 
     impl Vpc {
         pub fn builder() -> builder::Vpc {
-            Default::default()
+            <builder::Vpc as ::std::default::Default>::default()
         }
     }
 
@@ -5455,9 +5458,9 @@ pub mod types {
     pub struct VpcCreate {
         pub description: ::std::string::String,
         pub dns_name: Name,
-        ///The IPv6 prefix for this VPC.
+        ///The `IPv6` prefix for this VPC.
         ///
-        ///All IPv6 subnets created from this VPC must be taken from this
+        ///All `IPv6` subnets created from this VPC must be taken from this
         /// range, which sould be a Unique Local Address in the range
         /// `fd00::/48`. The default VPC Subnet will have the first `/64` range
         /// from this prefix.
@@ -5468,7 +5471,7 @@ pub mod types {
 
     impl VpcCreate {
         pub fn builder() -> builder::VpcCreate {
-            Default::default()
+            <builder::VpcCreate as ::std::default::Default>::default()
         }
     }
 
@@ -5505,7 +5508,7 @@ pub mod types {
 
     impl VpcFirewallRule {
         pub fn builder() -> builder::VpcFirewallRule {
-            Default::default()
+            <builder::VpcFirewallRule as ::std::default::Default>::default()
         }
     }
 
@@ -5649,7 +5652,7 @@ pub mod types {
 
     impl VpcFirewallRuleFilter {
         pub fn builder() -> builder::VpcFirewallRuleFilter {
-            Default::default()
+            <builder::VpcFirewallRuleFilter as ::std::default::Default>::default()
         }
     }
 
@@ -5868,11 +5871,11 @@ pub mod types {
 
     impl VpcFirewallRuleUpdate {
         pub fn builder() -> builder::VpcFirewallRuleUpdate {
-            Default::default()
+            <builder::VpcFirewallRuleUpdate as ::std::default::Default>::default()
         }
     }
 
-    ///Updateable properties of a `Vpc`'s firewall Note that VpcFirewallRules
+    ///Updateable properties of a `Vpc`'s firewall Note that `VpcFirewallRules`
     /// are implicitly created along with a Vpc, so there is no explicit
     /// creation.
     #[derive(
@@ -5884,7 +5887,7 @@ pub mod types {
 
     impl VpcFirewallRuleUpdateParams {
         pub fn builder() -> builder::VpcFirewallRuleUpdateParams {
-            Default::default()
+            <builder::VpcFirewallRuleUpdateParams as ::std::default::Default>::default()
         }
     }
 
@@ -5898,7 +5901,7 @@ pub mod types {
 
     impl VpcFirewallRules {
         pub fn builder() -> builder::VpcFirewallRules {
-            Default::default()
+            <builder::VpcFirewallRules as ::std::default::Default>::default()
         }
     }
 
@@ -5916,7 +5919,7 @@ pub mod types {
 
     impl VpcResultsPage {
         pub fn builder() -> builder::VpcResultsPage {
-            Default::default()
+            <builder::VpcResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -5943,7 +5946,7 @@ pub mod types {
 
     impl VpcRouter {
         pub fn builder() -> builder::VpcRouter {
-            Default::default()
+            <builder::VpcRouter as ::std::default::Default>::default()
         }
     }
 
@@ -5959,7 +5962,7 @@ pub mod types {
 
     impl VpcRouterCreate {
         pub fn builder() -> builder::VpcRouterCreate {
-            Default::default()
+            <builder::VpcRouterCreate as ::std::default::Default>::default()
         }
     }
 
@@ -6034,7 +6037,7 @@ pub mod types {
 
     impl VpcRouterResultsPage {
         pub fn builder() -> builder::VpcRouterResultsPage {
-            Default::default()
+            <builder::VpcRouterResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -6057,13 +6060,13 @@ pub mod types {
 
     impl VpcRouterUpdate {
         pub fn builder() -> builder::VpcRouterUpdate {
-            Default::default()
+            <builder::VpcRouterUpdate as ::std::default::Default>::default()
         }
     }
 
     ///A VPC subnet represents a logical grouping for instances that allows
-    /// network traffic between them, within a IPv4 subnetwork or optionall an
-    /// IPv6 subnetwork.
+    /// network traffic between them, within a `IPv4` subnetwork or optionall an
+    /// `IPv6` subnetwork.
     #[derive(
         :: serde :: Deserialize, :: serde :: Serialize, Clone, Debug, schemars :: JsonSchema,
     )]
@@ -6072,9 +6075,9 @@ pub mod types {
         pub description: ::std::string::String,
         ///unique, immutable, system-controlled identifier for each resource
         pub id: ::uuid::Uuid,
-        ///The IPv4 subnet CIDR block.
+        ///The `IPv4` subnet CIDR block.
         pub ipv4_block: Ipv4Net,
-        ///The IPv6 subnet CIDR block.
+        ///The `IPv6` subnet CIDR block.
         pub ipv6_block: Ipv6Net,
         ///unique, mutable, user-controlled identifier for each resource
         pub name: Name,
@@ -6088,7 +6091,7 @@ pub mod types {
 
     impl VpcSubnet {
         pub fn builder() -> builder::VpcSubnet {
-            Default::default()
+            <builder::VpcSubnet as ::std::default::Default>::default()
         }
     }
 
@@ -6099,12 +6102,12 @@ pub mod types {
     )]
     pub struct VpcSubnetCreate {
         pub description: ::std::string::String,
-        ///The IPv4 address range for this subnet.
+        ///The `IPv4` address range for this subnet.
         ///
         ///It must be allocated from an RFC 1918 private address range, and
         /// must not overlap with any other existing subnet in the VPC.
         pub ipv4_block: Ipv4Net,
-        ///The IPv6 address range for this subnet.
+        ///The `IPv6` address range for this subnet.
         ///
         ///It must be allocated from the RFC 4193 Unique Local Address range,
         /// with the prefix equal to the parent VPC's prefix. A random `/64`
@@ -6117,7 +6120,7 @@ pub mod types {
 
     impl VpcSubnetCreate {
         pub fn builder() -> builder::VpcSubnetCreate {
-            Default::default()
+            <builder::VpcSubnetCreate as ::std::default::Default>::default()
         }
     }
 
@@ -6135,7 +6138,7 @@ pub mod types {
 
     impl VpcSubnetResultsPage {
         pub fn builder() -> builder::VpcSubnetResultsPage {
-            Default::default()
+            <builder::VpcSubnetResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -6158,7 +6161,7 @@ pub mod types {
 
     impl VpcSubnetUpdate {
         pub fn builder() -> builder::VpcSubnetUpdate {
-            Default::default()
+            <builder::VpcSubnetUpdate as ::std::default::Default>::default()
         }
     }
 
@@ -6182,7 +6185,7 @@ pub mod types {
 
     impl VpcUpdate {
         pub fn builder() -> builder::VpcUpdate {
-            Default::default()
+            <builder::VpcUpdate as ::std::default::Default>::default()
         }
     }
 
@@ -6615,7 +6618,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -6788,7 +6791,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -7214,11 +7217,11 @@ pub mod types {
                     description: Err("no value supplied for description".to_string()),
                     device_path: Err("no value supplied for device_path".to_string()),
                     id: Err("no value supplied for id".to_string()),
-                    image_id: Ok(Default::default()),
+                    image_id: Ok(<::std::option::Option<::uuid::Uuid>>::default()),
                     name: Err("no value supplied for name".to_string()),
                     project_id: Err("no value supplied for project_id".to_string()),
                     size: Err("no value supplied for size".to_string()),
-                    snapshot_id: Ok(Default::default()),
+                    snapshot_id: Ok(<::std::option::Option<::uuid::Uuid>>::default()),
                     state: Err("no value supplied for state".to_string()),
                     time_created: Err("no value supplied for time_created".to_string()),
                     time_modified: Err("no value supplied for time_modified".to_string()),
@@ -7574,7 +7577,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -7695,7 +7698,7 @@ pub mod types {
         impl ::std::default::Default for Error {
             fn default() -> Self {
                 Self {
-                    error_code: Ok(Default::default()),
+                    error_code: Ok(<::std::option::Option<::std::string::String>>::default()),
                     message: Err("no value supplied for message".to_string()),
                     request_id: Err("no value supplied for request_id".to_string()),
                 }
@@ -7830,7 +7833,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -8103,14 +8106,14 @@ pub mod types {
                 Self {
                     block_size: Err("no value supplied for block_size".to_string()),
                     description: Err("no value supplied for description".to_string()),
-                    digest: Ok(Default::default()),
+                    digest: Ok(<::std::option::Option<super::Digest>>::default()),
                     distribution: Err("no value supplied for distribution".to_string()),
                     id: Err("no value supplied for id".to_string()),
                     name: Err("no value supplied for name".to_string()),
                     size: Err("no value supplied for size".to_string()),
                     time_created: Err("no value supplied for time_created".to_string()),
                     time_modified: Err("no value supplied for time_modified".to_string()),
-                    url: Ok(Default::default()),
+                    url: Ok(<::std::option::Option<::std::string::String>>::default()),
                     version: Err("no value supplied for version".to_string()),
                 }
             }
@@ -8383,7 +8386,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -8518,7 +8521,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -8857,7 +8860,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -8939,15 +8942,15 @@ pub mod types {
                 Self {
                     block_size: Err("no value supplied for block_size".to_string()),
                     description: Err("no value supplied for description".to_string()),
-                    digest: Ok(Default::default()),
+                    digest: Ok(<::std::option::Option<super::Digest>>::default()),
                     id: Err("no value supplied for id".to_string()),
                     name: Err("no value supplied for name".to_string()),
                     project_id: Err("no value supplied for project_id".to_string()),
                     size: Err("no value supplied for size".to_string()),
                     time_created: Err("no value supplied for time_created".to_string()),
                     time_modified: Err("no value supplied for time_modified".to_string()),
-                    url: Ok(Default::default()),
-                    version: Ok(Default::default()),
+                    url: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    version: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -9204,7 +9207,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -9476,15 +9479,15 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     description: Err("no value supplied for description".to_string()),
-                    disks: Ok(Default::default()),
-                    external_ips: Ok(Default::default()),
+                    disks: Ok(<::std::vec::Vec<super::InstanceDiskAttachment>>::default()),
+                    external_ips: Ok(<::std::vec::Vec<super::ExternalIpCreate>>::default()),
                     hostname: Err("no value supplied for hostname".to_string()),
                     memory: Err("no value supplied for memory".to_string()),
                     name: Err("no value supplied for name".to_string()),
                     ncpus: Err("no value supplied for ncpus".to_string()),
                     network_interfaces: Ok(super::defaults::instance_create_network_interfaces()),
                     start: Ok(super::defaults::default_bool::<true>()),
-                    user_data: Ok(Default::default()),
+                    user_data: Ok(<::std::string::String>::default()),
                 }
             }
         }
@@ -9687,7 +9690,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -10051,7 +10054,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -10113,7 +10116,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -10174,8 +10177,8 @@ pub mod types {
         impl ::std::default::Default for IpPoolUpdate {
             fn default() -> Self {
                 Self {
-                    description: Ok(Default::default()),
-                    name: Ok(Default::default()),
+                    description: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    name: Ok(<::std::option::Option<super::Name>>::default()),
                 }
             }
         }
@@ -10418,7 +10421,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -10674,7 +10677,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     description: Err("no value supplied for description".to_string()),
-                    ip: Ok(Default::default()),
+                    ip: Ok(<::std::option::Option<::std::net::IpAddr>>::default()),
                     name: Err("no value supplied for name".to_string()),
                     subnet_name: Err("no value supplied for subnet_name".to_string()),
                     vpc_name: Err("no value supplied for vpc_name".to_string()),
@@ -10778,7 +10781,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -10840,9 +10843,9 @@ pub mod types {
         impl ::std::default::Default for NetworkInterfaceUpdate {
             fn default() -> Self {
                 Self {
-                    description: Ok(Default::default()),
-                    name: Ok(Default::default()),
-                    primary: Ok(Default::default()),
+                    description: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    name: Ok(<::std::option::Option<super::Name>>::default()),
+                    primary: Ok(<bool>::default()),
                 }
             }
         }
@@ -11083,7 +11086,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -11269,8 +11272,8 @@ pub mod types {
         impl ::std::default::Default for OrganizationUpdate {
             fn default() -> Self {
                 Self {
-                    description: Ok(Default::default()),
-                    name: Ok(Default::default()),
+                    description: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    name: Ok(<::std::option::Option<super::Name>>::default()),
                 }
             }
         }
@@ -11345,7 +11348,7 @@ pub mod types {
                     id: Err("no value supplied for id".to_string()),
                     model: Err("no value supplied for model".to_string()),
                     serial: Err("no value supplied for serial".to_string()),
-                    sled_id: Ok(Default::default()),
+                    sled_id: Ok(<::std::option::Option<::uuid::Uuid>>::default()),
                     time_created: Err("no value supplied for time_created".to_string()),
                     time_modified: Err("no value supplied for time_modified".to_string()),
                     vendor: Err("no value supplied for vendor".to_string()),
@@ -11483,7 +11486,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -11725,7 +11728,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -11907,8 +11910,8 @@ pub mod types {
         impl ::std::default::Default for ProjectUpdate {
             fn default() -> Self {
                 Self {
-                    description: Ok(Default::default()),
-                    name: Ok(Default::default()),
+                    description: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    name: Ok(<::std::option::Option<super::Name>>::default()),
                 }
             }
         }
@@ -12047,7 +12050,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -12166,7 +12169,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -12479,7 +12482,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -12542,9 +12545,9 @@ pub mod types {
         impl ::std::default::Default for RouterRouteUpdateParams {
             fn default() -> Self {
                 Self {
-                    description: Ok(Default::default()),
+                    description: Ok(<::std::option::Option<::std::string::String>>::default()),
                     destination: Err("no value supplied for destination".to_string()),
-                    name: Ok(Default::default()),
+                    name: Ok(<::std::option::Option<super::Name>>::default()),
                     target: Err("no value supplied for target".to_string()),
                 }
             }
@@ -12688,7 +12691,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -12770,7 +12773,7 @@ pub mod types {
                     id: Err("no value supplied for id".to_string()),
                     idp_entity_id: Err("no value supplied for idp_entity_id".to_string()),
                     name: Err("no value supplied for name".to_string()),
-                    public_cert: Ok(Default::default()),
+                    public_cert: Ok(<::std::option::Option<::std::string::String>>::default()),
                     slo_url: Err("no value supplied for slo_url".to_string()),
                     sp_client_id: Err("no value supplied for sp_client_id".to_string()),
                     technical_contact_email: Err(
@@ -12961,13 +12964,17 @@ pub mod types {
                 Self {
                     acs_url: Err("no value supplied for acs_url".to_string()),
                     description: Err("no value supplied for description".to_string()),
-                    group_attribute_name: Ok(Default::default()),
+                    group_attribute_name: Ok(
+                        <::std::option::Option<::std::string::String>>::default(),
+                    ),
                     idp_entity_id: Err("no value supplied for idp_entity_id".to_string()),
                     idp_metadata_source: Err(
                         "no value supplied for idp_metadata_source".to_string()
                     ),
                     name: Err("no value supplied for name".to_string()),
-                    signing_keypair: Ok(Default::default()),
+                    signing_keypair: Ok(
+                        <::std::option::Option<super::DerEncodedKeyPair>>::default(),
+                    ),
                     slo_url: Err("no value supplied for slo_url".to_string()),
                     sp_client_id: Err("no value supplied for sp_client_id".to_string()),
                     technical_contact_email: Err(
@@ -13265,7 +13272,7 @@ pub mod types {
         impl ::std::default::Default for SiloCreate {
             fn default() -> Self {
                 Self {
-                    admin_group_name: Ok(Default::default()),
+                    admin_group_name: Ok(<::std::option::Option<::std::string::String>>::default()),
                     description: Err("no value supplied for description".to_string()),
                     discoverable: Err("no value supplied for discoverable".to_string()),
                     identity_mode: Err("no value supplied for identity_mode".to_string()),
@@ -13367,7 +13374,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -13655,7 +13662,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -13953,7 +13960,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -14268,7 +14275,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -14424,7 +14431,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -14684,7 +14691,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -14856,7 +14863,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -15071,7 +15078,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -15316,7 +15323,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -15437,7 +15444,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -15779,7 +15786,7 @@ pub mod types {
                 Self {
                     description: Err("no value supplied for description".to_string()),
                     dns_name: Err("no value supplied for dns_name".to_string()),
-                    ipv6_prefix: Ok(Default::default()),
+                    ipv6_prefix: Ok(<::std::option::Option<super::Ipv6Net>>::default()),
                     name: Err("no value supplied for name".to_string()),
                 }
             }
@@ -16081,9 +16088,15 @@ pub mod types {
         impl ::std::default::Default for VpcFirewallRuleFilter {
             fn default() -> Self {
                 Self {
-                    hosts: Ok(Default::default()),
-                    ports: Ok(Default::default()),
-                    protocols: Ok(Default::default()),
+                    hosts: Ok(<::std::option::Option<
+                        ::std::vec::Vec<super::VpcFirewallRuleHostFilter>,
+                    >>::default()),
+                    ports: Ok(
+                        <::std::option::Option<::std::vec::Vec<super::L4PortRange>>>::default(),
+                    ),
+                    protocols: Ok(<::std::option::Option<
+                        ::std::vec::Vec<super::VpcFirewallRuleProtocol>,
+                    >>::default()),
                 }
             }
         }
@@ -16406,7 +16419,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -16662,7 +16675,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -16723,8 +16736,8 @@ pub mod types {
         impl ::std::default::Default for VpcRouterUpdate {
             fn default() -> Self {
                 Self {
-                    description: Ok(Default::default()),
-                    name: Ok(Default::default()),
+                    description: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    name: Ok(<::std::option::Option<super::Name>>::default()),
                 }
             }
         }
@@ -16936,7 +16949,7 @@ pub mod types {
                 Self {
                     description: Err("no value supplied for description".to_string()),
                     ipv4_block: Err("no value supplied for ipv4_block".to_string()),
-                    ipv6_block: Ok(Default::default()),
+                    ipv6_block: Ok(<::std::option::Option<super::Ipv6Net>>::default()),
                     name: Err("no value supplied for name".to_string()),
                 }
             }
@@ -17023,7 +17036,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -17084,8 +17097,8 @@ pub mod types {
         impl ::std::default::Default for VpcSubnetUpdate {
             fn default() -> Self {
                 Self {
-                    description: Ok(Default::default()),
-                    name: Ok(Default::default()),
+                    description: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    name: Ok(<::std::option::Option<super::Name>>::default()),
                 }
             }
         }
@@ -17148,9 +17161,9 @@ pub mod types {
         impl ::std::default::Default for VpcUpdate {
             fn default() -> Self {
                 Self {
-                    description: Ok(Default::default()),
-                    dns_name: Ok(Default::default()),
-                    name: Ok(Default::default()),
+                    description: Ok(<::std::option::Option<::std::string::String>>::default()),
+                    dns_name: Ok(<::std::option::Option<super::Name>>::default()),
+                    name: Ok(<::std::option::Option<super::Name>>::default()),
                 }
             }
         }
@@ -17218,7 +17231,7 @@ pub mod types {
             V
         }
 
-        pub(super) fn instance_create_network_interfaces(
+        pub(super) const fn instance_create_network_interfaces(
         ) -> super::InstanceNetworkInterfaceAttachment {
             super::InstanceNetworkInterfaceAttachment::Default
         }
@@ -17481,7 +17494,7 @@ impl Client {
         builder::VpcViewById::new(self)
     }
 
-    ///Start an OAuth 2.0 Device Authorization Grant
+    ///Start an `OAuth` 2.0 Device Authorization Grant
     ///
     ///This endpoint is designed to be accessed from an *unauthenticated* API
     /// client. It generates and records a `device_code` and `user_code` which
@@ -17499,7 +17512,7 @@ impl Client {
         builder::DeviceAuthRequest::new(self)
     }
 
-    ///Confirm an OAuth 2.0 Device Authorization Grant
+    ///Confirm an `OAuth` 2.0 Device Authorization Grant
     ///
     ///This endpoint is designed to be accessed by the user agent (browser),
     /// not the client requesting the token. So we do not actually return the
@@ -20980,14 +20993,13 @@ impl Client {
 }
 
 /// Types for composing operation parameters.
-#[allow(clippy::all)]
 pub mod builder {
     use super::types;
-    #[allow(unused_imports)]
-    use super::{
-        encode_path, ByteStream, ClientHooks, ClientInfo, Error, OperationInfo, RequestBuilderExt,
-        ResponseValue,
-    };
+    use super::ByteStream;
+    use super::Error;
+    use super::ResponseValue;
+    use progenitor_client::encode_path;
+    use progenitor_client::{ClientHooks, ClientInfo};
     ///Builder for [`Client::disk_view_by_id`]
     ///
     ///[`Client::disk_view_by_id`]: super::Client::disk_view_by_id
@@ -21000,7 +21012,7 @@ pub mod builder {
     impl<'a> DiskViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21022,14 +21034,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/disks/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21039,22 +21050,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21071,7 +21085,7 @@ pub mod builder {
     impl<'a> ImageViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21093,14 +21107,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/images/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21110,22 +21123,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "image_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Image>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21142,7 +21158,7 @@ pub mod builder {
     impl<'a> InstanceViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21164,14 +21180,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/instances/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21181,22 +21196,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21213,7 +21231,7 @@ pub mod builder {
     impl<'a> InstanceNetworkInterfaceViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21237,14 +21255,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/network-interfaces/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21254,22 +21271,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_network_interface_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::NetworkInterface>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21286,7 +21306,7 @@ pub mod builder {
     impl<'a> OrganizationViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21308,14 +21328,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/organizations/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21325,22 +21344,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21357,7 +21379,7 @@ pub mod builder {
     impl<'a> ProjectViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21379,14 +21401,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/projects/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21396,22 +21417,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Project>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21428,7 +21452,7 @@ pub mod builder {
     impl<'a> SnapshotViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21450,14 +21474,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/snapshots/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21467,22 +21490,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "snapshot_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Snapshot>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21499,7 +21525,7 @@ pub mod builder {
     impl<'a> VpcRouterRouteViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21521,14 +21547,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/vpc-router-routes/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21538,22 +21563,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_route_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::RouterRoute>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21570,7 +21598,7 @@ pub mod builder {
     impl<'a> VpcRouterViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21592,14 +21620,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/vpc-routers/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21609,22 +21636,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcRouter>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21641,7 +21671,7 @@ pub mod builder {
     impl<'a> VpcSubnetViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21663,14 +21693,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/vpc-subnets/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21680,22 +21709,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_subnet_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcSubnet>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21712,7 +21744,7 @@ pub mod builder {
     impl<'a> VpcViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -21734,14 +21766,13 @@ pub mod builder {
             let url = format!(
                 "{}/by-id/vpcs/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -21751,22 +21782,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Vpc>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21783,8 +21817,8 @@ pub mod builder {
     impl<'a> DeviceAuthRequest<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::DeviceAuthRequest as ::std::default::Default>::default()),
             }
         }
 
@@ -21796,7 +21830,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `DeviceAuthRequest` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `DeviceAuthRequest` for body failed: {s}"));
             self
         }
 
@@ -21816,29 +21850,37 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::DeviceAuthRequest::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/device/auth", client.baseurl,);
+            use progenitor_client::RequestBuilderExt;
+            let url = format!("{}/device/auth", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
                 .form_urlencoded(&body)?
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "device_auth_request",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<ByteStream>, Error<ByteStream>> {
             match response.status().as_u16() {
                 200..=299 => Ok(ResponseValue::stream(response)),
-                _ => Err(Error::ErrorResponse(ResponseValue::stream(response))),
+                _ => Err(Error::ErrorResponse(::std::boxed::Box::new(
+                    ResponseValue::stream(response),
+                ))),
             }
         }
     }
@@ -21855,8 +21897,8 @@ pub mod builder {
     impl<'a> DeviceAuthConfirm<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::DeviceAuthVerify as ::std::default::Default>::default()),
             }
         }
 
@@ -21868,7 +21910,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `DeviceAuthVerify` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `DeviceAuthVerify` for body failed: {s}"));
             self
         }
 
@@ -21888,13 +21930,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::DeviceAuthVerify::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/device/confirm", client.baseurl,);
+            let url = format!("{}/device/confirm", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -21905,22 +21946,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "device_auth_confirm",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -21937,8 +21981,11 @@ pub mod builder {
     impl<'a> DeviceAccessToken<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(
+                    <types::builder::DeviceAccessTokenRequest as ::std::default::Default>::default(
+                    ),
+                ),
             }
         }
 
@@ -21948,10 +21995,7 @@ pub mod builder {
             <V as std::convert::TryInto<types::DeviceAccessTokenRequest>>::Error: std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `DeviceAccessTokenRequest` for body failed: {}",
-                    s
-                )
+                format!("conversion to `DeviceAccessTokenRequest` for body failed: {s}")
             });
             self
         }
@@ -21974,29 +22018,37 @@ pub mod builder {
                     types::DeviceAccessTokenRequest::try_from(v).map_err(|e| e.to_string())
                 })
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/device/token", client.baseurl,);
+            use progenitor_client::RequestBuilderExt;
+            let url = format!("{}/device/token", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
                 .form_urlencoded(&body)?
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "device_access_token",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response)
+        }
+
+        fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<ByteStream>, Error<ByteStream>> {
             match response.status().as_u16() {
                 200..=299 => Ok(ResponseValue::stream(response)),
-                _ => Err(Error::ErrorResponse(ResponseValue::stream(response))),
+                _ => Err(Error::ErrorResponse(::std::boxed::Box::new(
+                    ResponseValue::stream(response),
+                ))),
             }
         }
     }
@@ -22015,7 +22067,7 @@ pub mod builder {
     impl<'a> GroupList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -22066,13 +22118,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/groups", client.baseurl,);
+            let url = format!("{}/groups", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -22088,22 +22139,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "group_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::GroupResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -22166,8 +22220,8 @@ pub mod builder {
     impl<'a> LoginSpoof<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::SpoofLoginBody as ::std::default::Default>::default()),
             }
         }
 
@@ -22179,7 +22233,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `SpoofLoginBody` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `SpoofLoginBody` for body failed: {s}"));
             self
         }
 
@@ -22197,13 +22251,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::SpoofLoginBody::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/login", client.baseurl,);
+            let url = format!("{}/login", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -22214,22 +22267,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "login_spoof",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -22246,11 +22302,7 @@ pub mod builder {
 
     impl<'a> LoginLocal<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self {
-                client: client,
-                silo_name: Err("silo_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
-            }
+            Self { client , silo_name : Err ("silo_name was not initialized" . to_string ()) , body : Ok (< types :: builder :: UsernamePasswordCredentials as :: std :: default :: Default > :: default ()) , }
         }
 
         pub fn silo_name<V>(mut self, value: V) -> Self
@@ -22270,10 +22322,7 @@ pub mod builder {
                 std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `UsernamePasswordCredentials` for body failed: {}",
-                    s
-                )
+                format!("conversion to `UsernamePasswordCredentials` for body failed: {s}")
             });
             self
         }
@@ -22304,36 +22353,38 @@ pub mod builder {
             let url = format!(
                 "{}/login/{}/local",
                 client.baseurl,
-                encode_path(&silo_name.to_string()),
+                encode_path(&silo_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "login_local",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<ByteStream>, Error<types::Error>> {
             match response.status().as_u16() {
                 200..=299 => Ok(ResponseValue::stream(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -22351,7 +22402,7 @@ pub mod builder {
     impl<'a> LoginSamlBegin<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
                 provider_name: Err("provider_name was not initialized".to_string()),
             }
@@ -22390,31 +22441,33 @@ pub mod builder {
                 "{}/login/{}/saml/{}",
                 client.baseurl,
                 encode_path(&silo_name.to_string()),
-                encode_path(&provider_name.to_string()),
+                encode_path(&provider_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client.client.get(url).headers(header_map).build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "login_saml_begin",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<ByteStream>, Error<types::Error>> {
             match response.status().as_u16() {
                 200..=299 => Ok(ResponseValue::stream(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -22433,7 +22486,7 @@ pub mod builder {
     impl<'a> LoginSaml<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
                 provider_name: Err("provider_name was not initialized".to_string()),
                 body: Err("body was not initialized".to_string()),
@@ -22485,14 +22538,13 @@ pub mod builder {
                 "{}/login/{}/saml/{}",
                 client.baseurl,
                 encode_path(&silo_name.to_string()),
-                encode_path(&provider_name.to_string()),
+                encode_path(&provider_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -22503,22 +22555,25 @@ pub mod builder {
                 .body(body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "login_saml",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<ByteStream>, Error<types::Error>> {
             match response.status().as_u16() {
                 200..=299 => Ok(ResponseValue::stream(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -22533,19 +22588,18 @@ pub mod builder {
 
     impl<'a> Logout<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `POST` request to `/logout`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/logout", client.baseurl,);
+            let url = format!("{}/logout", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -22555,22 +22609,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "logout",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -22589,7 +22646,7 @@ pub mod builder {
     impl<'a> OrganizationList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -22640,13 +22697,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/organizations", client.baseurl,);
+            let url = format!("{}/organizations", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -22662,22 +22718,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::OrganizationResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -22740,8 +22799,10 @@ pub mod builder {
     impl<'a> OrganizationCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(
+                    <types::builder::OrganizationCreate as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -22753,7 +22814,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `OrganizationCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `OrganizationCreate` for body failed: {s}"));
             self
         }
 
@@ -22773,13 +22834,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::OrganizationCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/organizations", client.baseurl,);
+            let url = format!("{}/organizations", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -22790,22 +22850,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -22822,7 +22885,7 @@ pub mod builder {
     impl<'a> OrganizationView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
             }
         }
@@ -22847,14 +22910,13 @@ pub mod builder {
             let url = format!(
                 "{}/organizations/{}",
                 client.baseurl,
-                encode_path(&organization_name.to_string()),
+                encode_path(&organization_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -22864,22 +22926,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -22897,9 +22962,11 @@ pub mod builder {
     impl<'a> OrganizationUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(
+                    <types::builder::OrganizationUpdate as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -22921,7 +22988,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `OrganizationUpdate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `OrganizationUpdate` for body failed: {s}"));
             self
         }
 
@@ -22949,14 +23016,13 @@ pub mod builder {
             let url = format!(
                 "{}/organizations/{}",
                 client.baseurl,
-                encode_path(&organization_name.to_string()),
+                encode_path(&organization_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -22967,22 +23033,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -22999,7 +23068,7 @@ pub mod builder {
     impl<'a> OrganizationDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
             }
         }
@@ -23024,14 +23093,13 @@ pub mod builder {
             let url = format!(
                 "{}/organizations/{}",
                 client.baseurl,
-                encode_path(&organization_name.to_string()),
+                encode_path(&organization_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -23041,22 +23109,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -23073,7 +23144,7 @@ pub mod builder {
     impl<'a> OrganizationPolicyView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
             }
         }
@@ -23100,14 +23171,13 @@ pub mod builder {
             let url = format!(
                 "{}/organizations/{}/policy",
                 client.baseurl,
-                encode_path(&organization_name.to_string()),
+                encode_path(&organization_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -23117,22 +23187,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_policy_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::OrganizationRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -23150,9 +23223,11 @@ pub mod builder {
     impl<'a> OrganizationPolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(
+                    <types::builder::OrganizationRolePolicy as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -23172,10 +23247,7 @@ pub mod builder {
             <V as std::convert::TryInto<types::OrganizationRolePolicy>>::Error: std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `OrganizationRolePolicy` for body failed: {}",
-                    s
-                )
+                format!("conversion to `OrganizationRolePolicy` for body failed: {s}")
             });
             self
         }
@@ -23206,14 +23278,13 @@ pub mod builder {
             let url = format!(
                 "{}/organizations/{}/policy",
                 client.baseurl,
-                encode_path(&organization_name.to_string()),
+                encode_path(&organization_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -23224,22 +23295,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_policy_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::OrganizationRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -23259,7 +23333,7 @@ pub mod builder {
     impl<'a> ProjectList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 limit: Ok(None),
                 page_token: Ok(None),
@@ -23327,14 +23401,13 @@ pub mod builder {
             let url = format!(
                 "{}/organizations/{}/projects",
                 client.baseurl,
-                encode_path(&organization_name.to_string()),
+                encode_path(&organization_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -23350,22 +23423,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ProjectResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -23430,9 +23506,9 @@ pub mod builder {
     impl<'a> ProjectCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ProjectCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -23454,7 +23530,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ProjectCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ProjectCreate` for body failed: {s}"));
             self
         }
 
@@ -23481,14 +23557,13 @@ pub mod builder {
             let url = format!(
                 "{}/organizations/{}/projects",
                 client.baseurl,
-                encode_path(&organization_name.to_string()),
+                encode_path(&organization_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -23499,22 +23574,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Project>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -23532,7 +23610,7 @@ pub mod builder {
     impl<'a> ProjectView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
             }
@@ -23572,14 +23650,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -23589,22 +23666,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Project>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -23623,10 +23703,10 @@ pub mod builder {
     impl<'a> ProjectUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ProjectUpdate as ::std::default::Default>::default()),
             }
         }
 
@@ -23658,7 +23738,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ProjectUpdate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ProjectUpdate` for body failed: {s}"));
             self
         }
 
@@ -23688,14 +23768,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -23706,22 +23785,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Project>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -23739,7 +23821,7 @@ pub mod builder {
     impl<'a> ProjectDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
             }
@@ -23779,14 +23861,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -23796,22 +23877,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -23832,7 +23916,7 @@ pub mod builder {
     impl<'a> DiskList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 limit: Ok(None),
@@ -23914,14 +23998,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/disks",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -23937,22 +24020,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::DiskResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -24018,10 +24104,10 @@ pub mod builder {
     impl<'a> DiskCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::DiskCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -24053,7 +24139,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `DiskCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `DiskCreate` for body failed: {s}"));
             self
         }
 
@@ -24083,14 +24169,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/disks",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -24101,22 +24186,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -24135,7 +24223,7 @@ pub mod builder {
     impl<'a> DiskView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 disk_name: Err("disk_name was not initialized".to_string()),
@@ -24190,14 +24278,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&disk_name.to_string()),
+                encode_path(&disk_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -24207,22 +24294,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -24241,7 +24331,7 @@ pub mod builder {
     impl<'a> DiskDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 disk_name: Err("disk_name was not initialized".to_string()),
@@ -24296,14 +24386,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&disk_name.to_string()),
+                encode_path(&disk_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -24313,22 +24402,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -24352,7 +24444,7 @@ pub mod builder {
     impl<'a> DiskMetricsList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 disk_name: Err("disk_name was not initialized".to_string()),
@@ -24479,14 +24571,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&disk_name.to_string()),
-                encode_path(&metric_name.to_string()),
+                encode_path(&metric_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -24506,22 +24597,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_metrics_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::MeasurementResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -24591,7 +24685,7 @@ pub mod builder {
     impl<'a> ImageList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 limit: Ok(None),
@@ -24673,14 +24767,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/images",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -24696,22 +24789,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "image_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ImageResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -24777,10 +24873,10 @@ pub mod builder {
     impl<'a> ImageCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ImageCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -24812,7 +24908,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ImageCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ImageCreate` for body failed: {s}"));
             self
         }
 
@@ -24842,14 +24938,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/images",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -24860,22 +24955,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "image_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Image>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -24894,7 +24992,7 @@ pub mod builder {
     impl<'a> ImageView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 image_name: Err("image_name was not initialized".to_string()),
@@ -24949,14 +25047,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&image_name.to_string()),
+                encode_path(&image_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -24966,22 +25063,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "image_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Image>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -25000,7 +25100,7 @@ pub mod builder {
     impl<'a> ImageDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 image_name: Err("image_name was not initialized".to_string()),
@@ -25055,14 +25155,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&image_name.to_string()),
+                encode_path(&image_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -25072,22 +25171,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "image_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -25108,7 +25210,7 @@ pub mod builder {
     impl<'a> InstanceList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 limit: Ok(None),
@@ -25191,14 +25293,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/instances",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -25214,22 +25315,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::InstanceResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -25296,10 +25400,10 @@ pub mod builder {
     impl<'a> InstanceCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::InstanceCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -25331,7 +25435,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `InstanceCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `InstanceCreate` for body failed: {s}"));
             self
         }
 
@@ -25362,14 +25466,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/instances",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -25380,22 +25483,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -25414,7 +25520,7 @@ pub mod builder {
     impl<'a> InstanceView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -25469,14 +25575,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -25486,22 +25591,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -25520,7 +25628,7 @@ pub mod builder {
     impl<'a> InstanceDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -25575,14 +25683,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -25592,22 +25699,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -25629,7 +25739,7 @@ pub mod builder {
     impl<'a> InstanceDiskList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -25726,14 +25836,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -25749,22 +25858,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_disk_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::DiskResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -25832,11 +25944,11 @@ pub mod builder {
     impl<'a> InstanceDiskAttach<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::DiskIdentifier as ::std::default::Default>::default()),
             }
         }
 
@@ -25878,7 +25990,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `DiskIdentifier` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `DiskIdentifier` for body failed: {s}"));
             self
         }
 
@@ -25912,14 +26024,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -25930,22 +26041,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_disk_attach",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -25965,11 +26079,11 @@ pub mod builder {
     impl<'a> InstanceDiskDetach<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::DiskIdentifier as ::std::default::Default>::default()),
             }
         }
 
@@ -26011,7 +26125,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `DiskIdentifier` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `DiskIdentifier` for body failed: {s}"));
             self
         }
 
@@ -26045,14 +26159,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -26063,22 +26176,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_disk_detach",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -26097,7 +26213,7 @@ pub mod builder {
     impl<'a> InstanceExternalIpList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -26154,14 +26270,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -26171,22 +26286,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_external_ip_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ExternalIpResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -26206,11 +26324,11 @@ pub mod builder {
     impl<'a> InstanceMigrate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::InstanceMigrate as ::std::default::Default>::default()),
             }
         }
 
@@ -26252,7 +26370,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `InstanceMigrate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `InstanceMigrate` for body failed: {s}"));
             self
         }
 
@@ -26286,14 +26404,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -26304,22 +26421,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_migrate",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -26341,7 +26461,7 @@ pub mod builder {
     impl<'a> InstanceNetworkInterfaceList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -26439,14 +26559,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -26462,22 +26581,26 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_network_interface_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::NetworkInterfaceResultsPage>, Error<types::Error>>
+        {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -26545,11 +26668,13 @@ pub mod builder {
     impl<'a> InstanceNetworkInterfaceCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(
+                    <types::builder::NetworkInterfaceCreate as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -26589,10 +26714,7 @@ pub mod builder {
             <V as std::convert::TryInto<types::NetworkInterfaceCreate>>::Error: std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `NetworkInterfaceCreate` for body failed: {}",
-                    s
-                )
+                format!("conversion to `NetworkInterfaceCreate` for body failed: {s}")
             });
             self
         }
@@ -26631,14 +26753,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -26649,22 +26770,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_network_interface_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::NetworkInterface>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -26684,7 +26808,7 @@ pub mod builder {
     impl<'a> InstanceNetworkInterfaceView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -26755,14 +26879,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&instance_name.to_string()),
-                encode_path(&interface_name.to_string()),
+                encode_path(&interface_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -26772,22 +26895,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_network_interface_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::NetworkInterface>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -26808,12 +26934,14 @@ pub mod builder {
     impl<'a> InstanceNetworkInterfaceUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
                 interface_name: Err("interface_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(
+                    <types::builder::NetworkInterfaceUpdate as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -26863,10 +26991,7 @@ pub mod builder {
             <V as std::convert::TryInto<types::NetworkInterfaceUpdate>>::Error: std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `NetworkInterfaceUpdate` for body failed: {}",
-                    s
-                )
+                format!("conversion to `NetworkInterfaceUpdate` for body failed: {s}")
             });
             self
         }
@@ -26908,14 +27033,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&instance_name.to_string()),
-                encode_path(&interface_name.to_string()),
+                encode_path(&interface_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -26926,22 +27050,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_network_interface_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::NetworkInterface>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -26961,7 +27088,7 @@ pub mod builder {
     impl<'a> InstanceNetworkInterfaceDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -27030,14 +27157,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&instance_name.to_string()),
-                encode_path(&interface_name.to_string()),
+                encode_path(&interface_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -27047,22 +27173,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_network_interface_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -27081,7 +27210,7 @@ pub mod builder {
     impl<'a> InstanceReboot<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -27136,14 +27265,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -27153,22 +27281,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_reboot",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -27190,7 +27321,7 @@ pub mod builder {
     impl<'a> InstanceSerialConsole<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -27289,14 +27420,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -27315,22 +27445,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_serial_console",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::InstanceSerialConsoleData>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -27349,7 +27482,7 @@ pub mod builder {
     impl<'a> InstanceSerialConsoleStream<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -27404,14 +27537,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -27427,16 +27559,22 @@ pub mod builder {
                     ),
                 )
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_serial_console_stream",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<reqwest::Upgraded>, Error<()>> {
             match response.status().as_u16() {
                 101u16 => ResponseValue::upgrade(response).await,
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -27455,7 +27593,7 @@ pub mod builder {
     impl<'a> InstanceSerialConsoleStreamV2<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -27510,14 +27648,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -27533,22 +27670,25 @@ pub mod builder {
                     ),
                 )
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_serial_console_stream_v2",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<reqwest::Upgraded>, Error<types::Error>> {
             match response.status().as_u16() {
                 101u16 => ResponseValue::upgrade(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -27567,7 +27707,7 @@ pub mod builder {
     impl<'a> InstanceStart<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -27622,14 +27762,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -27639,22 +27778,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_start",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -27673,7 +27815,7 @@ pub mod builder {
     impl<'a> InstanceStop<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 instance_name: Err("instance_name was not initialized".to_string()),
@@ -27728,14 +27870,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&instance_name.to_string()),
+                encode_path(&instance_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -27745,22 +27886,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_stop",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -27778,7 +27922,7 @@ pub mod builder {
     impl<'a> ProjectPolicyView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
             }
@@ -27820,14 +27964,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/policy",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -27837,22 +27980,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_policy_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ProjectRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -27871,10 +28017,10 @@ pub mod builder {
     impl<'a> ProjectPolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ProjectRolePolicy as ::std::default::Default>::default()),
             }
         }
 
@@ -27906,7 +28052,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ProjectRolePolicy` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ProjectRolePolicy` for body failed: {s}"));
             self
         }
 
@@ -27940,14 +28086,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/policy",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -27958,22 +28103,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_policy_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ProjectRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -27994,7 +28142,7 @@ pub mod builder {
     impl<'a> SnapshotList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 limit: Ok(None),
@@ -28077,14 +28225,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/snapshots",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -28100,22 +28247,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "snapshot_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SnapshotResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -28182,10 +28332,10 @@ pub mod builder {
     impl<'a> SnapshotCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::SnapshotCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -28217,7 +28367,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `SnapshotCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `SnapshotCreate` for body failed: {s}"));
             self
         }
 
@@ -28248,14 +28398,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/snapshots",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -28266,22 +28415,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "snapshot_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Snapshot>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -28300,7 +28452,7 @@ pub mod builder {
     impl<'a> SnapshotView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 snapshot_name: Err("snapshot_name was not initialized".to_string()),
@@ -28355,14 +28507,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&snapshot_name.to_string()),
+                encode_path(&snapshot_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -28372,22 +28523,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "snapshot_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Snapshot>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -28406,7 +28560,7 @@ pub mod builder {
     impl<'a> SnapshotDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 snapshot_name: Err("snapshot_name was not initialized".to_string()),
@@ -28461,14 +28615,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&snapshot_name.to_string()),
+                encode_path(&snapshot_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -28478,22 +28631,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "snapshot_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -28514,7 +28670,7 @@ pub mod builder {
     impl<'a> VpcList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 limit: Ok(None),
@@ -28596,14 +28752,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/vpcs",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -28619,22 +28774,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -28700,10 +28858,10 @@ pub mod builder {
     impl<'a> VpcCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::VpcCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -28735,7 +28893,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `VpcCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `VpcCreate` for body failed: {s}"));
             self
         }
 
@@ -28765,14 +28923,13 @@ pub mod builder {
                 "{}/organizations/{}/projects/{}/vpcs",
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
-                encode_path(&project_name.to_string()),
+                encode_path(&project_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -28783,22 +28940,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Vpc>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -28817,7 +28977,7 @@ pub mod builder {
     impl<'a> VpcView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -28872,14 +29032,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&vpc_name.to_string()),
+                encode_path(&vpc_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -28889,22 +29048,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Vpc>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -28924,11 +29086,11 @@ pub mod builder {
     impl<'a> VpcUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::VpcUpdate as ::std::default::Default>::default()),
             }
         }
 
@@ -28970,7 +29132,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `VpcUpdate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `VpcUpdate` for body failed: {s}"));
             self
         }
 
@@ -29004,14 +29166,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&vpc_name.to_string()),
+                encode_path(&vpc_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -29022,22 +29183,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Vpc>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -29056,7 +29220,7 @@ pub mod builder {
     impl<'a> VpcDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -29111,14 +29275,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&vpc_name.to_string()),
+                encode_path(&vpc_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -29128,22 +29291,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -29162,7 +29328,7 @@ pub mod builder {
     impl<'a> VpcFirewallRulesView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -29219,14 +29385,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&vpc_name.to_string()),
+                encode_path(&vpc_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -29236,22 +29401,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_firewall_rules_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcFirewallRules>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -29270,13 +29438,7 @@ pub mod builder {
 
     impl<'a> VpcFirewallRulesUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self {
-                client: client,
-                organization_name: Err("organization_name was not initialized".to_string()),
-                project_name: Err("project_name was not initialized".to_string()),
-                vpc_name: Err("vpc_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
-            }
+            Self { client , organization_name : Err ("organization_name was not initialized" . to_string ()) , project_name : Err ("project_name was not initialized" . to_string ()) , vpc_name : Err ("vpc_name was not initialized" . to_string ()) , body : Ok (< types :: builder :: VpcFirewallRuleUpdateParams as :: std :: default :: Default > :: default ()) , }
         }
 
         pub fn organization_name<V>(mut self, value: V) -> Self
@@ -29316,10 +29478,7 @@ pub mod builder {
                 std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `VpcFirewallRuleUpdateParams` for body failed: {}",
-                    s
-                )
+                format!("conversion to `VpcFirewallRuleUpdateParams` for body failed: {s}")
             });
             self
         }
@@ -29360,14 +29519,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&vpc_name.to_string()),
+                encode_path(&vpc_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -29378,22 +29536,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_firewall_rules_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcFirewallRules>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -29415,7 +29576,7 @@ pub mod builder {
     impl<'a> VpcRouterList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -29512,14 +29673,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&vpc_name.to_string()),
+                encode_path(&vpc_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -29535,22 +29695,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcRouterResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -29618,11 +29781,11 @@ pub mod builder {
     impl<'a> VpcRouterCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::VpcRouterCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -29664,7 +29827,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `VpcRouterCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `VpcRouterCreate` for body failed: {s}"));
             self
         }
 
@@ -29698,14 +29861,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&vpc_name.to_string()),
+                encode_path(&vpc_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -29716,22 +29878,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcRouter>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -29751,7 +29916,7 @@ pub mod builder {
     impl<'a> VpcRouterView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -29820,14 +29985,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
-                encode_path(&router_name.to_string()),
+                encode_path(&router_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -29837,22 +30001,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcRouter>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -29873,12 +30040,12 @@ pub mod builder {
     impl<'a> VpcRouterUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
                 router_name: Err("router_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::VpcRouterUpdate as ::std::default::Default>::default()),
             }
         }
 
@@ -29930,7 +30097,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `VpcRouterUpdate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `VpcRouterUpdate` for body failed: {s}"));
             self
         }
 
@@ -29967,14 +30134,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
-                encode_path(&router_name.to_string()),
+                encode_path(&router_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -29985,22 +30151,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcRouter>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -30020,7 +30189,7 @@ pub mod builder {
     impl<'a> VpcRouterDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -30089,14 +30258,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
-                encode_path(&router_name.to_string()),
+                encode_path(&router_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -30106,22 +30274,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -30144,7 +30315,7 @@ pub mod builder {
     impl<'a> VpcRouterRouteList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -30255,14 +30426,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
-                encode_path(&router_name.to_string()),
+                encode_path(&router_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -30278,22 +30448,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_route_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::RouterRouteResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -30362,12 +30535,14 @@ pub mod builder {
     impl<'a> VpcRouterRouteCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
                 router_name: Err("router_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(
+                    <types::builder::RouterRouteCreateParams as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -30417,10 +30592,7 @@ pub mod builder {
             <V as std::convert::TryInto<types::RouterRouteCreateParams>>::Error: std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `RouterRouteCreateParams` for body failed: {}",
-                    s
-                )
+                format!("conversion to `RouterRouteCreateParams` for body failed: {s}")
             });
             self
         }
@@ -30462,14 +30634,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
-                encode_path(&router_name.to_string()),
+                encode_path(&router_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -30480,22 +30651,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_route_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::RouterRoute>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -30516,7 +30690,7 @@ pub mod builder {
     impl<'a> VpcRouterRouteView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -30599,14 +30773,13 @@ pub mod builder {
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
                 encode_path(&router_name.to_string()),
-                encode_path(&route_name.to_string()),
+                encode_path(&route_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -30616,22 +30789,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_route_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::RouterRoute>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -30653,13 +30829,15 @@ pub mod builder {
     impl<'a> VpcRouterRouteUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
                 router_name: Err("router_name was not initialized".to_string()),
                 route_name: Err("route_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(
+                    <types::builder::RouterRouteUpdateParams as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -30719,10 +30897,7 @@ pub mod builder {
             <V as std::convert::TryInto<types::RouterRouteUpdateParams>>::Error: std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `RouterRouteUpdateParams` for body failed: {}",
-                    s
-                )
+                format!("conversion to `RouterRouteUpdateParams` for body failed: {s}")
             });
             self
         }
@@ -30767,14 +30942,13 @@ pub mod builder {
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
                 encode_path(&router_name.to_string()),
-                encode_path(&route_name.to_string()),
+                encode_path(&route_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -30785,22 +30959,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_route_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::RouterRoute>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -30821,7 +30998,7 @@ pub mod builder {
     impl<'a> VpcRouterRouteDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -30904,14 +31081,13 @@ pub mod builder {
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
                 encode_path(&router_name.to_string()),
-                encode_path(&route_name.to_string()),
+                encode_path(&route_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -30921,22 +31097,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_router_route_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -30958,7 +31137,7 @@ pub mod builder {
     impl<'a> VpcSubnetList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -31055,14 +31234,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&vpc_name.to_string()),
+                encode_path(&vpc_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -31078,22 +31256,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_subnet_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcSubnetResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -31161,11 +31342,11 @@ pub mod builder {
     impl<'a> VpcSubnetCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::VpcSubnetCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -31207,7 +31388,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `VpcSubnetCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `VpcSubnetCreate` for body failed: {s}"));
             self
         }
 
@@ -31241,14 +31422,13 @@ pub mod builder {
                 client.baseurl,
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
-                encode_path(&vpc_name.to_string()),
+                encode_path(&vpc_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -31259,22 +31439,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_subnet_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcSubnet>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -31294,7 +31477,7 @@ pub mod builder {
     impl<'a> VpcSubnetView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -31363,14 +31546,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
-                encode_path(&subnet_name.to_string()),
+                encode_path(&subnet_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -31380,22 +31562,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_subnet_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcSubnet>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -31416,12 +31601,12 @@ pub mod builder {
     impl<'a> VpcSubnetUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
                 subnet_name: Err("subnet_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::VpcSubnetUpdate as ::std::default::Default>::default()),
             }
         }
 
@@ -31473,7 +31658,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `VpcSubnetUpdate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `VpcSubnetUpdate` for body failed: {s}"));
             self
         }
 
@@ -31510,14 +31695,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
-                encode_path(&subnet_name.to_string()),
+                encode_path(&subnet_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -31528,22 +31712,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_subnet_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::VpcSubnet>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -31563,7 +31750,7 @@ pub mod builder {
     impl<'a> VpcSubnetDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -31632,14 +31819,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
-                encode_path(&subnet_name.to_string()),
+                encode_path(&subnet_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -31649,22 +31835,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_subnet_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -31687,7 +31876,7 @@ pub mod builder {
     impl<'a> VpcSubnetListNetworkInterfaces<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization_name: Err("organization_name was not initialized".to_string()),
                 project_name: Err("project_name was not initialized".to_string()),
                 vpc_name: Err("vpc_name was not initialized".to_string()),
@@ -31799,14 +31988,13 @@ pub mod builder {
                 encode_path(&organization_name.to_string()),
                 encode_path(&project_name.to_string()),
                 encode_path(&vpc_name.to_string()),
-                encode_path(&subnet_name.to_string()),
+                encode_path(&subnet_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -31822,22 +32010,26 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "vpc_subnet_list_network_interfaces",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::NetworkInterfaceResultsPage>, Error<types::Error>>
+        {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -31900,7 +32092,7 @@ pub mod builder {
 
     impl<'a> PolicyView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/policy`
@@ -31908,13 +32100,12 @@ pub mod builder {
             self,
         ) -> Result<ResponseValue<types::SiloRolePolicy>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/policy", client.baseurl,);
+            let url = format!("{}/policy", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -31924,22 +32115,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "policy_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SiloRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -31956,8 +32150,8 @@ pub mod builder {
     impl<'a> PolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::SiloRolePolicy as ::std::default::Default>::default()),
             }
         }
 
@@ -31969,7 +32163,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `SiloRolePolicy` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `SiloRolePolicy` for body failed: {s}"));
             self
         }
 
@@ -31989,13 +32183,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::SiloRolePolicy::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/policy", client.baseurl,);
+            let url = format!("{}/policy", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -32006,22 +32199,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "policy_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SiloRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -32039,7 +32235,7 @@ pub mod builder {
     impl<'a> RoleList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
             }
@@ -32076,13 +32272,12 @@ pub mod builder {
             } = self;
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/roles", client.baseurl,);
+            let url = format!("{}/roles", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -32097,22 +32292,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "role_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::RoleResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -32174,7 +32372,7 @@ pub mod builder {
     impl<'a> RoleView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 role_name: Err("role_name was not initialized".to_string()),
             }
         }
@@ -32196,14 +32394,13 @@ pub mod builder {
             let url = format!(
                 "{}/roles/{}",
                 client.baseurl,
-                encode_path(&role_name.to_string()),
+                encode_path(role_name.as_str())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -32213,22 +32410,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "role_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Role>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -32243,19 +32443,18 @@ pub mod builder {
 
     impl<'a> SessionMe<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/session/me`
         pub async fn send(self) -> Result<ResponseValue<types::User>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/session/me", client.baseurl,);
+            let url = format!("{}/session/me", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -32265,22 +32464,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "session_me",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::User>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -32299,7 +32501,7 @@ pub mod builder {
     impl<'a> SessionMeGroups<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -32350,13 +32552,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/session/me/groups", client.baseurl,);
+            let url = format!("{}/session/me/groups", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -32372,22 +32573,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "session_me_groups",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::GroupResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -32452,7 +32656,7 @@ pub mod builder {
     impl<'a> SessionSshkeyList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -32503,13 +32707,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/session/me/sshkeys", client.baseurl,);
+            let url = format!("{}/session/me/sshkeys", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -32525,22 +32728,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "session_sshkey_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SshKeyResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -32603,8 +32809,8 @@ pub mod builder {
     impl<'a> SessionSshkeyCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::SshKeyCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -32616,7 +32822,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `SshKeyCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `SshKeyCreate` for body failed: {s}"));
             self
         }
 
@@ -32634,13 +32840,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::SshKeyCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/session/me/sshkeys", client.baseurl,);
+            let url = format!("{}/session/me/sshkeys", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -32651,22 +32856,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "session_sshkey_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SshKey>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -32683,7 +32891,7 @@ pub mod builder {
     impl<'a> SessionSshkeyView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 ssh_key_name: Err("ssh_key_name was not initialized".to_string()),
             }
         }
@@ -32708,14 +32916,13 @@ pub mod builder {
             let url = format!(
                 "{}/session/me/sshkeys/{}",
                 client.baseurl,
-                encode_path(&ssh_key_name.to_string()),
+                encode_path(&ssh_key_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -32725,22 +32932,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "session_sshkey_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SshKey>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -32757,7 +32967,7 @@ pub mod builder {
     impl<'a> SessionSshkeyDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 ssh_key_name: Err("ssh_key_name was not initialized".to_string()),
             }
         }
@@ -32782,14 +32992,13 @@ pub mod builder {
             let url = format!(
                 "{}/session/me/sshkeys/{}",
                 client.baseurl,
-                encode_path(&ssh_key_name.to_string()),
+                encode_path(&ssh_key_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -32799,22 +33008,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "session_sshkey_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -32831,7 +33043,7 @@ pub mod builder {
     impl<'a> SystemImageViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -32853,14 +33065,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/by-id/images/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -32870,22 +33081,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_image_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::GlobalImage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -32902,7 +33116,7 @@ pub mod builder {
     impl<'a> IpPoolViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -32924,14 +33138,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/by-id/ip-pools/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -32941,22 +33154,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPool>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -32973,7 +33189,7 @@ pub mod builder {
     impl<'a> SiloViewById<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -32995,14 +33211,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/by-id/silos/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -33012,22 +33227,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_view_by_id",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Silo>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -33046,7 +33264,7 @@ pub mod builder {
     impl<'a> CertificateList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -33097,13 +33315,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/certificates", client.baseurl,);
+            let url = format!("{}/system/certificates", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -33119,22 +33336,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "certificate_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::CertificateResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -33197,8 +33417,8 @@ pub mod builder {
     impl<'a> CertificateCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::CertificateCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -33210,7 +33430,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `CertificateCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `CertificateCreate` for body failed: {s}"));
             self
         }
 
@@ -33230,13 +33450,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::CertificateCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/certificates", client.baseurl,);
+            let url = format!("{}/system/certificates", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -33247,22 +33466,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "certificate_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Certificate>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -33279,7 +33501,7 @@ pub mod builder {
     impl<'a> CertificateView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 certificate: Err("certificate was not initialized".to_string()),
             }
         }
@@ -33304,14 +33526,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/certificates/{}",
                 client.baseurl,
-                encode_path(&certificate.to_string()),
+                encode_path(&certificate.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -33321,22 +33542,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "certificate_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Certificate>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -33353,7 +33577,7 @@ pub mod builder {
     impl<'a> CertificateDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 certificate: Err("certificate was not initialized".to_string()),
             }
         }
@@ -33378,14 +33602,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/certificates/{}",
                 client.baseurl,
-                encode_path(&certificate.to_string()),
+                encode_path(&certificate.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -33395,22 +33618,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "certificate_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -33429,7 +33655,7 @@ pub mod builder {
     impl<'a> PhysicalDiskList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -33480,13 +33706,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/hardware/disks", client.baseurl,);
+            let url = format!("{}/system/hardware/disks", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -33502,22 +33727,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "physical_disk_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::PhysicalDiskResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -33582,7 +33810,7 @@ pub mod builder {
     impl<'a> RackList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -33633,13 +33861,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/hardware/racks", client.baseurl,);
+            let url = format!("{}/system/hardware/racks", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -33655,22 +33882,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "rack_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::RackResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -33733,7 +33963,7 @@ pub mod builder {
     impl<'a> RackView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 rack_id: Err("rack_id was not initialized".to_string()),
             }
         }
@@ -33755,14 +33985,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/hardware/racks/{}",
                 client.baseurl,
-                encode_path(&rack_id.to_string()),
+                encode_path(&rack_id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -33772,22 +34001,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "rack_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Rack>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -33806,7 +34038,7 @@ pub mod builder {
     impl<'a> SledList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -33857,13 +34089,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/hardware/sleds", client.baseurl,);
+            let url = format!("{}/system/hardware/sleds", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -33879,22 +34110,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "sled_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SledResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -33957,7 +34191,7 @@ pub mod builder {
     impl<'a> SledView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 sled_id: Err("sled_id was not initialized".to_string()),
             }
         }
@@ -33979,14 +34213,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/hardware/sleds/{}",
                 client.baseurl,
-                encode_path(&sled_id.to_string()),
+                encode_path(&sled_id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -33996,22 +34229,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "sled_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Sled>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -34031,7 +34267,7 @@ pub mod builder {
     impl<'a> SledPhysicalDiskList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 sled_id: Err("sled_id was not initialized".to_string()),
                 limit: Ok(None),
                 page_token: Ok(None),
@@ -34098,14 +34334,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/hardware/sleds/{}/disks",
                 client.baseurl,
-                encode_path(&sled_id.to_string()),
+                encode_path(&sled_id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -34121,22 +34356,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "sled_physical_disk_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::PhysicalDiskResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -34201,7 +34439,7 @@ pub mod builder {
     impl<'a> SystemImageList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -34252,13 +34490,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/images", client.baseurl,);
+            let url = format!("{}/system/images", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -34274,22 +34511,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_image_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::GlobalImageResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -34352,8 +34592,8 @@ pub mod builder {
     impl<'a> SystemImageCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::GlobalImageCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -34365,7 +34605,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `GlobalImageCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `GlobalImageCreate` for body failed: {s}"));
             self
         }
 
@@ -34385,13 +34625,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::GlobalImageCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/images", client.baseurl,);
+            let url = format!("{}/system/images", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -34402,22 +34641,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_image_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::GlobalImage>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -34434,7 +34676,7 @@ pub mod builder {
     impl<'a> SystemImageView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 image_name: Err("image_name was not initialized".to_string()),
             }
         }
@@ -34456,14 +34698,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/images/{}",
                 client.baseurl,
-                encode_path(&image_name.to_string()),
+                encode_path(&image_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -34473,22 +34714,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_image_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::GlobalImage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -34505,7 +34749,7 @@ pub mod builder {
     impl<'a> SystemImageDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 image_name: Err("image_name was not initialized".to_string()),
             }
         }
@@ -34527,14 +34771,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/images/{}",
                 client.baseurl,
-                encode_path(&image_name.to_string()),
+                encode_path(&image_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -34544,22 +34787,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_image_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -34578,7 +34824,7 @@ pub mod builder {
     impl<'a> IpPoolList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -34629,13 +34875,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/ip-pools", client.baseurl,);
+            let url = format!("{}/system/ip-pools", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -34651,22 +34896,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPoolResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -34729,8 +34977,8 @@ pub mod builder {
     impl<'a> IpPoolCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::IpPoolCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -34742,7 +34990,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `IpPoolCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `IpPoolCreate` for body failed: {s}"));
             self
         }
 
@@ -34760,13 +35008,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::IpPoolCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/ip-pools", client.baseurl,);
+            let url = format!("{}/system/ip-pools", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -34777,22 +35024,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPool>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -34809,7 +35059,7 @@ pub mod builder {
     impl<'a> IpPoolView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 pool_name: Err("pool_name was not initialized".to_string()),
             }
         }
@@ -34831,14 +35081,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/ip-pools/{}",
                 client.baseurl,
-                encode_path(&pool_name.to_string()),
+                encode_path(&pool_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -34848,22 +35097,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPool>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -34881,9 +35133,9 @@ pub mod builder {
     impl<'a> IpPoolUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 pool_name: Err("pool_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::IpPoolUpdate as ::std::default::Default>::default()),
             }
         }
 
@@ -34905,7 +35157,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `IpPoolUpdate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `IpPoolUpdate` for body failed: {s}"));
             self
         }
 
@@ -34931,14 +35183,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/ip-pools/{}",
                 client.baseurl,
-                encode_path(&pool_name.to_string()),
+                encode_path(&pool_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -34949,22 +35200,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPool>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -34981,7 +35235,7 @@ pub mod builder {
     impl<'a> IpPoolDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 pool_name: Err("pool_name was not initialized".to_string()),
             }
         }
@@ -35003,14 +35257,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/ip-pools/{}",
                 client.baseurl,
-                encode_path(&pool_name.to_string()),
+                encode_path(&pool_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -35020,22 +35273,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -35054,7 +35310,7 @@ pub mod builder {
     impl<'a> IpPoolRangeList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 pool_name: Err("pool_name was not initialized".to_string()),
                 limit: Ok(None),
                 page_token: Ok(None),
@@ -35107,14 +35363,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/ip-pools/{}/ranges",
                 client.baseurl,
-                encode_path(&pool_name.to_string()),
+                encode_path(&pool_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -35129,22 +35384,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_range_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPoolRangeResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -35207,7 +35465,7 @@ pub mod builder {
     impl<'a> IpPoolRangeAdd<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 pool_name: Err("pool_name was not initialized".to_string()),
                 body: Err("body was not initialized".to_string()),
             }
@@ -35245,14 +35503,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/ip-pools/{}/ranges/add",
                 client.baseurl,
-                encode_path(&pool_name.to_string()),
+                encode_path(&pool_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -35263,22 +35520,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_range_add",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPoolRange>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -35296,7 +35556,7 @@ pub mod builder {
     impl<'a> IpPoolRangeRemove<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 pool_name: Err("pool_name was not initialized".to_string()),
                 body: Err("body was not initialized".to_string()),
             }
@@ -35335,14 +35595,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/ip-pools/{}/ranges/remove",
                 client.baseurl,
-                encode_path(&pool_name.to_string()),
+                encode_path(&pool_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -35353,22 +35612,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_range_remove",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -35383,19 +35645,18 @@ pub mod builder {
 
     impl<'a> IpPoolServiceView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/system/ip-pools-service`
         pub async fn send(self) -> Result<ResponseValue<types::IpPool>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/system/ip-pools-service", client.baseurl,);
+            let url = format!("{}/system/ip-pools-service", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -35405,22 +35666,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_service_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPool>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -35438,7 +35702,7 @@ pub mod builder {
     impl<'a> IpPoolServiceRangeList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
             }
@@ -35475,13 +35739,12 @@ pub mod builder {
             } = self;
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/ip-pools-service/ranges", client.baseurl,);
+            let url = format!("{}/system/ip-pools-service/ranges", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -35496,22 +35759,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_service_range_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPoolRangeResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -35573,7 +35839,7 @@ pub mod builder {
     impl<'a> IpPoolServiceRangeAdd<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 body: Err("body was not initialized".to_string()),
             }
         }
@@ -35592,13 +35858,12 @@ pub mod builder {
         pub async fn send(self) -> Result<ResponseValue<types::IpPoolRange>, Error<types::Error>> {
             let Self { client, body } = self;
             let body = body.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/ip-pools-service/ranges/add", client.baseurl,);
+            let url = format!("{}/system/ip-pools-service/ranges/add", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -35609,22 +35874,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_service_range_add",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IpPoolRange>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -35641,7 +35909,7 @@ pub mod builder {
     impl<'a> IpPoolServiceRangeRemove<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 body: Err("body was not initialized".to_string()),
             }
         }
@@ -35660,13 +35928,12 @@ pub mod builder {
         pub async fn send(self) -> Result<ResponseValue<()>, Error<types::Error>> {
             let Self { client, body } = self;
             let body = body.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/ip-pools-service/ranges/remove", client.baseurl,);
+            let url = format!("{}/system/ip-pools-service/ranges/remove", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -35677,22 +35944,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "ip_pool_service_range_remove",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -35714,7 +35984,7 @@ pub mod builder {
     impl<'a> SystemMetric<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 metric_name: Err("metric_name was not initialized".to_string()),
                 end_time: Ok(None),
                 id: Err("id was not initialized".to_string()),
@@ -35810,14 +36080,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/metrics/{}",
                 client.baseurl,
-                encode_path(&metric_name.to_string()),
+                encode_path(&metric_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -35838,22 +36107,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_metric",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::MeasurementResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -35868,7 +36140,7 @@ pub mod builder {
 
     impl<'a> SystemPolicyView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/system/policy`
@@ -35876,13 +36148,12 @@ pub mod builder {
             self,
         ) -> Result<ResponseValue<types::FleetRolePolicy>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/system/policy", client.baseurl,);
+            let url = format!("{}/system/policy", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -35892,22 +36163,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_policy_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::FleetRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -35924,8 +36198,8 @@ pub mod builder {
     impl<'a> SystemPolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::FleetRolePolicy as ::std::default::Default>::default()),
             }
         }
 
@@ -35937,7 +36211,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `FleetRolePolicy` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `FleetRolePolicy` for body failed: {s}"));
             self
         }
 
@@ -35957,13 +36231,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::FleetRolePolicy::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/policy", client.baseurl,);
+            let url = format!("{}/system/policy", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -35974,22 +36247,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_policy_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::FleetRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -36008,7 +36284,7 @@ pub mod builder {
     impl<'a> SagaList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -36059,13 +36335,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/sagas", client.baseurl,);
+            let url = format!("{}/system/sagas", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -36081,22 +36356,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "saga_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SagaResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -36159,7 +36437,7 @@ pub mod builder {
     impl<'a> SagaView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 saga_id: Err("saga_id was not initialized".to_string()),
             }
         }
@@ -36181,14 +36459,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/sagas/{}",
                 client.baseurl,
-                encode_path(&saga_id.to_string()),
+                encode_path(&saga_id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -36198,22 +36475,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "saga_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Saga>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -36232,7 +36512,7 @@ pub mod builder {
     impl<'a> SiloList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -36283,13 +36563,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/silos", client.baseurl,);
+            let url = format!("{}/system/silos", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -36305,22 +36584,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SiloResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -36383,8 +36665,8 @@ pub mod builder {
     impl<'a> SiloCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::SiloCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -36396,7 +36678,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `SiloCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `SiloCreate` for body failed: {s}"));
             self
         }
 
@@ -36414,13 +36696,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::SiloCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/silos", client.baseurl,);
+            let url = format!("{}/system/silos", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -36431,22 +36712,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Silo>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -36463,7 +36747,7 @@ pub mod builder {
     impl<'a> SiloView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
             }
         }
@@ -36485,14 +36769,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/silos/{}",
                 client.baseurl,
-                encode_path(&silo_name.to_string()),
+                encode_path(&silo_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -36502,22 +36785,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Silo>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -36534,7 +36820,7 @@ pub mod builder {
     impl<'a> SiloDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
             }
         }
@@ -36556,14 +36842,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/silos/{}",
                 client.baseurl,
-                encode_path(&silo_name.to_string()),
+                encode_path(&silo_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -36573,22 +36858,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -36608,7 +36896,7 @@ pub mod builder {
     impl<'a> SiloIdentityProviderList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
                 limit: Ok(None),
                 page_token: Ok(None),
@@ -36677,14 +36965,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/silos/{}/identity-providers",
                 client.baseurl,
-                encode_path(&silo_name.to_string()),
+                encode_path(&silo_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -36700,22 +36987,26 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_identity_provider_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::IdentityProviderResultsPage>, Error<types::Error>>
+        {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -36780,9 +37071,9 @@ pub mod builder {
     impl<'a> LocalIdpUserCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::UserCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -36804,7 +37095,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `UserCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `UserCreate` for body failed: {s}"));
             self
         }
 
@@ -36831,14 +37122,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/silos/{}/identity-providers/local/users",
                 client.baseurl,
-                encode_path(&silo_name.to_string()),
+                encode_path(&silo_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -36849,22 +37139,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "local_idp_user_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::User>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -36882,7 +37175,7 @@ pub mod builder {
     impl<'a> LocalIdpUserDelete<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
                 user_id: Err("user_id was not initialized".to_string()),
             }
@@ -36922,14 +37215,13 @@ pub mod builder {
                 "{}/system/silos/{}/identity-providers/local/users/{}",
                 client.baseurl,
                 encode_path(&silo_name.to_string()),
-                encode_path(&user_id.to_string()),
+                encode_path(&user_id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -36939,22 +37231,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "local_idp_user_delete",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -36973,7 +37268,7 @@ pub mod builder {
     impl<'a> LocalIdpUserSetPassword<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
                 user_id: Err("user_id was not initialized".to_string()),
                 body: Err("body was not initialized".to_string()),
@@ -37027,14 +37322,13 @@ pub mod builder {
                 "{}/system/silos/{}/identity-providers/local/users/{}/set-password",
                 client.baseurl,
                 encode_path(&silo_name.to_string()),
-                encode_path(&user_id.to_string()),
+                encode_path(&user_id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -37045,22 +37339,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "local_idp_user_set_password",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -37077,11 +37374,7 @@ pub mod builder {
 
     impl<'a> SamlIdentityProviderCreate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self {
-                client: client,
-                silo_name: Err("silo_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
-            }
+            Self { client , silo_name : Err ("silo_name was not initialized" . to_string ()) , body : Ok (< types :: builder :: SamlIdentityProviderCreate as :: std :: default :: Default > :: default ()) , }
         }
 
         pub fn silo_name<V>(mut self, value: V) -> Self
@@ -37101,10 +37394,7 @@ pub mod builder {
                 std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `SamlIdentityProviderCreate` for body failed: {}",
-                    s
-                )
+                format!("conversion to `SamlIdentityProviderCreate` for body failed: {s}")
             });
             self
         }
@@ -37138,14 +37428,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/silos/{}/identity-providers/saml",
                 client.baseurl,
-                encode_path(&silo_name.to_string()),
+                encode_path(&silo_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -37156,22 +37445,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "saml_identity_provider_create",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SamlIdentityProvider>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -37189,7 +37481,7 @@ pub mod builder {
     impl<'a> SamlIdentityProviderView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
                 provider_name: Err("provider_name was not initialized".to_string()),
             }
@@ -37231,14 +37523,13 @@ pub mod builder {
                 "{}/system/silos/{}/identity-providers/saml/{}",
                 client.baseurl,
                 encode_path(&silo_name.to_string()),
-                encode_path(&provider_name.to_string()),
+                encode_path(&provider_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -37248,22 +37539,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "saml_identity_provider_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SamlIdentityProvider>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -37280,7 +37574,7 @@ pub mod builder {
     impl<'a> SiloPolicyView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
             }
         }
@@ -37304,14 +37598,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/silos/{}/policy",
                 client.baseurl,
-                encode_path(&silo_name.to_string()),
+                encode_path(&silo_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -37321,22 +37614,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_policy_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SiloRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -37354,9 +37650,9 @@ pub mod builder {
     impl<'a> SiloPolicyUpdate<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::SiloRolePolicy as ::std::default::Default>::default()),
             }
         }
 
@@ -37378,7 +37674,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `SiloRolePolicy` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `SiloRolePolicy` for body failed: {s}"));
             self
         }
 
@@ -37406,14 +37702,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/silos/{}/policy",
                 client.baseurl,
-                encode_path(&silo_name.to_string()),
+                encode_path(&silo_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -37424,22 +37719,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_policy_update",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SiloRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -37459,7 +37757,7 @@ pub mod builder {
     impl<'a> SiloUsersList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
                 limit: Ok(None),
                 page_token: Ok(None),
@@ -37526,14 +37824,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/silos/{}/users/all",
                 client.baseurl,
-                encode_path(&silo_name.to_string()),
+                encode_path(&silo_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -37549,22 +37846,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_users_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UserResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -37628,7 +37928,7 @@ pub mod builder {
     impl<'a> SiloUserView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 silo_name: Err("silo_name was not initialized".to_string()),
                 user_id: Err("user_id was not initialized".to_string()),
             }
@@ -37668,14 +37968,13 @@ pub mod builder {
                 "{}/system/silos/{}/users/id/{}",
                 client.baseurl,
                 encode_path(&silo_name.to_string()),
-                encode_path(&user_id.to_string()),
+                encode_path(&user_id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -37685,22 +37984,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "silo_user_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::User>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -37719,7 +38021,7 @@ pub mod builder {
     impl<'a> SystemUserList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -37770,13 +38072,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/system/user", client.baseurl,);
+            let url = format!("{}/system/user", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -37792,22 +38093,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_user_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UserBuiltinResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -37870,7 +38174,7 @@ pub mod builder {
     impl<'a> SystemUserView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 user_name: Err("user_name was not initialized".to_string()),
             }
         }
@@ -37892,14 +38196,13 @@ pub mod builder {
             let url = format!(
                 "{}/system/user/{}",
                 client.baseurl,
-                encode_path(&user_name.to_string()),
+                encode_path(&user_name.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -37909,22 +38212,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_user_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UserBuiltin>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -37942,7 +38248,7 @@ pub mod builder {
     impl<'a> TimeseriesSchemaGet<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
             }
@@ -37980,13 +38286,12 @@ pub mod builder {
             } = self;
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/timeseries/schema", client.baseurl,);
+            let url = format!("{}/timeseries/schema", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -38001,22 +38306,26 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "timeseries_schema_get",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::TimeseriesSchemaResultsPage>, Error<types::Error>>
+        {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -38080,7 +38389,7 @@ pub mod builder {
     impl<'a> UserList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -38131,13 +38440,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/users", client.baseurl,);
+            let url = format!("{}/users", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -38153,22 +38461,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "user_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UserResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -38235,7 +38546,7 @@ pub mod builder {
     impl<'a> DiskListV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 organization: Ok(None),
                 page_token: Ok(None),
@@ -38314,13 +38625,12 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let project = project.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/disks", client.baseurl,);
+            let url = format!("{}/v1/disks", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -38341,22 +38651,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_list_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::DiskResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -38423,10 +38736,10 @@ pub mod builder {
     impl<'a> DiskCreateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization: Ok(None),
                 project: Err("project was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::DiskCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -38459,7 +38772,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `DiskCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `DiskCreate` for body failed: {s}"));
             self
         }
 
@@ -38484,13 +38797,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::DiskCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/disks", client.baseurl,);
+            let url = format!("{}/v1/disks", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -38506,22 +38818,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_create_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -38540,7 +38855,7 @@ pub mod builder {
     impl<'a> DiskViewV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 disk: Err("disk was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
@@ -38593,14 +38908,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/disks/{}",
                 client.baseurl,
-                encode_path(&disk.to_string()),
+                encode_path(&disk.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -38615,22 +38929,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_view_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -38649,7 +38966,7 @@ pub mod builder {
     impl<'a> DiskDeleteV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 disk: Err("disk was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
@@ -38702,14 +39019,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/disks/{}",
                 client.baseurl,
-                encode_path(&disk.to_string()),
+                encode_path(&disk.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -38724,22 +39040,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "disk_delete_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -38760,7 +39079,7 @@ pub mod builder {
     impl<'a> InstanceListV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 organization: Ok(None),
                 page_token: Ok(None),
@@ -38839,13 +39158,12 @@ pub mod builder {
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let project = project.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/instances", client.baseurl,);
+            let url = format!("{}/v1/instances", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -38866,22 +39184,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_list_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::InstanceResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -38948,10 +39269,10 @@ pub mod builder {
     impl<'a> InstanceCreateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization: Ok(None),
                 project: Err("project was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::InstanceCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -38984,7 +39305,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `InstanceCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `InstanceCreate` for body failed: {s}"));
             self
         }
 
@@ -39009,13 +39330,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::InstanceCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/instances", client.baseurl,);
+            let url = format!("{}/v1/instances", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -39031,22 +39351,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_create_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -39065,7 +39388,7 @@ pub mod builder {
     impl<'a> InstanceViewV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
@@ -39118,14 +39441,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -39140,22 +39462,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_view_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -39174,7 +39499,7 @@ pub mod builder {
     impl<'a> InstanceDeleteV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
@@ -39227,14 +39552,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -39249,22 +39573,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_delete_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -39286,7 +39613,7 @@ pub mod builder {
     impl<'a> InstanceDiskListV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 limit: Ok(None),
                 organization: Ok(None),
@@ -39381,14 +39708,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}/disks",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -39409,22 +39735,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_disk_list_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::DiskResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -39492,11 +39821,11 @@ pub mod builder {
     impl<'a> InstanceDiskAttachV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::DiskPath as ::std::default::Default>::default()),
             }
         }
 
@@ -39540,7 +39869,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `DiskPath` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `DiskPath` for body failed: {s}"));
             self
         }
 
@@ -39570,14 +39899,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}/disks/attach",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -39593,22 +39921,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_disk_attach_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -39628,11 +39959,11 @@ pub mod builder {
     impl<'a> InstanceDiskDetachV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::DiskPath as ::std::default::Default>::default()),
             }
         }
 
@@ -39676,7 +40007,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `DiskPath` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `DiskPath` for body failed: {s}"));
             self
         }
 
@@ -39706,14 +40037,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}/disks/detach",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -39729,22 +40059,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_disk_detach_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Disk>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -39764,11 +40097,11 @@ pub mod builder {
     impl<'a> InstanceMigrateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::InstanceMigrate as ::std::default::Default>::default()),
             }
         }
 
@@ -39812,7 +40145,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `InstanceMigrate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `InstanceMigrate` for body failed: {s}"));
             self
         }
 
@@ -39842,14 +40175,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}/migrate",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -39865,22 +40197,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_migrate_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -39899,7 +40234,7 @@ pub mod builder {
     impl<'a> InstanceRebootV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
@@ -39952,14 +40287,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}/reboot",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -39974,22 +40308,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_reboot_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -40011,7 +40348,7 @@ pub mod builder {
     impl<'a> InstanceSerialConsoleV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 from_start: Ok(None),
                 max_bytes: Ok(None),
@@ -40108,14 +40445,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}/serial-console",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -40139,22 +40475,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_serial_console_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::InstanceSerialConsoleData>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -40173,7 +40512,7 @@ pub mod builder {
     impl<'a> InstanceSerialConsoleStreamV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
@@ -40227,14 +40566,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}/serial-console/stream",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -40255,22 +40593,25 @@ pub mod builder {
                     ),
                 )
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_serial_console_stream_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<reqwest::Upgraded>, Error<types::Error>> {
             match response.status().as_u16() {
                 101u16 => ResponseValue::upgrade(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -40289,7 +40630,7 @@ pub mod builder {
     impl<'a> InstanceStartV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
@@ -40342,14 +40683,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}/start",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -40364,22 +40704,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_start_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -40398,7 +40741,7 @@ pub mod builder {
     impl<'a> InstanceStopV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 instance: Err("instance was not initialized".to_string()),
                 organization: Ok(None),
                 project: Ok(None),
@@ -40451,14 +40794,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/instances/{}/stop",
                 client.baseurl,
-                encode_path(&instance.to_string()),
+                encode_path(&instance.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -40473,22 +40815,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("project", &project))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "instance_stop_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Instance>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -40507,7 +40852,7 @@ pub mod builder {
     impl<'a> OrganizationListV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -40558,13 +40903,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/organizations", client.baseurl,);
+            let url = format!("{}/v1/organizations", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -40580,22 +40924,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_list_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::OrganizationResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -40658,8 +41005,10 @@ pub mod builder {
     impl<'a> OrganizationCreateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(
+                    <types::builder::OrganizationCreate as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -40671,7 +41020,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `OrganizationCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `OrganizationCreate` for body failed: {s}"));
             self
         }
 
@@ -40691,13 +41040,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::OrganizationCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/organizations", client.baseurl,);
+            let url = format!("{}/v1/organizations", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -40708,22 +41056,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_create_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -40740,7 +41091,7 @@ pub mod builder {
     impl<'a> OrganizationViewV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization: Err("organization was not initialized".to_string()),
             }
         }
@@ -40765,14 +41116,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/organizations/{}",
                 client.baseurl,
-                encode_path(&organization.to_string()),
+                encode_path(&organization.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -40782,22 +41132,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_view_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -40815,9 +41168,11 @@ pub mod builder {
     impl<'a> OrganizationUpdateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization: Err("organization was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(
+                    <types::builder::OrganizationUpdate as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -40839,7 +41194,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `OrganizationUpdate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `OrganizationUpdate` for body failed: {s}"));
             self
         }
 
@@ -40867,14 +41222,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/organizations/{}",
                 client.baseurl,
-                encode_path(&organization.to_string()),
+                encode_path(&organization.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -40885,22 +41239,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_update_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Organization>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -40917,7 +41274,7 @@ pub mod builder {
     impl<'a> OrganizationDeleteV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization: Err("organization was not initialized".to_string()),
             }
         }
@@ -40942,14 +41299,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/organizations/{}",
                 client.baseurl,
-                encode_path(&organization.to_string()),
+                encode_path(&organization.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -40959,22 +41315,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_delete_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -40991,7 +41350,7 @@ pub mod builder {
     impl<'a> OrganizationPolicyViewV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization: Err("organization was not initialized".to_string()),
             }
         }
@@ -41018,14 +41377,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/organizations/{}/policy",
                 client.baseurl,
-                encode_path(&organization.to_string()),
+                encode_path(&organization.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -41035,22 +41393,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_policy_view_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::OrganizationRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -41068,9 +41429,11 @@ pub mod builder {
     impl<'a> OrganizationPolicyUpdateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization: Err("organization was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(
+                    <types::builder::OrganizationRolePolicy as ::std::default::Default>::default(),
+                ),
             }
         }
 
@@ -41090,10 +41453,7 @@ pub mod builder {
             <V as std::convert::TryInto<types::OrganizationRolePolicy>>::Error: std::fmt::Display,
         {
             self.body = value.try_into().map(From::from).map_err(|s| {
-                format!(
-                    "conversion to `OrganizationRolePolicy` for body failed: {}",
-                    s
-                )
+                format!("conversion to `OrganizationRolePolicy` for body failed: {s}")
             });
             self
         }
@@ -41124,14 +41484,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/organizations/{}/policy",
                 client.baseurl,
-                encode_path(&organization.to_string()),
+                encode_path(&organization.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -41142,22 +41501,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "organization_policy_update_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::OrganizationRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -41177,7 +41539,7 @@ pub mod builder {
     impl<'a> ProjectListV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 organization: Ok(None),
                 page_token: Ok(None),
@@ -41242,13 +41604,12 @@ pub mod builder {
             let organization = organization.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/projects", client.baseurl,);
+            let url = format!("{}/v1/projects", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -41268,22 +41629,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_list_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ProjectResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -41348,9 +41712,9 @@ pub mod builder {
     impl<'a> ProjectCreateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 organization: Err("organization was not initialized".to_string()),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ProjectCreate as ::std::default::Default>::default()),
             }
         }
 
@@ -41372,7 +41736,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ProjectCreate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ProjectCreate` for body failed: {s}"));
             self
         }
 
@@ -41395,13 +41759,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::ProjectCreate::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/projects", client.baseurl,);
+            let url = format!("{}/v1/projects", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -41416,22 +41779,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_create_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Project>, Error<types::Error>> {
             match response.status().as_u16() {
                 201u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -41449,7 +41815,7 @@ pub mod builder {
     impl<'a> ProjectViewV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 project: Err("project was not initialized".to_string()),
                 organization: Ok(None),
             }
@@ -41488,14 +41854,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/projects/{}",
                 client.baseurl,
-                encode_path(&project.to_string()),
+                encode_path(&project.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -41509,22 +41874,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_view_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Project>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -41543,10 +41911,10 @@ pub mod builder {
     impl<'a> ProjectUpdateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 project: Err("project was not initialized".to_string()),
                 organization: Ok(None),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ProjectUpdate as ::std::default::Default>::default()),
             }
         }
 
@@ -41579,7 +41947,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ProjectUpdate` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ProjectUpdate` for body failed: {s}"));
             self
         }
 
@@ -41607,14 +41975,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/projects/{}",
                 client.baseurl,
-                encode_path(&project.to_string()),
+                encode_path(&project.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -41629,22 +41996,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_update_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Project>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -41662,7 +42032,7 @@ pub mod builder {
     impl<'a> ProjectDeleteV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 project: Err("project was not initialized".to_string()),
                 organization: Ok(None),
             }
@@ -41701,14 +42071,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/projects/{}",
                 client.baseurl,
-                encode_path(&project.to_string()),
+                encode_path(&project.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .delete(url)
@@ -41722,22 +42091,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_delete_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -41755,7 +42127,7 @@ pub mod builder {
     impl<'a> ProjectPolicyViewV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 project: Err("project was not initialized".to_string()),
                 organization: Ok(None),
             }
@@ -41796,14 +42168,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/projects/{}/policy",
                 client.baseurl,
-                encode_path(&project.to_string()),
+                encode_path(&project.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -41817,22 +42188,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_policy_view_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ProjectRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -41851,10 +42225,10 @@ pub mod builder {
     impl<'a> ProjectPolicyUpdateV1<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 project: Err("project was not initialized".to_string()),
                 organization: Ok(None),
-                body: Ok(::std::default::Default::default()),
+                body: Ok(<types::builder::ProjectRolePolicy as ::std::default::Default>::default()),
             }
         }
 
@@ -41887,7 +42261,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `ProjectRolePolicy` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `ProjectRolePolicy` for body failed: {s}"));
             self
         }
 
@@ -41919,14 +42293,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/projects/{}/policy",
                 client.baseurl,
-                encode_path(&project.to_string()),
+                encode_path(&project.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .put(url)
@@ -41941,22 +42314,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "project_policy_update_v1",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ProjectRolePolicy>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -41975,7 +42351,7 @@ pub mod builder {
     impl<'a> SystemComponentVersionList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -42027,13 +42403,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/system/update/components", client.baseurl,);
+            let url = format!("{}/v1/system/update/components", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -42049,22 +42424,26 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_component_version_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UpdateableComponentResultsPage>, Error<types::Error>>
+        {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -42130,7 +42509,7 @@ pub mod builder {
     impl<'a> UpdateDeploymentsList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -42182,13 +42561,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/system/update/deployments", client.baseurl,);
+            let url = format!("{}/v1/system/update/deployments", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -42204,22 +42582,26 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "update_deployments_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UpdateDeploymentResultsPage>, Error<types::Error>>
+        {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -42282,7 +42664,7 @@ pub mod builder {
     impl<'a> UpdateDeploymentView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 id: Err("id was not initialized".to_string()),
             }
         }
@@ -42306,14 +42688,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/system/update/deployments/{}",
                 client.baseurl,
-                encode_path(&id.to_string()),
+                encode_path(&id.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -42323,22 +42704,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "update_deployment_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UpdateDeployment>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -42353,19 +42737,18 @@ pub mod builder {
 
     impl<'a> SystemUpdateRefresh<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `POST` request to `/v1/system/update/refresh`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/v1/system/update/refresh", client.baseurl,);
+            let url = format!("{}/v1/system/update/refresh", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -42375,22 +42758,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_update_refresh",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -42407,8 +42793,8 @@ pub mod builder {
     impl<'a> SystemUpdateStart<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
-                body: Ok(::std::default::Default::default()),
+                client,
+                body: Ok(<types::builder::SystemUpdateStart as ::std::default::Default>::default()),
             }
         }
 
@@ -42420,7 +42806,7 @@ pub mod builder {
             self.body = value
                 .try_into()
                 .map(From::from)
-                .map_err(|s| format!("conversion to `SystemUpdateStart` for body failed: {}", s));
+                .map_err(|s| format!("conversion to `SystemUpdateStart` for body failed: {s}"));
             self
         }
 
@@ -42442,13 +42828,12 @@ pub mod builder {
             let body = body
                 .and_then(|v| types::SystemUpdateStart::try_from(v).map_err(|e| e.to_string()))
                 .map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/system/update/start", client.baseurl,);
+            let url = format!("{}/v1/system/update/start", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -42459,22 +42844,25 @@ pub mod builder {
                 .json(&body)
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_update_start",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::UpdateDeployment>, Error<types::Error>> {
             match response.status().as_u16() {
                 202u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -42489,19 +42877,18 @@ pub mod builder {
 
     impl<'a> SystemUpdateStop<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `POST` request to `/v1/system/update/stop`
         pub async fn send(self) -> Result<ResponseValue<()>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/v1/system/update/stop", client.baseurl,);
+            let url = format!("{}/v1/system/update/stop", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .post(url)
@@ -42511,22 +42898,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_update_stop",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<()>, Error<types::Error>> {
             match response.status().as_u16() {
                 204u16 => Ok(ResponseValue::empty(response)),
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -42545,7 +42935,7 @@ pub mod builder {
     impl<'a> SystemUpdateList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
                 sort_by: Ok(None),
@@ -42596,13 +42986,12 @@ pub mod builder {
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
             let sort_by = sort_by.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/v1/system/update/updates", client.baseurl,);
+            let url = format!("{}/v1/system/update/updates", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -42618,22 +43007,25 @@ pub mod builder {
                 .query(&progenitor_client::QueryParam::new("sort_by", &sort_by))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_update_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SystemUpdateResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 
@@ -42696,7 +43088,7 @@ pub mod builder {
     impl<'a> SystemUpdateView<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 version: Err("version was not initialized".to_string()),
             }
         }
@@ -42718,14 +43110,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/system/update/updates/{}",
                 client.baseurl,
-                encode_path(&version.to_string()),
+                encode_path(&version.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -42735,22 +43126,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_update_view",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SystemUpdate>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -42767,7 +43161,7 @@ pub mod builder {
     impl<'a> SystemUpdateComponentsList<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 version: Err("version was not initialized".to_string()),
             }
         }
@@ -42792,14 +43186,13 @@ pub mod builder {
             let url = format!(
                 "{}/v1/system/update/updates/{}/components",
                 client.baseurl,
-                encode_path(&version.to_string()),
+                encode_path(&version.to_string())
             );
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -42809,22 +43202,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_update_components_list",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::ComponentUpdateResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }
@@ -42839,7 +43235,7 @@ pub mod builder {
 
     impl<'a> SystemVersion<'a> {
         pub fn new(client: &'a super::Client) -> Self {
-            Self { client: client }
+            Self { client }
         }
 
         ///Sends a `GET` request to `/v1/system/update/version`
@@ -42847,13 +43243,12 @@ pub mod builder {
             self,
         ) -> Result<ResponseValue<types::SystemVersion>, Error<types::Error>> {
             let Self { client } = self;
-            let url = format!("{}/v1/system/update/version", client.baseurl,);
+            let url = format!("{}/v1/system/update/version", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -42863,22 +43258,25 @@ pub mod builder {
                 )
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "system_version",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::SystemVersion>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
     }

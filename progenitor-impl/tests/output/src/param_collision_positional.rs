@@ -1,9 +1,7 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::encode_path;
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     /// Error types.
     pub mod error {
@@ -99,7 +97,6 @@ impl ClientInfo<()> for Client {
 }
 
 impl ClientHooks<()> for &Client {}
-#[allow(clippy::all)]
 impl Client {
     ///Gets a key
     ///
@@ -121,13 +118,12 @@ impl Client {
         result: bool,
         url: bool,
     ) -> Result<ResponseValue<()>, Error<()>> {
-        let _url = format!("{}/key/{}", self.baseurl, encode_path(&query.to_string()),);
+        let _url = format!("{}/key/{}", self.baseurl, encode_path(&query.to_string()));
         let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
         header_map.append(
             ::reqwest::header::HeaderName::from_static("api-version"),
             ::reqwest::header::HeaderValue::from_static(Self::api_version()),
         );
-        #[allow(unused_mut)]
         let mut _request = self
             .client
             .get(_url)
@@ -138,7 +134,7 @@ impl Client {
             .query(&progenitor_client::QueryParam::new("url", &url))
             .headers(header_map)
             .build()?;
-        let info = OperationInfo {
+        let info = progenitor_client::OperationInfo {
             operation_id: "key_get",
         };
         self.pre(&mut _request, &info).await?;
@@ -147,13 +143,12 @@ impl Client {
         let _response = _result?;
         match _response.status().as_u16() {
             200u16 => Ok(ResponseValue::empty(_response)),
-            _ => Err(Error::UnexpectedResponse(_response)),
+            _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(_response))),
         }
     }
 }
 
 /// Items consumers will typically use such as the Client.
 pub mod prelude {
-    #[allow(unused_imports)]
     pub use super::Client;
 }

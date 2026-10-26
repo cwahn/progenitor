@@ -1,9 +1,6 @@
-#[allow(unused_imports)]
-use progenitor_client::{encode_path, ClientHooks, OperationInfo, RequestBuilderExt};
-#[allow(unused_imports)]
+use progenitor_client::ClientHooks;
 pub use progenitor_client::{ByteStream, ClientInfo, Error, ResponseValue};
 /// Types used as operation parameters and responses.
-#[allow(clippy::all)]
 pub mod types {
     ///Error information from a response.
     #[derive(:: serde :: Deserialize, :: serde :: Serialize, Clone, Debug)]
@@ -16,7 +13,7 @@ pub mod types {
 
     impl Error {
         pub fn builder() -> builder::Error {
-            Default::default()
+            <builder::Error as ::std::default::Default>::default()
         }
     }
 
@@ -32,7 +29,7 @@ pub mod types {
 
     impl Uint32ResultsPage {
         pub fn builder() -> builder::Uint32ResultsPage {
-            Default::default()
+            <builder::Uint32ResultsPage as ::std::default::Default>::default()
         }
     }
 
@@ -51,7 +48,7 @@ pub mod types {
         impl ::std::default::Default for Error {
             fn default() -> Self {
                 Self {
-                    error_code: Ok(Default::default()),
+                    error_code: Ok(<::std::option::Option<::std::string::String>>::default()),
                     message: Err("no value supplied for message".to_string()),
                     request_id: Err("no value supplied for request_id".to_string()),
                 }
@@ -127,7 +124,7 @@ pub mod types {
             fn default() -> Self {
                 Self {
                     items: Err("no value supplied for items".to_string()),
-                    next_page: Ok(Default::default()),
+                    next_page: Ok(<::std::option::Option<::std::string::String>>::default()),
                 }
             }
         }
@@ -209,7 +206,7 @@ pub mod types {
 }
 
 #[derive(Clone, Debug)]
-///Client for test_stream_pagination
+///Client for `test_stream_pagination`
 ///
 ///Version: 1.0.0
 pub struct Client {
@@ -289,14 +286,11 @@ impl Client {
 }
 
 /// Types for composing operation parameters.
-#[allow(clippy::all)]
 pub mod builder {
     use super::types;
-    #[allow(unused_imports)]
-    use super::{
-        encode_path, ByteStream, ClientHooks, ClientInfo, Error, OperationInfo, RequestBuilderExt,
-        ResponseValue,
-    };
+    use super::Error;
+    use super::ResponseValue;
+    use progenitor_client::{ClientHooks, ClientInfo};
     ///Builder for [`Client::paginated_u32s`]
     ///
     ///[`Client::paginated_u32s`]: super::Client::paginated_u32s
@@ -310,7 +304,7 @@ pub mod builder {
     impl<'a> PaginatedU32s<'a> {
         pub fn new(client: &'a super::Client) -> Self {
             Self {
-                client: client,
+                client,
                 limit: Ok(None),
                 page_token: Ok(None),
             }
@@ -347,13 +341,12 @@ pub mod builder {
             } = self;
             let limit = limit.map_err(Error::InvalidRequest)?;
             let page_token = page_token.map_err(Error::InvalidRequest)?;
-            let url = format!("{}/", client.baseurl,);
+            let url = format!("{}/", client.baseurl);
             let mut header_map = ::reqwest::header::HeaderMap::with_capacity(1usize);
             header_map.append(
                 ::reqwest::header::HeaderName::from_static("api-version"),
                 ::reqwest::header::HeaderValue::from_static(super::Client::api_version()),
             );
-            #[allow(unused_mut)]
             let mut request = client
                 .client
                 .get(url)
@@ -368,22 +361,25 @@ pub mod builder {
                 ))
                 .headers(header_map)
                 .build()?;
-            let info = OperationInfo {
+            let info = progenitor_client::OperationInfo {
                 operation_id: "paginated_u32s",
             };
             client.pre(&mut request, &info).await?;
             let result = client.exec(request, &info).await;
             client.post(&result, &info).await?;
             let response = result?;
+            Self::__decode_response(response).await
+        }
+
+        async fn __decode_response(
+            response: reqwest::Response,
+        ) -> Result<ResponseValue<types::Uint32ResultsPage>, Error<types::Error>> {
             match response.status().as_u16() {
                 200u16 => ResponseValue::from_response(response).await,
-                400u16..=499u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
+                400u16..=499u16 | 500u16..=599u16 => Err(Error::ErrorResponse(
+                    ::std::boxed::Box::new(ResponseValue::from_response(response).await?),
                 )),
-                500u16..=599u16 => Err(Error::ErrorResponse(
-                    ResponseValue::from_response(response).await?,
-                )),
-                _ => Err(Error::UnexpectedResponse(response)),
+                _ => Err(Error::UnexpectedResponse(::std::boxed::Box::new(response))),
             }
         }
 

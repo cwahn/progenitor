@@ -16,4 +16,12 @@ help: the trait `ClientHooks` is not implemented for `client::Client`
 10 | |     );
    | |_____^
    = note: clients generated with `hooks = Expected` require `impl ClientHooks<()> for client::Client`
+note: required by a bound in `assert_client_hooks`
+  --> tests/compile_fail/hooks_expected_missing.rs:7:5
+   |
+ 7 | /     progenitor::generate_api!(
+ 8 | |         spec = "../../../../progenitor/tests/compile_fail/no-operations.json",
+ 9 | |         hooks = Expected,
+10 | |     );
+   | |_____^ required by this bound in `assert_client_hooks`
    = note: this error originates in the macro `progenitor::generate_api` (in Nightly builds, run with -Z macro-backtrace for more info)

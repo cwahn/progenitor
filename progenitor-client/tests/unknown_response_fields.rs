@@ -1,7 +1,5 @@
 // Copyright 2026 Oxide Computer Company
 
-#![allow(dead_code)]
-
 use std::{collections::BTreeMap, sync::Mutex};
 
 use progenitor_client::{
@@ -241,6 +239,17 @@ fn union_recovery_requires_exactly_one_branch_and_logs_only_that_candidate() {
     .unwrap();
     assert!(matches!(value, Union::B(B { b: 2 })));
     assert_eq!(records("unique-union").len(), 1);
+    let value: Union = decode(
+        br#"{"a":1,"extra":3}"#,
+        UNION,
+        0,
+        "unique-union-a",
+        200,
+        "spec",
+    )
+    .unwrap();
+    assert!(matches!(value, Union::A(A { a: 1 })));
+    assert_eq!(records("unique-union-a").len(), 1);
     let error = decode::<Union>(
         br#"{"a":1,"b":2,"extra":3}"#,
         UNION,
@@ -295,6 +304,16 @@ fn strict_success_keeps_existing_variant_without_consulting_recovery() {
     let value: Ordered =
         decode(br#"{"a":1,"b":2}"#, &[], 999, "strict-success", 200, "spec").unwrap();
     assert!(matches!(value, Ordered::Wide(Wide { a: 1, b: 2 })));
+    let value: Ordered = decode(
+        br#"{"a":1}"#,
+        &[],
+        999,
+        "strict-success-narrow",
+        200,
+        "spec",
+    )
+    .unwrap();
+    assert!(matches!(value, Ordered::Narrow(A { a: 1 })));
     assert!(serde_json::from_str::<A>(r#"{"a":1,"extra":2}"#).is_err());
 }
 

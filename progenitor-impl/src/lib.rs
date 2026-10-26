@@ -34,26 +34,38 @@ mod util;
 pub use document::{OpenApiDocument, SchemaDiagnostic};
 pub use selection::select_operations;
 
-#[allow(missing_docs)]
+/// An error encountered while validating an API document or generating a client.
 #[derive(Error, Debug)]
 pub enum Error {
+    /// A schema is invalid or unsupported at the reported document location.
     #[error("invalid schema at {location}: {reason}")]
-    InvalidSchema { location: String, reason: String },
+    InvalidSchema {
+        /// Location of the schema within the API document.
+        location: String,
+        /// Explanation of the schema error.
+        reason: String,
+    },
+    /// A document value does not have the expected type.
     #[error("unexpected value type {0}: {1}")]
     BadValue(String, serde_json::Value),
+    /// Schema-to-Rust type generation failed.
     #[error("type error {0}")]
     TypeError(#[from] typify::Error),
+    /// The document uses an unexpected or unsupported format.
     #[error("unexpected or unhandled format in the OpenAPI document {0}")]
     UnexpectedFormat(String),
+    /// An operation path is invalid.
     #[error("invalid operation path {0}")]
     InvalidPath(String),
+    /// A Dropshot extension is used incorrectly.
     #[error("invalid dropshot extension use: {0}")]
     InvalidExtension(String),
+    /// An internal generator invariant was violated.
     #[error("internal error {0}")]
     InternalError(String),
 }
 
-#[allow(missing_docs)]
+/// The result of API document validation or client generation.
 pub type Result<T> = std::result::Result<T, Error>;
 
 /// OpenAPI generator.
@@ -512,7 +524,7 @@ impl Generator {
 
             s.push_str(&format!("\n\nVersion: {}", &spec.info.version));
 
-            s
+            typify::render_doc_markdown(&s)
         };
 
         let version_str = &spec.info.version;
@@ -526,36 +538,29 @@ impl Generator {
             // a single, clear error rather than as a missing method at every
             // call site in the generated code.
             HooksMode::Expected => quote! {
-                const _: () = {
-                    #[allow(dead_code)]
-                    fn assert_client_hooks() where Client: ClientHooks<#inner_type> {}
+                const _: fn() = || {
+                    fn assert_client_hooks<T: ClientHooks<#inner_type>>() {}
+                    assert_client_hooks::<Client>();
                 };
             },
         };
 
-        // The allow(unused_imports) on the `pub use` is necessary with Rust
-        // 1.76+, in case the generated file is not at the top level of the
-        // crate.
+        let path_import = (self.settings.interface == InterfaceStyle::Positional
+            && needs_path_encoding(&raw_methods))
+        .then(|| quote! { use progenitor_client::encode_path; });
 
         let file = quote! {
             // Re-export types that are used by the public interface of Client.
-            #[allow(unused_imports)]
             pub use progenitor_client::{
                 ByteStream,
                 ClientInfo,
                 Error,
                 ResponseValue,
             };
-            #[allow(unused_imports)]
-            use progenitor_client::{
-                encode_path,
-                ClientHooks,
-                OperationInfo,
-                RequestBuilderExt,
-            };
+            use progenitor_client::ClientHooks;
+            #path_import
 
             /// Types used as operation parameters and responses.
-            #[allow(clippy::all)]
             pub mod types {
                 #types
             }
@@ -650,19 +655,13 @@ impl Generator {
             .map(|method| self.positional_method(method, has_inner))
             .collect::<Result<Vec<_>>>()?;
 
-        // The allow(unused_imports) on the `pub use` is necessary with Rust
-        // 1.76+, in case the generated file is not at the top level of the
-        // crate.
-
         let out = quote! {
-            #[allow(clippy::all)]
             impl Client {
                 #(#methods)*
             }
 
             /// Items consumers will typically use such as the Client.
             pub mod prelude {
-                #[allow(unused_imports)]
                 pub use super::Client;
             }
         };
@@ -684,6 +683,7 @@ impl Generator {
             .iter()
             .map(|method| self.builder_impl(method))
             .collect::<Vec<_>>();
+        let imports = builder_imports(&builder_struct, input_methods);
 
         let out = quote! {
             impl Client {
@@ -691,21 +691,9 @@ impl Generator {
             }
 
             /// Types for composing operation parameters.
-            #[allow(clippy::all)]
             pub mod builder {
                 #response_import
-                use super::types;
-                #[allow(unused_imports)]
-                use super::{
-                    encode_path,
-                    ByteStream,
-                    ClientInfo,
-                    ClientHooks,
-                    Error,
-                    OperationInfo,
-                    RequestBuilderExt,
-                    ResponseValue,
-                };
+                #imports
 
                 #(#builder_struct)*
             }
@@ -733,29 +721,15 @@ impl Generator {
 
         let (traits_and_impls, trait_preludes) = self.builder_tags(input_methods, &tag_info);
 
-        // The allow(unused_imports) on the `pub use` is necessary with Rust
-        // 1.76+, in case the generated file is not at the top level of the
-        // crate.
+        let imports = builder_imports(&builder_struct, input_methods);
 
         let out = quote! {
             #traits_and_impls
 
             /// Types for composing operation parameters.
-            #[allow(clippy::all)]
             pub mod builder {
                 #response_import
-                use super::types;
-                #[allow(unused_imports)]
-                use super::{
-                    encode_path,
-                    ByteStream,
-                    ClientInfo,
-                    ClientHooks,
-                    Error,
-                    OperationInfo,
-                    RequestBuilderExt,
-                    ResponseValue,
-                };
+                #imports
 
                 #(#builder_struct)*
             }
@@ -763,7 +737,6 @@ impl Generator {
             /// Items consumers will typically use such as the Client and
             /// extension traits.
             pub mod prelude {
-                #[allow(unused_imports)]
                 pub use super::Client;
                 #trait_preludes
             }
@@ -892,6 +865,54 @@ pub fn validate_openapi(spec: &Spec) -> Result<()> {
     }
 
     Ok(())
+}
+
+// Inspect template identifiers, not rendered text: documentation and string
+// literals must not cause imports to be emitted.
+pub(crate) fn references_ident(tokens: &TokenStream, name: &str) -> bool {
+    let mut tokens = tokens.clone().into_iter().peekable();
+    while let Some(token) = tokens.next() {
+        let found = match token {
+            // `types` may also be a parameter or field name. Only its use as a
+            // module path requires the module import.
+            proc_macro2::TokenTree::Ident(ident) => {
+                ident == name
+                    && (name != "types"
+                        || {
+                            let mut following = tokens.clone();
+                            matches!((following.next(), following.next()),
+                (Some(proc_macro2::TokenTree::Punct(first)), Some(proc_macro2::TokenTree::Punct(second)))
+                    if first.as_char() == ':' && second.as_char() == ':')
+                        })
+            }
+            proc_macro2::TokenTree::Group(group) => references_ident(&group.stream(), name),
+            _ => false,
+        };
+        if found {
+            return true;
+        }
+    }
+    false
+}
+
+fn needs_path_encoding(methods: &[method::OperationMethod]) -> bool {
+    methods.iter().any(|method| !method.path.names().is_empty())
+}
+
+fn builder_imports(builders: &[TokenStream], methods: &[method::OperationMethod]) -> TokenStream {
+    let tokens = quote! { #(#builders)* };
+    let imports = ["types", "ByteStream", "Error", "ResponseValue"]
+        .into_iter()
+        .filter(|name| references_ident(&tokens, name))
+        .map(|name| {
+            let name = quote::format_ident!("{}", name);
+            quote! { use super::#name; }
+        });
+    let hooks = (!builders.is_empty()).then(|| {
+        quote! { use progenitor_client::{ClientInfo, ClientHooks}; }
+    });
+    let path = needs_path_encoding(methods).then(|| quote! { use progenitor_client::encode_path; });
+    quote! { #(#imports)* #hooks #path }
 }
 
 #[cfg(test)]

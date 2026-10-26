@@ -106,10 +106,13 @@ impl Generator {
                 "Error responses for `{}`; selected by HTTP status before body decoding.",
                 method.operation_id
             );
+            let types_import = variants
+                .iter()
+                .any(|variant| crate::references_ident(variant, "types"))
+                .then(|| quote! { use super::super::types; });
             let module = quote! {
                 pub mod #operation {
-                    #[allow(unused_imports)]
-                    use super::super::types;
+                    #types_import
 
                     #[doc = #doc]
                     #[derive(Debug, serde::Serialize)]
